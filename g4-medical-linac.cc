@@ -1,6 +1,6 @@
 ﻿#include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
-//#include "ActionInitialization01.hh"
+#include "ActionInitialization.hh"
 
 #include "G4RunManagerFactory.hh"
 #include "G4UImanager.hh"
@@ -21,10 +21,7 @@ int main(int argc, char** argv)
 	// set mandatory initialization classes
 	runManager->SetUserInitialization(new DetectorConstruction);
 	runManager->SetUserInitialization(new PhysicsList);
-	//runManager->SetUserInitialization(new ActionInitialization);
-
-	// initialize G4 kernel
-	runManager->Initialize();
+	runManager->SetUserInitialization(new ActionInitialization);
 
 	// get the vismanager
 	G4VisManager* visManager = new G4VisExecutive;
@@ -33,15 +30,14 @@ int main(int argc, char** argv)
 	// get the pointer to the UI manager and set verbosities
 	G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
+
 	// start the "init-vis" macro
 	UImanager->ApplyCommand("control/execute init_vis.mac");
+
 
 	// use ui
 	ui->SessionStart();
 	delete ui;
-
-	//UImanager->ApplyCommand("/control/execute init_vis.mac");
-	
 
 
 	// job termination
