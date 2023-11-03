@@ -25,7 +25,7 @@
 #/vis/filtering/trajectories/particleFilter-0/add gamma
 #
 # Make the "World" box invisible
-#/vis/geometry/set/visibility World 0 false
+/vis/geometry/set/visibility World 0 false
 #
 # Superimpose all of the events from a given run:
 /vis/scene/endOfEventAction accumulate

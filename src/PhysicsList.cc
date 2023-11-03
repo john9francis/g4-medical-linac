@@ -5,7 +5,7 @@
 namespace med_linac {
 
 	PhysicsList::PhysicsList() {
-		RegisterPhysics(new G4EmStandardPhysics);
+		RegisterPhysics(new G4EmStandardPhysics());
 	}
 
 	PhysicsList::~PhysicsList() {

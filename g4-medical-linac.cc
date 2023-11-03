@@ -1,47 +1,85 @@
-﻿#include "DetectorConstruction.hh"
+﻿// g4-medical-linac.cc : Defines the entry point for the application.
+//
+
+#include "G4UImanager.hh"
+#include "G4UIExecutive.hh"
+#include "G4RunManagerFactory.hh"
+#include "G4VisExecutive.hh"
+#include "G4SteppingVerbose.hh"
+
+#include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
 #include "ActionInitialization.hh"
 
-#include "G4RunManagerFactory.hh"
-#include "G4UImanager.hh"
-#include "G4UIExecutive.hh"
-#include "G4VisManager.hh"
-#include "G4VisExecutive.hh"
-
 using namespace med_linac;
+
+// for printing
+#include <iostream>
+using namespace std;
 
 int main(int argc, char** argv)
 {
-	// initialize ui executive
-	G4UIExecutive* ui = new G4UIExecutive(argc, argv);
+	// Initialize (or don't) a UI
+	G4UIExecutive* ui = nullptr;
+	if (argc == 1) {
+		ui = new G4UIExecutive(argc, argv);
+	}
 
-	// construct the default run manager
-	auto runManager = G4RunManagerFactory::CreateRunManager();
+	// ======================================================================
+	// RunManager, + 3 Required additions:
+	// PrimaryGeneratorAction,
+	// PhysicsList,
+	// DetectorConstruction.
+	// ======================================================================
 
-	// set mandatory initialization classes
-	runManager->SetUserInitialization(new DetectorConstruction);
-	runManager->SetUserInitialization(new PhysicsList);
-	runManager->SetUserInitialization(new ActionInitialization);
+	// create default runmanager
+	auto* runManager =
+		G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
 
-	// get the vismanager
+	// set 3 required initialization classes
+	runManager->SetUserInitialization(new PhysicsList());
+	runManager->SetUserInitialization(new DetectorConstruction());
+	runManager->SetUserInitialization(new ActionInitialization());
+
+	// ======================================================================
+	// OTHER CLASSES:
+	// Vismanager, scoringmanager, etc.
+	// ======================================================================
+
 	G4VisManager* visManager = new G4VisExecutive;
 	visManager->Initialize();
 
-	// get the pointer to the UI manager and set verbosities
+	// random seed
+	long seed = 12345;
+
+	CLHEP::HepRandom::setTheSeed(seed);
+	G4Random::setTheSeed(seed);
+
+	// START UI =============================================================
+
+	// get pointer to UI manager
 	G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
+	// Run macro or start UI
+	if (!ui) {
+		// batch mode
+		G4String command = "/control/execute ";
+		G4String fileName = argv[1];
+		UImanager->ApplyCommand(command + fileName);
+	}
+	else {
+		// run visualization
+		UImanager->ApplyCommand("/control/execute init_vis.mac");
 
-	// start the "init-vis" macro
-	UImanager->ApplyCommand("control/execute init_vis.mac");
+		// use UI
+		ui->SessionStart();
+		delete ui;
+	}
 
-
-	// use ui
-	ui->SessionStart();
-	delete ui;
-
-
-	// job termination
+	// clean up
 	delete visManager;
 	delete runManager;
+
+
 	return 0;
 }

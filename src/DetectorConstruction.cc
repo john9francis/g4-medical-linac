@@ -1,6 +1,8 @@
 #include "DetectorConstruction.hh"
 
 #include "G4Box.hh"
+#include "G4Tubs.hh"
+
 #include "G4SIunits.hh"
 #include "G4LogicalVolume.hh"
 #include "G4NistManager.hh"
@@ -37,8 +39,39 @@ namespace med_linac {
 			0);
 
 
+		// Create the rest of the detectors
+
+		G4Material* tungsten = nist->FindOrBuildMaterial("G4_W");
+
+		G4Tubs* solidTarget = new G4Tubs(
+			"solidTarget",
+			0.,
+			1.5 * cm,
+			.5 * mm,
+			0.,
+			360. * deg
+		);
+
+		G4LogicalVolume* logicTarget = new G4LogicalVolume(
+			solidTarget,
+			tungsten,
+			"logicTarget"
+		);
+
+		new G4PVPlacement(
+			nullptr,
+			G4ThreeVector(0, 0, -.45 * m),
+			logicTarget,
+			"solidTarget",
+			logicWorld,
+			false,
+			0
+		);
+
+
 
 		return physWorld;
 	}
+
 
 }
