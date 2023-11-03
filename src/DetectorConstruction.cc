@@ -19,7 +19,7 @@ namespace med_linac {
 		// pattern: solid object, logical volume, and pvplacement
 
 		G4double worldXY = 20 * cm;
-		G4double worldZ = 1 * m;
+		G4double worldZ = .5 * m;
 		G4Box* solidWorld = new G4Box("solidWorld", worldXY, worldXY, worldZ);
 
 		G4LogicalVolume* logicWorld = new G4LogicalVolume(
