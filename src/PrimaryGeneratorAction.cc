@@ -58,7 +58,7 @@ namespace med_linac
 			y = G4UniformRand() * (2.0 * radius) - radius;
 		} while (x * x + y * y > radius * radius);
 
-		G4double gunZ = -.5 * m + 1 * mm;
+		G4double gunZ = -1 * m + 1 * mm;
 		G4ThreeVector position = G4ThreeVector(x, y, gunZ);
 		fParticleGun->SetParticlePosition(position);
 

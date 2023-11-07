@@ -59,7 +59,7 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = - worldSize / 2 + 5 * cm;
+        G4double targetZ = - worldSize + 5 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
