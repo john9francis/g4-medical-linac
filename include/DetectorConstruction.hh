@@ -1,20 +1,20 @@
-#ifndef MED_LINAC_DET_CONST_HH
-#define MED_LINAC_DET_CONST_HH
+#ifndef med_linac_DETECTOR_CONSTRUCTION_H
+#define med_linac_DETECTOR_CONSTRUCTION_H 1
 
 #include "G4VUserDetectorConstruction.hh"
-#include "G4Material.hh"
-#include "G4LogicalVolume.hh"
 
-namespace med_linac {
-
-	class DetectorConstruction : public G4VUserDetectorConstruction {
+namespace med_linac
+{
+	class DetectorConstruction : public G4VUserDetectorConstruction
+	{
 	public:
 		DetectorConstruction() = default;
-		~DetectorConstruction() = default;
+		~DetectorConstruction() override = default;
 
-		G4VPhysicalVolume* Construct();
+		G4VPhysicalVolume* Construct() override;
 
 	};
 }
 
-#endif // ! MED_LINAC_DET_CONST_HH
+
+#endif

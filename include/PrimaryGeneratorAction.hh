@@ -1,25 +1,29 @@
-#ifndef MED_LINAC_PRIMARY_GEN_ACTION_HH
-#define MED_LINAC_PRIMARY_GEN_ACTION_HH
+#ifndef med_linac_PRIMARY_GENERATOR_ACTION_H
+#define med_linac_PRIMARY_GENERATOR_ACTION_H 1
+
 
 #include "G4VUserPrimaryGeneratorAction.hh"
-
+#include "G4ThreeVector.hh"
+#include "globals.hh"
+#include "G4SystemOfUnits.hh"
 #include "G4ParticleGun.hh"
 
 
-namespace med_linac {
-	class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
+
+namespace med_linac
+{
+
+	class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
+	{
 	public:
 		PrimaryGeneratorAction();
 		~PrimaryGeneratorAction();
 
-		void GeneratePrimaries(G4Event*) override;
+		virtual void GeneratePrimaries(G4Event*);
 
-
-	private:
-		// note: it's geant4 best practice to start member variables with 'f'
-		G4ParticleGun* fParticleGun; 
+		G4ParticleGun* fParticleGun;
 	};
-
 }
 
-#endif // !MED_LINAC_PRIMARY_GEN_ACTION_HH
+
+#endif 

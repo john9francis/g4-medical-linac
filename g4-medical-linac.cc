@@ -1,4 +1,4 @@
-﻿// g4-medical-linac.cc : Defines the entry point for the application.
+﻿// G4-Brems.cc : Defines the entry point for the application.
 //
 
 #include "G4UImanager.hh"
@@ -9,7 +9,8 @@
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
-#include "ActionInitialization.hh"
+
+#include "ActionInit.hh"
 
 using namespace med_linac;
 
@@ -31,15 +32,15 @@ int main(int argc, char** argv)
 	// PhysicsList,
 	// DetectorConstruction.
 	// ======================================================================
-
+	
 	// create default runmanager
 	auto* runManager =
 		G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
-
+	
 	// set 3 required initialization classes
 	runManager->SetUserInitialization(new PhysicsList());
 	runManager->SetUserInitialization(new DetectorConstruction());
-	runManager->SetUserInitialization(new ActionInitialization());
+	runManager->SetUserInitialization(new ActionInit());
 
 	// ======================================================================
 	// OTHER CLASSES:
@@ -51,7 +52,7 @@ int main(int argc, char** argv)
 
 	// random seed
 	long seed = 12345;
-
+	
 	CLHEP::HepRandom::setTheSeed(seed);
 	G4Random::setTheSeed(seed);
 
@@ -69,7 +70,7 @@ int main(int argc, char** argv)
 	}
 	else {
 		// run visualization
-		UImanager->ApplyCommand("/control/execute init_vis.mac");
+		UImanager->ApplyCommand("/control/execute vis.mac");
 
 		// use UI
 		ui->SessionStart();

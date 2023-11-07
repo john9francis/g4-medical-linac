@@ -1,18 +1,22 @@
-#ifndef MED_LINAC_PHYSICS_LIST_HH
-#define MED_LINAC_PHYSICS_LIST_HH
+#ifndef med_linac_PHYSICS_LIST_H
+#define med_linac_PHYSICS_LIST_H 1
 
 #include "G4VModularPhysicsList.hh"
 
-namespace med_linac {
 
-	class PhysicsList : public G4VModularPhysicsList {
+namespace med_linac
+{
+	class PhysicsList : public G4VModularPhysicsList
+	{
 	public:
 		PhysicsList();
 		virtual ~PhysicsList() override = default;
 
-		void ConstructParticle() override;
-		void ConstructProcess() override;
+		// Mandatory methods to override;
+		virtual void ConstructParticle() override;
+		virtual void ConstructProcess() override;
+
 	};
 }
 
-#endif // !MED_LINAC_PHYSICS_LIST_HH
+#endif

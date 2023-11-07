@@ -1,14 +1,14 @@
-# Macro to initialize visualization
-#
-#
 # start up
 /run/initialize
 #
-# open an OpenGL viewer
-/vis/open OGL
+# open a HepRep file
+/vis/open HepRepFile
 #
 # draw geometry
 /vis/drawVolume
+#
+# Make all volumes visible
+/vis/geometry/set/visibility all 1 true
 #
 # Specify view angle:
 /vis/viewer/set/viewpointVector -1 0 0
