@@ -73,6 +73,73 @@ namespace med_linac
             0);
 
 
+        // create a graphite absorber to absorb electrons
+        G4Material* graphite = nist->FindOrBuildMaterial("G4_GRAPHITE");
+
+        G4double innerAbsorberRadius = 0.0;
+        G4double outerAbsorberRadius = 1.5 * cm;
+        G4double absorberThickness = 1.5 * cm;
+
+        G4Tubs* solidAbsorber = new G4Tubs("Absorber",
+            innerAbsorberRadius,
+            outerAbsorberRadius,
+            absorberThickness / 2.0,
+            0.0,
+            360.0 * deg);
+
+        G4LogicalVolume* logicAbsorber = new G4LogicalVolume(solidAbsorber,
+            graphite,
+            "Absorber");
+
+        // absorber position and rotation
+        G4double absorberZ = targetPos.getZ() + (absorberThickness / 2);
+        G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
+        G4RotationMatrix* absorberRot = new G4RotationMatrix();
+
+        // place the absorber
+        new G4PVPlacement(absorberRot,
+            absorberPos,
+            logicAbsorber,
+            "Absorber",
+            logicWorld,
+            false,
+            0);
+
+
+
+        // create tungsten collimator
+        G4double innerColRadius = 4.0 * cm;
+        G4double outerColRadius = 12. * cm;
+        G4double colThickness = 6.2 * cm;
+
+        G4Tubs* solidCol = new G4Tubs("Collimator",
+            innerColRadius,
+            outerColRadius,
+            colThickness / 2.0,
+            0.0,
+            360.0 * deg);
+        G4LogicalVolume* logicCol = new G4LogicalVolume(solidCol,
+            tungsten,
+            "Collimator");
+
+        // collimator position and rotation
+        G4double colZ =
+            absorberZ
+            + (absorberThickness / 2)
+            + (colThickness / 2);
+        G4ThreeVector colPos = G4ThreeVector(0, 0, colZ);
+        G4RotationMatrix* colRotation = new G4RotationMatrix();
+
+        // place the collimator in the world
+        new G4PVPlacement(colRotation,
+            colPos,
+            logicCol,
+            "Collimator",
+            logicWorld,
+            false,
+            0);
+
+
         // finish by returning the world
         return physWorld;
     }
