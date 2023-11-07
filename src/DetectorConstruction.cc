@@ -59,7 +59,7 @@ namespace med_linac {
 		);
 
 		new G4PVPlacement(
-			nullptr,
+			new G4RotationMatrix(),
 			G4ThreeVector(0, 0, -.45 * m),
 			logicTarget,
 			"solidTarget",

@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for g4-medical-linac, include source and define
+﻿# CMakeList.txt : CMake project for g4_medical_linac, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.16...3.21)
@@ -9,7 +9,7 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project(g4-medical-linac)
+project(g4_medical_linac)
 
 # TODO: Add tests and install targets if needed.
 
@@ -42,13 +42,13 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
 # Add sources and headers to this project's executable.
-add_executable (g4-medical-linac "g4-medical-linac.cc" ${sources} ${headers})
-target_link_libraries(g4-medical-linac ${Geant4_LIBRARIES})
+add_executable (g4_medical_linac "g4-medical-linac.cc" ${sources} ${headers})
+target_link_libraries(g4_medical_linac ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Set standard to C++20
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET g4-medical-linac PROPERTY CXX_STANDARD 20)
+  set_property(TARGET g4_medical_linac PROPERTY CXX_STANDARD 20)
 endif()
 
 
@@ -56,22 +56,19 @@ endif()
 # remove Debug and other unnecessary configurations
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE INTERNAL "")
 
-# ---------------------------------------------------------------------------
-# Set startup project for visual studio
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT g4-medical-linac)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS g4-medical-linac DESTINATION bin)
+install(TARGETS g4_medical_linac DESTINATION bin)
 
 #----------------------------------------------------------------------------
 # Copy all the mac files from "mac_files" directory into the
 # same directory as the executable.
-file(GLOB g4-medical-linac-SCRIPTS ${PROJECT_SOURCE_DIR}/mac_files/*)
+file(GLOB g4_medical_linac-SCRIPTS ${PROJECT_SOURCE_DIR}/mac_files/*)
 
 
-foreach(_script ${g4-medical-linac-SCRIPTS})
+foreach(_script ${g4_medical_linac-SCRIPTS})
   get_filename_component(_script_name ${_script} NAME)
   configure_file(
     ${_script}
@@ -85,7 +82,7 @@ endforeach()
 # For windows, copy the mac files into the release dir, just for convenience.
 #
 if(WIN32)
-  foreach(_script ${g4-medical-linac-SCRIPTS})
+  foreach(_script ${g4_medical_linac-SCRIPTS})
     get_filename_component(_script_name ${_script} NAME)
     configure_file(
       ${_script}

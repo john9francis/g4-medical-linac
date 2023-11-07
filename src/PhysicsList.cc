@@ -2,19 +2,18 @@
 
 #include "G4EmStandardPhysics.hh"
 
-namespace med_linac {
 
-	PhysicsList::PhysicsList() {
+namespace med_linac
+{
+	PhysicsList::PhysicsList() : G4VModularPhysicsList() {
+		// Get the standard EM particles
 		RegisterPhysics(new G4EmStandardPhysics());
-	}
-
-	PhysicsList::~PhysicsList() {
-		// it should delete everything automatically
 	}
 
 	void PhysicsList::ConstructParticle() {
 		G4VModularPhysicsList::ConstructParticle();
 	}
+
 
 	void PhysicsList::ConstructProcess() {
 		G4VModularPhysicsList::ConstructProcess();

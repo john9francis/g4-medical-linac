@@ -8,7 +8,7 @@ namespace med_linac {
 	class PhysicsList : public G4VModularPhysicsList {
 	public:
 		PhysicsList();
-		~PhysicsList();
+		virtual ~PhysicsList() override = default;
 
 		void ConstructParticle() override;
 		void ConstructProcess() override;
