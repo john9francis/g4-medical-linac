@@ -127,7 +127,9 @@ namespace med_linac
             absorberZ
             + (absorberThickness / 2)
             + (colThickness / 2);
+
         G4ThreeVector colPos = G4ThreeVector(0, 0, colZ);
+
         G4RotationMatrix* colRotation = new G4RotationMatrix();
 
         // place the collimator in the world
@@ -138,6 +140,22 @@ namespace med_linac
             logicWorld,
             false,
             0);
+
+
+
+        // create our dose detector
+        G4double ddThicknessXY = 15 * cm;
+        G4double ddThicknessZ = 1 * nm;
+        G4double ddZ = colZ + (colThickness / 2) + (ddThicknessZ / 2) + 5 * cm;
+        G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
+
+        G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
+        G4LogicalVolume* logicDoseDetector = new G4LogicalVolume(solidDoseDetector, vacuum, "logicDD");
+        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicWorld, false, 0);
+
+
+
+        // create our phantom, to represent a person
 
 
         // finish by returning the world
