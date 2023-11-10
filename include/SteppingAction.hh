@@ -14,8 +14,6 @@ namespace med_linac {
 		~SteppingAction();
 
 		void UserSteppingAction(const G4Step*) override;
-	private:
-		G4bool fFirstSecondaryRecorded;
 	};
 
 }
