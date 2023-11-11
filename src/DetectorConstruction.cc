@@ -156,6 +156,20 @@ namespace med_linac
 
 
         // create our phantom, to represent a person
+        G4ThreeVector phantomPos = G4ThreeVector();
+
+        G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
+
+        G4Box* solidPhantom = new G4Box("solidPhantom", 15 * cm, 15 * cm, 15 * cm);
+        G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
+        new G4PVPlacement(
+            nullptr,
+            phantomPos,
+            logicPhantom,
+            "physPhantom",
+            logicWorld,
+            false,
+            0);
 
 
         // finish by returning the world
