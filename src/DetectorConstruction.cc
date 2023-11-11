@@ -77,16 +77,37 @@ namespace med_linac
             0);
 
 
+        // Create 2 points for aiming the particle gun
         // create a place for the particle gun to shoot from
-        G4ThreeVector particleGunPos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 1 * mm);
+        G4double particleGunAnchorThickness = 1 * mm;
+        G4Box* solidParticleGunAnchor = new G4Box(
+            "solidParticleGunAnchor", 
+            particleGunAnchorThickness, 
+            particleGunAnchorThickness, 
+            particleGunAnchorThickness);
 
-        G4Box* solidParticleGun = new G4Box("solidParticleGun", 1 * mm, 1 * mm, 1 * mm);
-        G4LogicalVolume* logicParticleGun = new G4LogicalVolume(solidParticleGun, vacuum, "logicParticleGun");
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 1 * mm);
+
+        G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
         new G4PVPlacement(
             nullptr,
-            particleGunPos,
-            logicParticleGun,
-            "physParticleGun",
+            particleGunAnchor1Pos,
+            logicParticleGunAnchor1,
+            "physParticleGunAnchor1",
+            logicHead,
+            false,
+            0);
+
+        // create another point for aiming
+        G4ThreeVector particleGunAnchor2Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 10 * mm);
+
+        G4LogicalVolume* logicParticleGunAnchor2 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor2");
+
+        new G4PVPlacement(
+            nullptr,
+            particleGunAnchor2Pos,
+            logicParticleGunAnchor2,
+            "physParticleGunAnchor2",
             logicHead,
             false,
             0);
