@@ -62,12 +62,13 @@ namespace med_linac
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(0, 0, -1 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(0, 20 * cm , -1 * m);
+        G4RotationMatrix* linacHeadRotation = new G4RotationMatrix();
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
         G4LogicalVolume* logicHead = new G4LogicalVolume(solidHead, vacuum, "logicHead");
         G4VPhysicalVolume* physHead = new G4PVPlacement(
-            nullptr,
+            linacHeadRotation,
             linacHeadPos,
             logicHead,
             "physHead",
