@@ -31,10 +31,6 @@ namespace med_linac
 		// Set the particle type to the particle gun
 		fParticleGun->SetParticleDefinition(particle);
 
-		// set the particle's direction:
-		G4ThreeVector momentumDirection = G4ThreeVector(0, 0, 1);
-		fParticleGun->SetParticleMomentumDirection(momentumDirection);
-
 		// (test) hardcode the energy and we'll change it in mac files
 		G4double energy = 6 * MeV;
 		fParticleGun->SetParticleEnergy(energy);
@@ -61,15 +57,29 @@ namespace med_linac
 		auto* linacHead = detConstruction->GetLinacHead();
 		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
 
+		auto* linacHeadRotation = linacHead->GetObjectRotation();
+		auto phi = linacHeadRotation->getPhi();
+		auto theta = linacHeadRotation->getTheta();
+		auto psi = linacHeadRotation->getPsi();
+
 		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
-		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation();
+		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
 		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
 
 
-		// set the particle gun's position to the first anchor
+		// set the particle gun's position to the anchor
 		fParticleGun->SetParticlePosition(absoluteGunPos);
+
+
+		// Now we set the particle's momentum direction based on the gun's rotation
+		
+
+		// set the particle's direction:
+		auto baseVector = G4ThreeVector(0,0,1);
+		G4ThreeVector momentumDirection = baseVector;
+		fParticleGun->SetParticleMomentumDirection(momentumDirection);
 
 		// satisfy "generate primaries" here.
 		fParticleGun->GeneratePrimaryVertex(event);
