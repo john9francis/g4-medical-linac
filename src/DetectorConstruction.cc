@@ -62,7 +62,7 @@ namespace med_linac
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 50 * cm, -.8 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, -1 * m);
         G4RotationMatrix* linacHeadRotation = new G4RotationMatrix();
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
@@ -88,7 +88,7 @@ namespace med_linac
             particleGunAnchorThickness, 
             particleGunAnchorThickness);
 
-        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 1 * mm);
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 2 * cm);
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
         G4VPhysicalVolume* physAnchor1 = new G4PVPlacement(
