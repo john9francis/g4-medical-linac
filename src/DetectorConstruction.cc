@@ -23,10 +23,10 @@ namespace med_linac
 
 
 		// Start with constructing the world:
-        G4double worldSize = 1 * m;
+        G4double worldSize = 1.5 * m;
         G4Material* vacuum = nist->FindOrBuildMaterial("G4_Galactic");
 
-        auto solidWorld = new G4Sphere(
+        auto sphereWorld = new G4Sphere(
             "solidWorld",
             0,
             worldSize,
@@ -36,10 +36,18 @@ namespace med_linac
             CLHEP::pi
         );
 
+        auto boxWorld = new G4Box(
+            "solidWorld",
+            worldSize / 2,
+            worldSize / 2,
+            worldSize
+        );
 
-        auto logicWorld = new G4LogicalVolume(solidWorld,
+
+        auto logicWorld = new G4LogicalVolume(boxWorld,
             vacuum, 
             "logicWorld");
+
 
         auto physWorld = new G4PVPlacement(nullptr,
             G4ThreeVector(), 
@@ -47,6 +55,24 @@ namespace med_linac
             "physWorld", 
             nullptr, 
             false, 
+            0);
+
+
+        // Next, create a 'linac head' object to contain all the radiation generation stuff
+        G4double linacHeadThicknessXY = 15 * cm;
+        G4double linacHeadThicknessZ = 15 * cm;
+
+        G4ThreeVector linacHeadPos = G4ThreeVector(0, 0, -1 * m);
+
+        G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
+        G4LogicalVolume* logicHead = new G4LogicalVolume(solidHead, vacuum, "logicHead");
+        G4VPhysicalVolume* physHead = new G4PVPlacement(
+            nullptr,
+            linacHeadPos,
+            logicHead,
+            "physHead",
+            logicWorld,
+            false,
             0);
 
 
@@ -69,12 +95,13 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = - worldSize + 5 * cm;
+        G4double targetZ = -worldSize + 5 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
         // place the target in the world
-        new G4PVPlacement(targetRotation, 
+        new G4PVPlacement(
+            targetRotation, 
             targetPos, 
             logicTarget, 
             "Target",
