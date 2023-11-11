@@ -62,7 +62,7 @@ namespace med_linac
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(-12 * cm , 20 * cm, -1 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 50 * cm, -.8 * m);
         G4RotationMatrix* linacHeadRotation = new G4RotationMatrix();
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
@@ -75,6 +75,9 @@ namespace med_linac
             logicWorld,
             false,
             0);
+
+        // set the member variable so we can get this volume in other parts of the program
+        fLinacHead = physHead;
 
 
         // Create 2 points for aiming the particle gun

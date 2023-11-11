@@ -56,19 +56,20 @@ namespace med_linac
 		const auto* detConstruction = static_cast<const DetectorConstruction*>(
 			runManager->GetUserDetectorConstruction());
 
-		// get the positions of our gun anchors
+
+		// get the position of the linac head and gun anchors
+		auto* linacHead = detConstruction->GetLinacHead();
 		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
-		auto* gunAnchor2 = detConstruction->GetParticleGunAnchor2();
 
+		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
 		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation();
-		G4ThreeVector gunAnchor2Pos = gunAnchor2->GetObjectTranslation();
 
-		G4cout << gunAnchor1Pos << " " << gunAnchor2Pos << G4endl;
+		// now we get the position of the gun anchor relative to the world
+		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
 
 
-		G4double gunZ = -1 * m + 1 * mm;
-		G4ThreeVector position = G4ThreeVector(0, 0, gunZ);
-		fParticleGun->SetParticlePosition(position);
+		// set the particle gun's position to the first anchor
+		fParticleGun->SetParticlePosition(absoluteGunPos);
 
 		// satisfy "generate primaries" here.
 		fParticleGun->GeneratePrimaryVertex(event);
