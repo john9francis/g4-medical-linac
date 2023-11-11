@@ -8,6 +8,9 @@
 
 #include "G4UnitsTable.hh"
 
+#include "G4RunManager.hh"
+#include "DetectorConstruction.hh"
+
 
 namespace med_linac
 {
@@ -44,6 +47,24 @@ namespace med_linac
 
 	void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 	{
+		// First, find the particle gun anchors
+
+		// access runManager singleton
+		auto* runManager = G4RunManager::GetRunManager();
+
+		// find our detectorConstruction in the runmanager
+		const auto* detConstruction = static_cast<const DetectorConstruction*>(
+			runManager->GetUserDetectorConstruction());
+
+		// get the positions of our gun anchors
+		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
+		auto* gunAnchor2 = detConstruction->GetParticleGunAnchor2();
+
+		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation();
+		G4ThreeVector gunAnchor2Pos = gunAnchor2->GetObjectTranslation();
+
+		G4cout << gunAnchor1Pos << " " << gunAnchor2Pos << G4endl;
+
 
 		G4double gunZ = -1 * m + 1 * mm;
 		G4ThreeVector position = G4ThreeVector(0, 0, gunZ);

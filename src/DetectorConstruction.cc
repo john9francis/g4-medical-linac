@@ -62,7 +62,7 @@ namespace med_linac
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(0, 20 * cm , -1 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(-12 * cm , 20 * cm, -1 * m);
         G4RotationMatrix* linacHeadRotation = new G4RotationMatrix();
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
@@ -89,7 +89,7 @@ namespace med_linac
         G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 1 * mm);
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
-        new G4PVPlacement(
+        G4VPhysicalVolume* physAnchor1 = new G4PVPlacement(
             nullptr,
             particleGunAnchor1Pos,
             logicParticleGunAnchor1,
@@ -103,7 +103,7 @@ namespace med_linac
 
         G4LogicalVolume* logicParticleGunAnchor2 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor2");
 
-        new G4PVPlacement(
+        G4VPhysicalVolume* physAnchor2 = new G4PVPlacement(
             nullptr,
             particleGunAnchor2Pos,
             logicParticleGunAnchor2,
@@ -112,6 +112,9 @@ namespace med_linac
             false,
             0);
 
+        // Set our member variables for the gun anchors:
+        fParticleGunAnchor1 = physAnchor1;
+        fParticleGunAnchor2 = physAnchor2;
 
 
         // create our tungsten target
