@@ -3,10 +3,14 @@
 
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Sphere.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4NistManager.hh"
 #include "G4LogicalVolume.hh"
+
+#include "G4SystemOfUnits.hh"
+#include "CLHEP/Units/SystemOfUnits.h"
 
 namespace med_linac
 {
@@ -22,19 +26,25 @@ namespace med_linac
         G4double worldSize = 1 * m;
         G4Material* vacuum = nist->FindOrBuildMaterial("G4_Galactic");
 
-        auto solidWorld = new G4Box("World",
-            worldSize / 2,
-            worldSize / 2,
-            worldSize);
+        auto solidWorld = new G4Sphere(
+            "solidWorld",
+            0,
+            worldSize,
+            0,
+            2 * CLHEP::pi,
+            0,
+            CLHEP::pi
+        );
+
 
         auto logicWorld = new G4LogicalVolume(solidWorld,
             vacuum, 
-            "World");
+            "logicWorld");
 
         auto physWorld = new G4PVPlacement(nullptr,
             G4ThreeVector(), 
             logicWorld, 
-            "World", 
+            "physWorld", 
             nullptr, 
             false, 
             0);
