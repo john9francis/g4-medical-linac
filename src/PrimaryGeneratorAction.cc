@@ -44,22 +44,9 @@ namespace med_linac
 
 	void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 	{
-		// Randomize x and y starting point within a 1 mm diameter
-		G4double radius = .5 * mm;
-		
-		// generate random x and y positions within that radius
-		double x, y;
-
-		// to avoid using slow methods like sin and cos,
-		// we generate random values in a square and regect the ones
-		// outside of a circle.
-		do {
-			x = G4UniformRand() * (2.0 * radius) - radius;
-			y = G4UniformRand() * (2.0 * radius) - radius;
-		} while (x * x + y * y > radius * radius);
 
 		G4double gunZ = -1 * m + 1 * mm;
-		G4ThreeVector position = G4ThreeVector(x, y, gunZ);
+		G4ThreeVector position = G4ThreeVector(0, 0, gunZ);
 		fParticleGun->SetParticlePosition(position);
 
 		// satisfy "generate primaries" here.
