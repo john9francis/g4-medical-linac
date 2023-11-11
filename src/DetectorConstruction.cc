@@ -95,7 +95,7 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = -worldSize + 5 * cm;
+        G4double targetZ = -linacHeadThicknessZ + 5 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
@@ -105,7 +105,7 @@ namespace med_linac
             targetPos, 
             logicTarget, 
             "Target",
-            logicWorld, 
+            logicHead, 
             false, 
             0);
 
@@ -138,7 +138,7 @@ namespace med_linac
             absorberPos,
             logicAbsorber,
             "Absorber",
-            logicWorld,
+            logicHead,
             false,
             0);
 
@@ -174,7 +174,7 @@ namespace med_linac
             colPos,
             logicCol,
             "Collimator",
-            logicWorld,
+            logicHead,
             false,
             0);
 
@@ -188,7 +188,7 @@ namespace med_linac
 
         G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
         G4LogicalVolume* logicDoseDetector = new G4LogicalVolume(solidDoseDetector, vacuum, "logicDD");
-        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicWorld, false, 0);
+        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
 
 
 
