@@ -76,6 +76,22 @@ namespace med_linac
             0);
 
 
+        // create a place for the particle gun to shoot from
+        G4ThreeVector particleGunPos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 1 * mm);
+
+        G4Box* solidParticleGun = new G4Box("solidParticleGun", 1 * mm, 1 * mm, 1 * mm);
+        G4LogicalVolume* logicParticleGun = new G4LogicalVolume(solidParticleGun, vacuum, "logicParticleGun");
+        new G4PVPlacement(
+            nullptr,
+            particleGunPos,
+            logicParticleGun,
+            "physParticleGun",
+            logicHead,
+            false,
+            0);
+
+
+
         // create our tungsten target
         G4Material* tungsten = nist->FindOrBuildMaterial("G4_W");
 
