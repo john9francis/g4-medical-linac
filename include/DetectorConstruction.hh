@@ -17,12 +17,10 @@ namespace med_linac
 
 		G4VPhysicalVolume* GetLinacHead() const { return fLinacHead; }
 		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
-		G4VPhysicalVolume* GetParticleGunAnchor2() const { return fParticleGunAnchor2; }
 
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
-		G4VPhysicalVolume* fParticleGunAnchor2 = nullptr;
 
 	};
 }

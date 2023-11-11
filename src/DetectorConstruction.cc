@@ -80,7 +80,6 @@ namespace med_linac
         fLinacHead = physHead;
 
 
-        // Create 2 points for aiming the particle gun
         // create a place for the particle gun to shoot from
         G4double particleGunAnchorThickness = 1 * mm;
         G4Box* solidParticleGunAnchor = new G4Box(
@@ -101,23 +100,9 @@ namespace med_linac
             false,
             0);
 
-        // create another point for aiming
-        G4ThreeVector particleGunAnchor2Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 10 * mm);
-
-        G4LogicalVolume* logicParticleGunAnchor2 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor2");
-
-        G4VPhysicalVolume* physAnchor2 = new G4PVPlacement(
-            nullptr,
-            particleGunAnchor2Pos,
-            logicParticleGunAnchor2,
-            "physParticleGunAnchor2",
-            logicHead,
-            false,
-            0);
 
         // Set our member variables for the gun anchors:
         fParticleGunAnchor1 = physAnchor1;
-        fParticleGunAnchor2 = physAnchor2;
 
 
         // create our tungsten target
