@@ -8,6 +8,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4NistManager.hh"
 #include "G4LogicalVolume.hh"
+#include "G4SubtractionSolid.hh"
 
 #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
@@ -59,13 +60,13 @@ namespace med_linac
 
 
         // Next, create a 'linac head' object to contain all the radiation generation stuff
-        G4double linacHeadThicknessXY = 15 * cm;
-        G4double linacHeadThicknessZ = 15 * cm;
+        G4double linacHeadThicknessXY = 20 * cm;
+        G4double linacHeadThicknessZ = 20 * cm;
 
         G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, -1 * m);
 
         G4double headPhi = 0;
-        G4double headTheta = CLHEP::pi / 4;
+        G4double headTheta = 0;
         G4double headPsi = 0;
         G4RotationMatrix* linacHeadRotation = new G4RotationMatrix(headPhi, headTheta, headPsi);
 
@@ -92,7 +93,7 @@ namespace med_linac
             particleGunAnchorThickness, 
             particleGunAnchorThickness);
 
-        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 2 * cm);
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 5 * cm);
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
         G4VPhysicalVolume* physAnchor1 = new G4PVPlacement(
@@ -128,7 +129,7 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = -linacHeadThicknessZ + 5 * cm;
+        G4double targetZ = -linacHeadThicknessZ + 8 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
