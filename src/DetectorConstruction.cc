@@ -220,7 +220,7 @@ namespace med_linac
 
         G4Sphere* solidProtector = new G4Sphere(
             "solidProtector",
-            linacHeadThicknessXY - 2 * cm,
+            linacHeadThicknessXY - 4.5 * cm,
             linacHeadThicknessXY,
             0 * deg,
             180 * deg,
@@ -259,6 +259,7 @@ namespace med_linac
 
 
         // create our phantom, to represent a person
+        /*
         G4ThreeVector phantomPos = G4ThreeVector();
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
@@ -273,7 +274,7 @@ namespace med_linac
             logicWorld,
             false,
             0);
-
+        */
 
         // finish by returning the world
         return physWorld;
