@@ -213,6 +213,56 @@ namespace med_linac
             0);
 
 
+        // Create a half hollow lead box around the backside
+        G4ThreeVector protectionBoxPosition = G4ThreeVector();
+        G4Material* lead = nist->FindOrBuildMaterial("G4_Pb");
+        G4RotationMatrix* protectionBoxRotation = new G4RotationMatrix();
+
+        G4double outerProtectionBoxXY = linacHeadThicknessXY - 5 * mm;
+        G4double outerProtectionBoxZ = linacHeadThicknessZ / 2;
+        G4double protectionBoxThickness = 2 * mm;
+
+        // Create the outer box
+        G4Box* outerProtectionBox = new G4Box(
+            "outerProtectionBox",
+            outerProtectionBoxXY,
+            outerProtectionBoxXY,
+            protectionBoxThickness);
+
+        G4double protectionBoxOpeningXY = outerProtectionBoxXY - protectionBoxThickness;
+        G4double protectionBoxOpeningZ = outerProtectionBoxZ;
+
+        // create the box that we will subtract
+        G4Box* protectionBoxOpening = new G4Box(
+            "protectionBoxOpening",
+            protectionBoxOpeningXY,
+            protectionBoxOpeningXY,
+            protectionBoxOpeningZ);
+
+        // define out subtraction solid
+        G4SubtractionSolid* solidProtectionBox = new G4SubtractionSolid(
+            "solidProtectionBox",
+            outerProtectionBox,
+            protectionBoxOpening,
+            nullptr,
+            G4ThreeVector(0, 0, -protectionBoxThickness));
+
+        // now define the logical volume and the pvplacement
+        G4LogicalVolume* logProtectionBox = new G4LogicalVolume(
+            solidProtectionBox,
+            lead,
+            "logProtectionBox");
+
+        new G4PVPlacement(
+            protectionBoxRotation,
+            protectionBoxPosition,
+            logProtectionBox,
+            "physProtectionBox",
+            logicHead,
+            false,
+            0);
+
+
 
         // create our dose detector
         G4double ddThicknessXY = 15 * cm;
