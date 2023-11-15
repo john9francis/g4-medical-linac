@@ -219,9 +219,11 @@ namespace med_linac
         G4RotationMatrix* protectorRotation = new G4RotationMatrix();
         protectorRotation->rotateX(90. * deg);
 
+        G4double protectorThickness = 6 * cm;
+
         G4Sphere* solidProtector = new G4Sphere(
             "solidProtector",
-            linacHeadThicknessXY - 4.5 * cm,
+            linacHeadThicknessXY - protectorThickness,
             linacHeadThicknessXY,
             0 * deg,
             180 * deg,
