@@ -60,8 +60,8 @@ namespace med_linac
 
 
         // Next, create a 'linac head' object to contain all the radiation generation stuff
-        G4double linacHeadThicknessXY = 20 * cm;
-        G4double linacHeadThicknessZ = 20 * cm;
+        G4double linacHeadThicknessXY = 25 * cm;
+        G4double linacHeadThicknessZ = 25 * cm;
 
         G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, -1 * m);
 
@@ -93,7 +93,8 @@ namespace med_linac
             particleGunAnchorThickness, 
             particleGunAnchorThickness);
 
-        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 5 * cm);
+        G4double particleGunAnchor1Z = -linacHeadThicknessZ + 10 * cm;
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, particleGunAnchor1Z);
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
         G4VPhysicalVolume* physAnchor1 = new G4PVPlacement(
@@ -129,7 +130,7 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = -linacHeadThicknessZ + 8 * cm;
+        G4double targetZ = particleGunAnchor1Z + 5 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
