@@ -19,7 +19,7 @@ namespace med_linac {
 		void EndOfEvent(G4HCofThisEvent*) override;
 
 	private:
-		PhantomHitsCollection* fHitsCollection = nullptr;
+		PhantomHitsCollection* fOneEventHitsCollection = nullptr;
 		G4double fEnergy;
 	};
 }

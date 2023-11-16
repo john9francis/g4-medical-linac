@@ -9,22 +9,24 @@ namespace med_linac {
 		: G4VSensitiveDetector(name) {
 
 		collectionName.insert(hitsCollectionName);
+
+		fEnergy = 0.;
 	}
 
 
 	void PhantomSD::Initialize(G4HCofThisEvent* hce) {
 
 		// create hits collection
-		fHitsCollection = new PhantomHitsCollection(SensitiveDetectorName, collectionName[0]);
+		fOneEventHitsCollection = new PhantomHitsCollection(SensitiveDetectorName, collectionName[0]);
 	
 		// get hitsCollection id from the SDManager
 		G4int hcID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
 
 		// add hitsCollection to the hc of this event
-		hce->AddHitsCollection(hcID, fHitsCollection);
+		hce->AddHitsCollection(hcID, fOneEventHitsCollection);
 
 		// set enery for this event back to 0
-		fEnergy = 0;
+		fEnergy = 0.;
 
 	
 	}
@@ -41,10 +43,10 @@ namespace med_linac {
 			PhantomHit* hit = new PhantomHit();
 			hit->SetEnergy(fEnergy);
 
-			fHitsCollection->insert(hit);
+			fOneEventHitsCollection->insert(hit);
 
 			// print out all the hits
-			fHitsCollection->PrintAllHits();
+			fOneEventHitsCollection->PrintAllHits();
 		}
 	}
 }
