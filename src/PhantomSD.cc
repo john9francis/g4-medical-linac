@@ -42,11 +42,9 @@ namespace med_linac {
 			hit->SetEnergy(fEnergy);
 
 			fHitsCollection->insert(hit);
-		}
 
-		// print out all the hits
-		for (G4int i = 0; i < fHitsCollection->entries(); i++) {
-			(*fHitsCollection)[i]->Print();
+			// print out all the hits
+			fHitsCollection->PrintAllHits();
 		}
 	}
 }

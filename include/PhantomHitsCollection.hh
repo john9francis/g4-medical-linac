@@ -43,6 +43,7 @@ namespace med_linac {
 		PhantomHitsCollection(
 			const G4String& name, 
 			const G4String& collectionName);
+
 	};
 }
 #endif // !med_linac_PHANTOM_HITS_COLLECTION
