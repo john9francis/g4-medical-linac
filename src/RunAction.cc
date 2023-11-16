@@ -19,6 +19,10 @@ namespace med_linac {
 			100, 0, 45,
 			100, 0, 45
 		);
+
+		if (IsMaster()) {
+			G4cout << "HISTOGRAM ID______________: " << pddH3ID << G4endl;
+		}
 	}
 
 	RunAction::~RunAction() {
@@ -27,6 +31,9 @@ namespace med_linac {
 	void RunAction::BeginOfRunAction(const G4Run* aRun) {
 		// start time
 		fTimer.Start();
+
+		auto analysisManager = G4AnalysisManager::Instance();
+		analysisManager->OpenFile();
 
 	}
 

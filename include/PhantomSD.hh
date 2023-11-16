@@ -20,6 +20,7 @@ namespace med_linac {
 
 	private:
 		PhantomHitsCollection* fOneEventHitsCollection = nullptr;
+
 	};
 }
 

@@ -25,6 +25,8 @@ namespace med_linac {
 	void PhantomHit::SetEnergy(G4double e) { hEnergy = e; }
 	void PhantomHit::AddEnergy(G4double e) { hEnergy += e; }
 	void PhantomHit::SetPos(G4ThreeVector p) { hPosition = p; }
+	G4double PhantomHit::GetEnergy() { return hEnergy; }
+	G4ThreeVector PhantomHit::GetPos() { return hPosition; }
 
 
 	// Very simple HitsCollection, just a list to hold all our hits

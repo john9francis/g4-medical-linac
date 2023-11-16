@@ -23,6 +23,8 @@ namespace med_linac {
 		void SetEnergy(G4double e);
 		void AddEnergy(G4double e);
 		void SetPos(G4ThreeVector p);
+		G4double GetEnergy();
+		G4ThreeVector GetPos();
 
 	private:
 		G4double hEnergy;

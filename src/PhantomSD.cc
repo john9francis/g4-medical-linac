@@ -2,6 +2,8 @@
 
 #include "G4UnitsTable.hh"
 
+#include "G4AnalysisManager.hh"
+
 namespace med_linac {
 	PhantomSD::PhantomSD(
 		const G4String& name,
@@ -32,7 +34,7 @@ namespace med_linac {
 		PhantomHit* hit = new PhantomHit();
 		hit->SetEnergy(aStep->GetTotalEnergyDeposit());
 		hit->SetPos(aStep->GetPreStepPoint()->GetPosition());
-		
+
 		// add it to the hitsCollection
 		fOneEventHitsCollection->insert(hit);
 
@@ -40,6 +42,20 @@ namespace med_linac {
 	}
 
 	void PhantomSD::EndOfEvent(G4HCofThisEvent*) {
-		fOneEventHitsCollection->PrintAllHits();
+
+		auto analysisManager = G4AnalysisManager::Instance();
+		G4int pddH3ID = 0;
+
+		// Loop through our hits collection and add everything to the histogram
+		for (G4int i = 0; i < fOneEventHitsCollection->GetSize(); i++) {
+
+			auto hit = (*fOneEventHitsCollection)[i];
+			if (hit->GetEnergy() > 0) {
+
+				G4ThreeVector hitPos = hit->GetPos();
+
+				analysisManager->FillH3(pddH3ID, hitPos.getX(), hitPos.getY(), hitPos.getZ(), hit->GetEnergy());
+			}
+		}
 	}
 }
