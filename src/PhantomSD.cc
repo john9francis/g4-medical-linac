@@ -53,8 +53,12 @@ namespace med_linac {
 			if (hit->GetEnergy() > 0) {
 
 				G4ThreeVector hitPos = hit->GetPos();
+				G4double graphX = hitPos.getX();
+				G4double graphZ = hitPos.getY();
+				G4double graphY = hitPos.getZ();
+				G4double energy = hit->GetEnergy();
 
-				analysisManager->FillH3(pddH3ID, hitPos.getX(), hitPos.getY(), hitPos.getZ(), hit->GetEnergy());
+				analysisManager->FillH3(pddH3ID, graphX, graphY, graphZ, energy);
 			}
 		}
 
