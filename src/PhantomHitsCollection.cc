@@ -24,21 +24,21 @@ namespace med_linac {
 	}
 
 	void PhantomHit::Draw() {
-		G4cout << "Drawing Hit" << G4endl;
+		//G4cout << "Drawing Hit" << G4endl;
 
 		auto visManager = G4VisManager::GetInstance();
 		if (visManager == nullptr) {
 			G4cout << "VisManager not found" << G4endl;
 		}
 
-		G4Circle energyHit;
-		G4VMarker::SizeType markerSize = G4VMarker::world;
-		energyHit.SetRadius(markerSize, 2 * cm);
-		energyHit.SetPosition(hPosition);
-		energyHit.SetFillStyle(G4VMarker::filled);
+		G4Sphere energyHit = G4Sphere("energyHit",
+			0, 4 * cm, 0, 360*deg, 0, 180*deg);
+
+		G4VisAttributes va = G4VisAttributes(G4Color(G4ThreeVector(1, 0, 0)));
+		
 
 		visManager->BeginDraw(G4Transform3D());
-		visManager->Draw(energyHit);
+		visManager->Draw(energyHit, va,G4Transform3D());
 		visManager->EndDraw();
 
 	}
