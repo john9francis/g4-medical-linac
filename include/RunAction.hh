@@ -22,6 +22,8 @@ namespace med_linac {
 		void BeginOfRunAction(const G4Run* aRun) override;
 		void EndOfRunAction(const G4Run* aRun) override;
 
+		void DrawHits();
+
 	private:
 
 		G4Timer fTimer;

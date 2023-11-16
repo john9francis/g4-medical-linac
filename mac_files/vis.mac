@@ -1,6 +1,3 @@
-# start up
-/run/initialize
-#
 # open an OpenGL viewer
 /vis/open OGL
 #
