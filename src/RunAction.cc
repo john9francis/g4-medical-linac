@@ -15,9 +15,9 @@ namespace med_linac {
 		G4int pddH3ID = analysisManager->CreateH3(
 			"3D Energy Deposition Graph",
 			"Energy deposited (Gy) vs. position in phantom (Cm)",
-			45, 0, 45,
-			45, 0, 45,
-			45, 0, 45
+			50, -450, 450,
+			50, -450, 450,
+			50, -450, 450
 		);
 
 	}
