@@ -14,10 +14,11 @@ namespace med_linac {
 		// Create our PDD 3d histogram
 		G4int pddH3ID = analysisManager->CreateH3(
 			"3D Energy Deposition Graph",
-			"Energy deposited (Gy) vs. position in phantom (Cm)",
+			"Energy deposited (Gy) vs. position in phantom",
 			50, -450, 450,
 			50, -450, 450,
-			50, -450, 450
+			50, -450, 450,
+			"mm", "mm", "mm"
 		);
 
 	}

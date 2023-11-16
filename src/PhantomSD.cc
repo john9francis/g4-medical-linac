@@ -55,7 +55,6 @@ namespace med_linac {
 				G4ThreeVector hitPos = hit->GetPos();
 
 				analysisManager->FillH3(pddH3ID, hitPos.getX(), hitPos.getY(), hitPos.getZ(), hit->GetEnergy());
-				G4cout << hitPos << G4endl;
 			}
 		}
 
