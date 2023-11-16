@@ -48,7 +48,6 @@ namespace med_linac {
 		// print out the time it took
 		if (IsMaster()) {
 			PrintTime();
-			DrawHits();
 		}
 
 		// write to our analysis file

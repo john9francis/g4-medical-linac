@@ -19,6 +19,7 @@ namespace med_linac {
 		~PhantomHit() override = default;
 
 		void Print() override;
+		void Draw() override;
 
 		void SetEnergy(G4double e);
 		void AddEnergy(G4double e);

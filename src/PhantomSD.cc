@@ -62,6 +62,9 @@ namespace med_linac {
 			}
 		}
 
+		// draw all hits using the HitsCollection method
+		fOneEventHitsCollection->DrawAllHits();
+
 
 	}
 }
