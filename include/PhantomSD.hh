@@ -4,6 +4,8 @@
 
 #include "G4SDManager.hh"
 
+#include "PhantomHitsCollection.hh"
+
 namespace med_linac {
 	class PhantomSD : public G4VSensitiveDetector {
 	public:
@@ -15,6 +17,9 @@ namespace med_linac {
 		void Initialize(G4HCofThisEvent*) override;
 		G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;
 		void EndOfEvent(G4HCofThisEvent*) override;
+
+	private:
+		PhantomHitsCollection* fHitsCollection = nullptr;
 	};
 }
 
