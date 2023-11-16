@@ -1,6 +1,8 @@
 
 #include "DetectorConstruction.hh"
 
+#include "PhantomSD.hh"
+
 #include "G4Box.hh"
 #include "G4Tubs.hh"
 #include "G4Sphere.hh"
@@ -262,7 +264,7 @@ namespace med_linac
 
 
         // create our phantom, to represent a person
-        /*
+        
         G4ThreeVector phantomPos = G4ThreeVector();
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
@@ -277,10 +279,28 @@ namespace med_linac
             logicWorld,
             false,
             0);
-        */
+        
 
         // finish by returning the world
         return physWorld;
+    }
+
+
+    void DetectorConstruction::ConstructSDandField() {
+        // Add our PhantomSD to the phantom
+
+        // Assign names
+        G4String phantomSDName = "phantomSD";
+        G4String phantomHCName = "phantomHC";
+
+        // Create our SD
+        auto phantomSD = new PhantomSD(phantomSDName, phantomHCName);
+
+        // add the SD to the singleton
+        G4SDManager::GetSDMpointer()->AddNewDetector(phantomSD);
+
+        // assign the sd to the volume we want
+        SetSensitiveDetector("logicPhantom", phantomSD);
     }
 
 }

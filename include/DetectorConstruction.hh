@@ -14,6 +14,7 @@ namespace med_linac
 		~DetectorConstruction() override = default;
 
 		G4VPhysicalVolume* Construct() override;
+		void ConstructSDandField() override;
 
 		G4VPhysicalVolume* GetLinacHead() const { return fLinacHead; }
 		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
