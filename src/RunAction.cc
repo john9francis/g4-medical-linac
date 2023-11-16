@@ -20,9 +20,6 @@ namespace med_linac {
 			100, 0, 45
 		);
 
-		if (IsMaster()) {
-			G4cout << "HISTOGRAM ID______________: " << pddH3ID << G4endl;
-		}
 	}
 
 	RunAction::~RunAction() {
