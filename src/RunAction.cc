@@ -6,7 +6,19 @@
 
 namespace med_linac {
 	RunAction::RunAction() {
+		// Create our PDD output file:
+		auto analysisManager = G4AnalysisManager::Instance();
+		G4String pddFileName = "PDD_Graph.root";
+		analysisManager->OpenFile(pddFileName);
 
+		// Create our PDD 3d histogram
+		G4int pddH3ID = analysisManager->CreateH3(
+			"3D Energy Deposition Graph",
+			"Energy deposited (Gy) vs. position in phantom (Cm)",
+			100, 0, 45,
+			100, 0, 45,
+			100, 0, 45
+		);
 	}
 
 	RunAction::~RunAction() {
@@ -27,6 +39,11 @@ namespace med_linac {
 		if (IsMaster()) {
 			PrintTime();
 		}
+
+		// write to our analysis file
+		auto analysisManager = G4AnalysisManager::Instance();
+		analysisManager->Write();
+		analysisManager->CloseFile();
 	}
 
 	void RunAction::PrintTime() {
