@@ -12,7 +12,7 @@ namespace med_linac {
 	void PhantomHit::Print() {
 		G4cout
 			<< "Energy: "
-			<< G4BestUnit(hEnergy, "Energy")
+			<< G4BestUnit(hEnergy, "Dose")
 			<< " "
 			<< "Position: "
 			<< G4BestUnit(hPosition.getX(), "Length")
