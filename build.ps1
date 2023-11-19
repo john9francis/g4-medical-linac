@@ -11,7 +11,7 @@ msbuild g4_medical_linac.sln
 cd release
 
 # Run the executable
-.\g4_medical_linac
+.\g4_medical_linac medium_run.mac
 
 # Go back to the root directory
 cd ..

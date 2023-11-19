@@ -26,9 +26,10 @@ namespace med_linac {
 	void PhantomHit::Draw() {
 		//G4cout << "Drawing Hit" << G4endl;
 
-		auto visManager = G4VisManager::GetInstance();
+		auto visManager = G4VisManager::GetConcreteInstance();
 		if (visManager == nullptr) {
 			G4cout << "VisManager not found" << G4endl;
+			return;
 		}
 
 		G4Sphere energyHit = G4Sphere("energyHit",

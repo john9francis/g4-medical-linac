@@ -26,6 +26,12 @@ namespace med_linac {
 			"mm", "mm", "mm"
 		);
 
+		// Create our PDD 1d histogram
+		G4int pddH1ID = analysisManager->CreateH1(
+			"PDD Graph",
+			"PDD (Gy)",
+			40, -450, 450, "Gy");
+
 	}
 
 	RunAction::~RunAction() {

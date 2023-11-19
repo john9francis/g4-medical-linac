@@ -45,6 +45,7 @@ namespace med_linac {
 
 		auto analysisManager = G4AnalysisManager::Instance();
 		G4int pddH3ID = 0;
+		G4int pddH1ID = 0;
 
 		// Loop through our hits collection and add everything to the histogram
 		for (G4int i = 0; i < fOneEventHitsCollection->GetSize(); i++) {
@@ -59,11 +60,12 @@ namespace med_linac {
 				G4double energy = hit->GetEnergy();
 
 				analysisManager->FillH3(pddH3ID, graphX, graphY, graphZ, energy);
+				analysisManager->FillH1(pddH1ID, hitPos.getZ(), energy);
 			}
 		}
 
 		// draw all hits using the HitsCollection method
-		fOneEventHitsCollection->DrawAllHits();
+		//fOneEventHitsCollection->DrawAllHits();
 
 
 	}
