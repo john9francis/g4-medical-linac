@@ -26,21 +26,22 @@ namespace med_linac {
 	void PhantomHit::Draw() {
 		//G4cout << "Drawing Hit" << G4endl;
 
-		auto visManager = G4VisManager::GetConcreteInstance();
-		if (visManager == nullptr) {
-			G4cout << "VisManager not found" << G4endl;
-			return;
+		G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
+		if (pVVisManager)
+		{
+			// define a circle in a 3D space
+			G4Circle circle(hPosition);
+			circle.SetScreenSize(1.);
+			circle.SetFillStyle(G4Circle::filled);
+
+			// make the circle red
+			G4Colour colour(1., 0., 0.);
+			G4VisAttributes attribs(colour);
+			circle.SetVisAttributes(attribs);
+
+			// make a 3D data for visualization
+			pVVisManager->Draw(circle);
 		}
-
-		G4Sphere energyHit = G4Sphere("energyHit",
-			0, 4 * cm, 0, 360*deg, 0, 180*deg);
-
-		G4VisAttributes va = G4VisAttributes(G4Color(G4ThreeVector(1, 0, 0)));
-		
-
-		visManager->BeginDraw(G4Transform3D());
-		visManager->Draw(energyHit, va,G4Transform3D());
-		visManager->EndDraw();
 
 	}
 
