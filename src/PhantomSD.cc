@@ -44,7 +44,6 @@ namespace med_linac {
 	void PhantomSD::EndOfEvent(G4HCofThisEvent*) {
 
 		auto analysisManager = G4AnalysisManager::Instance();
-		G4int pddH3ID = 0;
 		G4int pddH1ID = 0;
 
 		// Loop through our hits collection and add everything to the histogram
@@ -59,7 +58,6 @@ namespace med_linac {
 				G4double graphY = hitPos.getZ();
 				G4double energy = hit->GetEnergy();
 
-				analysisManager->FillH3(pddH3ID, graphX, graphY, graphZ, energy);
 				analysisManager->FillH1(pddH1ID, hitPos.getZ(), energy);
 			}
 		}

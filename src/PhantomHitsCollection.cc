@@ -24,7 +24,6 @@ namespace med_linac {
 	}
 
 	void PhantomHit::Draw() {
-		//G4cout << "Drawing Hit" << G4endl;
 
 		G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
 		if (pVVisManager)
@@ -33,9 +32,10 @@ namespace med_linac {
 			G4Circle circle(hPosition);
 			circle.SetScreenSize(1.);
 			circle.SetFillStyle(G4Circle::filled);
+			circle.SetRadius(G4VMarker::SizeType::world, 20.);
 
-			// make the circle red
-			G4Colour colour(1., 0., 0.);
+			// Define circle color
+			G4Colour colour(255 * (1 - hEnergy), 255 * hEnergy , 0);
 			G4VisAttributes attribs(colour);
 			circle.SetVisAttributes(attribs);
 
