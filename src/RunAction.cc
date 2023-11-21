@@ -22,9 +22,15 @@ namespace med_linac {
 			"PDD (Gy)",
 			40, -450, 450, "Gy");
 
+
+		// initialize our variables:
+		fRunHitsCollection = new PhantomHitsCollection("Phantom", "PhantomHitsCollection");
+		fTotalRunEnergy = 0.;
+
 	}
 
 	RunAction::~RunAction() {
+		delete fRunHitsCollection;
 	}
 
 	void RunAction::BeginOfRunAction(const G4Run* aRun) {
@@ -33,6 +39,12 @@ namespace med_linac {
 
 		auto analysisManager = G4AnalysisManager::Instance();
 		analysisManager->OpenFile();
+
+		// reset our variables
+		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
+			delete (*fRunHitsCollection)[i];
+		}
+		fTotalRunEnergy = 0.;
 
 	}
 
@@ -61,6 +73,12 @@ namespace med_linac {
 			<< " Seconds."
 			<< G4endl;
 
+	}
+
+	void RunAction::AddToHitsCollection(PhantomHit* hit) {
+		fTotalRunEnergy += hit->GetEnergy();
+
+		fRunHitsCollection->insert(hit);
 	}
 
 }
