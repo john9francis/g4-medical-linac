@@ -279,6 +279,9 @@ namespace med_linac
             logicWorld,
             false,
             0);
+
+        // set our member variable so we can get this in stepping action
+        fLogicPhantom = logicPhantom;
         
 
         // finish by returning the world
