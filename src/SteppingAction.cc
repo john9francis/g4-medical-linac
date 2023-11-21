@@ -10,9 +10,13 @@
 #include "G4UnitsTable.hh"
 
 #include "DetectorConstruction.hh"
+#include "PhantomHitsCollection.hh"
 
 namespace med_linac {
-	SteppingAction::SteppingAction() {
+	SteppingAction::SteppingAction(RunAction* runAction) {
+
+		fRunAction = runAction;
+
 		// Get our phantom from the detectorconstruction
 		auto runManager = G4RunManager::GetRunManager();
 		auto detConstruction = static_cast<const DetectorConstruction*>(runManager->GetUserDetectorConstruction());
@@ -28,9 +32,10 @@ namespace med_linac {
 		
 		// get the step's current volume
 		G4LogicalVolume* currentVolume = step->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume();
-		if (currentVolume == fPhantom) {
-			G4cout << "In phantom" << G4endl;
-		}
+
+		if (currentVolume != fPhantom) return;
+
+		// Create a hit and send it over to the runAction
 	}
 	
 }

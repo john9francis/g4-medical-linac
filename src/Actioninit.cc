@@ -12,9 +12,10 @@ namespace med_linac {
 		// set the Geant4 actions
 		SetUserAction(new PrimaryGeneratorAction);
 
-		SetUserAction(new RunAction());
+		RunAction* runAction = new RunAction();
+		SetUserAction(runAction);
 
-		SetUserAction(new SteppingAction());
+		SetUserAction(new SteppingAction(runAction));
 
 	};
 
