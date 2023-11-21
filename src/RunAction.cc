@@ -81,7 +81,7 @@ namespace med_linac {
 		fRunHitsCollection->insert(hit);
 	}
 
-	void RunAction::AddHitsToAnalysis() {
+	void RunAction::GeneratePDDGraph() {
 		// We want a PDD graph, which is the dose of each hit divided by total dose
 
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {

@@ -25,7 +25,7 @@ namespace med_linac {
 		void EndOfRunAction(const G4Run* aRun) override;
 
 		void AddToHitsCollection(PhantomHit*);
-		void AddHitsToAnalysis();
+		void GeneratePDDGraph();
 
 	private:
 
