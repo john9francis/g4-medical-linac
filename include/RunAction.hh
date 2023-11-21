@@ -25,12 +25,14 @@ namespace med_linac {
 		void EndOfRunAction(const G4Run* aRun) override;
 
 		void AddToHitsCollection(PhantomHit*);
+		void AddHitsToAnalysis();
 
 	private:
 
 		G4Timer fTimer;
 		PhantomHitsCollection* fRunHitsCollection;
 		G4double fTotalRunEnergy;
+		G4int fPddH1ID;
 
 		void PrintTime();
 

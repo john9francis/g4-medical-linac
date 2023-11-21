@@ -17,7 +17,7 @@ namespace med_linac {
 		analysisManager->SetFileName(pddFileName);
 
 		// Create our PDD 1d histogram
-		G4int pddH1ID = analysisManager->CreateH1(
+		fPddH1ID = analysisManager->CreateH1(
 			"PDD Graph",
 			"PDD (Gy)",
 			40, -450, 450, "Gy");
@@ -79,6 +79,23 @@ namespace med_linac {
 		fTotalRunEnergy += hit->GetEnergy();
 
 		fRunHitsCollection->insert(hit);
+	}
+
+	void RunAction::AddHitsToAnalysis() {
+		// We want a PDD graph, which is the dose of each hit divided by total dose
+
+		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
+
+			G4double hitEnergy = (*fRunHitsCollection)[i]->GetEnergy();
+			G4double percentDose = hitEnergy / fTotalRunEnergy;
+
+			G4double depth = (*fRunHitsCollection)[i]->GetPos().getZ();
+
+			// add to the h1
+			auto analysisManager = G4AnalysisManager::Instance();
+			analysisManager->FillH1(fPddH1ID, depth, percentDose);
+
+		}
 	}
 
 }
