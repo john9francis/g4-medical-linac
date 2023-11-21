@@ -45,6 +45,7 @@ namespace med_linac {
 			delete (*fRunHitsCollection)[i];
 		}
 		fTotalRunEnergy = 0.;
+		G4cout << "Hits reset" << G4endl;
 
 	}
 
@@ -56,8 +57,10 @@ namespace med_linac {
 		// print out the time it took
 		if (IsMaster()) {
 			PrintTime();
-			GeneratePDDGraph();
 		}
+
+		GeneratePDDGraph();
+
 
 		// write to our analysis file
 		auto analysisManager = G4AnalysisManager::Instance();
@@ -77,15 +80,17 @@ namespace med_linac {
 	}
 
 	void RunAction::AddToHitsCollection(PhantomHit* hit) {
-		fTotalRunEnergy += hit->GetEnergy();
 
+		fTotalRunEnergy += hit->GetEnergy();
 		fRunHitsCollection->insert(hit);
 	}
 
 	void RunAction::GeneratePDDGraph() {
 		// We want a PDD graph, which is the dose of each hit divided by total dose
-
-		G4cout << "Generating PDD graph..." << G4endl;
+		
+		if (IsMaster()) {
+			G4cout << "Generating PDD graph..." << G4endl;
+		}
 
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
 
@@ -100,8 +105,9 @@ namespace med_linac {
 
 		}
 
-		G4cout << "Finished Generating PDD Graph." << G4endl;
-
+		if (IsMaster()) {
+			G4cout << "Finished Generating PDD Graph." << G4endl;
+		}
 	}
 
 }
