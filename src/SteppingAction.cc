@@ -36,6 +36,11 @@ namespace med_linac {
 		if (currentVolume != fPhantom) return;
 
 		// Create a hit and send it over to the runAction
+		PhantomHit* hit = new PhantomHit();
+		hit->SetEnergy(step->GetTotalEnergyDeposit());
+		hit->SetPos(step->GetPreStepPoint()->GetPosition());
+
+		fRunAction->AddToHitsCollection(hit);
 	}
 	
 }

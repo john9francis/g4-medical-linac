@@ -56,6 +56,7 @@ namespace med_linac {
 		// print out the time it took
 		if (IsMaster()) {
 			PrintTime();
+			GeneratePDDGraph();
 		}
 
 		// write to our analysis file
@@ -84,6 +85,8 @@ namespace med_linac {
 	void RunAction::GeneratePDDGraph() {
 		// We want a PDD graph, which is the dose of each hit divided by total dose
 
+		G4cout << "Generating PDD graph..." << G4endl;
+
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
 
 			G4double hitEnergy = (*fRunHitsCollection)[i]->GetEnergy();
@@ -96,6 +99,9 @@ namespace med_linac {
 			analysisManager->FillH1(fPddH1ID, depth, percentDose);
 
 		}
+
+		G4cout << "Finished Generating PDD Graph." << G4endl;
+
 	}
 
 }
