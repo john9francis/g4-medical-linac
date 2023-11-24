@@ -269,7 +269,7 @@ namespace med_linac
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
 
-        G4Box* solidPhantom = new G4Box("solidPhantom", 45 * cm, 45 * cm, 45 * cm);
+        G4Box* solidPhantom = new G4Box("solidPhantom", 15 * cm, 15 * cm, 15 * cm);
         G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
         G4VPhysicalVolume* physPhantom = new G4PVPlacement(
             nullptr,

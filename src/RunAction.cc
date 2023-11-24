@@ -27,7 +27,7 @@ namespace med_linac {
 		fPddH1ID = analysisManager->CreateH1(
 			"PDD Graph",
 			"PDD (Gy)",
-			100, -450, 450, "Gy");
+			300, 0, 300, "mm");
 
 
 		// initialize our variables:
