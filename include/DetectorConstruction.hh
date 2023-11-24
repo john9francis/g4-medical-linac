@@ -18,6 +18,7 @@ namespace med_linac
 
 		G4VPhysicalVolume* GetLinacHead() const { return fLinacHead; }
 		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
+		G4VPhysicalVolume* GetPhysPhantom() const { return fPhysPhantom; }
 		G4LogicalVolume* GetPhantom() const { return fLogicPhantom; }
 
 	private:
@@ -25,6 +26,7 @@ namespace med_linac
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
 
 		G4LogicalVolume* fLogicPhantom = nullptr;
+		G4VPhysicalVolume* fPhysPhantom = nullptr;
 
 	};
 }

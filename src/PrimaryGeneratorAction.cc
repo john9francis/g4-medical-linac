@@ -53,7 +53,7 @@ namespace med_linac
 			runManager->GetUserDetectorConstruction());
 
 
-		// get the position of the linac head and gun anchors
+		// get the position of the linac head and gun anchor
 		auto* linacHead = detConstruction->GetLinacHead();
 		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
 

@@ -184,7 +184,7 @@ namespace med_linac
         // create tungsten collimator
         G4double innerColRadius = 4.0 * cm;
         G4double outerColRadius = 12. * cm;
-        G4double colThickness = 10 * cm;
+        G4double colThickness = 20 * cm;
 
         G4Tubs* solidCol = new G4Tubs("Collimator",
             innerColRadius,
@@ -271,7 +271,7 @@ namespace med_linac
 
         G4Box* solidPhantom = new G4Box("solidPhantom", 45 * cm, 45 * cm, 45 * cm);
         G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
-        new G4PVPlacement(
+        G4VPhysicalVolume* physPhantom = new G4PVPlacement(
             nullptr,
             phantomPos,
             logicPhantom,
@@ -282,6 +282,7 @@ namespace med_linac
 
         // set our member variable so we can get this in stepping action
         fLogicPhantom = logicPhantom;
+        fPhysPhantom = physPhantom;
         
 
         // finish by returning the world

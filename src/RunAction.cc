@@ -1,5 +1,10 @@
 
 #include "RunAction.hh"
+#include "DetectorConstruction.hh"
+
+#include "G4LogicalVolume.hh"
+#include "G4PVPlacement.hh"
+
 #include "G4ThreeVector.hh"
 #include "G4UnitsTable.hh"
 
@@ -7,6 +12,8 @@
 #include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4VisExecutive.hh"
+
+#include <iostream>
 
 
 namespace med_linac {
@@ -94,12 +101,26 @@ namespace med_linac {
 	void RunAction::GeneratePDDGraph() {
 		// We want a PDD graph, which is the dose of each hit divided by total dose
 
+		// First, let's get the left hand side position of the phantom and set it to 0
+		// Then measure the dose in CM in relation to that.
+		auto runManager = G4RunManager::GetRunManager();
+		auto detConstruction = static_cast<const DetectorConstruction*>(runManager->GetUserDetectorConstruction());
+		G4VPhysicalVolume* physPhantom = detConstruction->GetPhysPhantom();
+		G4LogicalVolume* logPhantom = detConstruction->GetPhantom();
+
+		// finessing to find the position of the left side of the phantom
+		G4ThreeVector phantomPosition = physPhantom->GetObjectTranslation();
+		G4double phantomCubicVolume = logPhantom->GetSolid()->GetCubicVolume();
+		G4double phantomSideLength = std::pow(phantomCubicVolume, 1. / 3.);
+		G4double startingPos = phantomPosition.getZ() - phantomSideLength / 2;
+
+
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
 
 			G4double hitEnergy = (*fRunHitsCollection)[i]->GetEnergy();
 			G4double percentDose = hitEnergy / fTotalRunEnergy;
 
-			G4double depth = (*fRunHitsCollection)[i]->GetPos().getZ();
+			G4double depth = (*fRunHitsCollection)[i]->GetPos().getZ() - startingPos;
 
 			// add to the h1
 			auto analysisManager = G4AnalysisManager::Instance();
