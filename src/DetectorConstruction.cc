@@ -15,6 +15,8 @@
 #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
+#include "G4VisAttributes.hh"
+
 namespace med_linac
 {
 	G4VPhysicalVolume* DetectorConstruction::Construct()
@@ -279,6 +281,12 @@ namespace med_linac
             logicWorld,
             false,
             0);
+
+        // set color
+        G4VisAttributes phantomVA;
+        phantomVA.SetColour(0, 0, 1);
+
+        logicPhantom->SetVisAttributes(phantomVA);
 
         // set our member variable so we can get this in stepping action
         fLogicPhantom = logicPhantom;

@@ -118,7 +118,8 @@ namespace med_linac {
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
 
 			G4double hitEnergy = (*fRunHitsCollection)[i]->GetEnergy();
-			G4double percentDose = hitEnergy / fTotalRunEnergy;
+			//G4double percentDose = hitEnergy / fTotalRunEnergy;
+			G4double percentDose = hitEnergy;
 
 			G4double depth = (*fRunHitsCollection)[i]->GetPos().getZ() - startingPos;
 

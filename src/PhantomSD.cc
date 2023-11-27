@@ -1,6 +1,8 @@
 #include "PhantomSD.hh"
 
 #include "G4UnitsTable.hh"
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
 
 #include "G4AnalysisManager.hh"
 
@@ -67,4 +69,5 @@ namespace med_linac {
 
 
 	}
+
 }
