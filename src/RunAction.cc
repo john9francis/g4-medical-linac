@@ -84,9 +84,18 @@ namespace med_linac {
 			G4cout << "Finished Generating PDD Graph" << G4endl;
 		}
 
+		auto analysisManager = G4AnalysisManager::Instance();
+
+		// get the max dose and divide all pdd entries by it,
+		// therefore creating the PDD graph
+
+		//auto pddH1 = analysisManager->GetH1(0);
+		//G4double maxDose = pddH1->max_bin_height();
+		//for (G4int i = 0; i < pddH1->entries(); i++) {
+		//
+		//}
 
 		// write to our analysis file
-		auto analysisManager = G4AnalysisManager::Instance();
 		analysisManager->Write();
 		analysisManager->CloseFile();
 	}
