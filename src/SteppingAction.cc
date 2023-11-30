@@ -41,6 +41,10 @@ namespace med_linac {
 		hit->SetPos(step->GetPreStepPoint()->GetPosition());
 
 		fRunAction->AddToHitsCollection(hit);
+
+
+		// add hits to the heat map
+		
 	}
 	
 }

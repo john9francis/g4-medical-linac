@@ -29,6 +29,17 @@ namespace med_linac {
 			"PDD (Gy)",
 			300, 0, 300, "mm");
 
+		// Create a H2 heat map
+		G4int yzHeatMapID = analysisManager->CreateH2(
+			"YZ Heat map",
+			"Energy Deposited",
+			300, 0, 300, 300, 0, 300);
+
+		G4int xyHeatMapID = analysisManager->CreateH2(
+			"XY Heat map",
+			"Energy Deposited",
+			300, 0, 300, 300, 0, 300);
+
 
 		// initialize our variables:
 		fRunHitsCollection = new PhantomHitsCollection("Phantom", "PhantomHitsCollection");
