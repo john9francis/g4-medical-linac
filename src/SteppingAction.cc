@@ -48,11 +48,11 @@ namespace med_linac {
 
 		// add hits to the heat map
 		auto analysisManager = G4AnalysisManager::Instance();
-
+		
 		G4int xzH2Id = 0;
 		G4int xyH2Id = 1;
 
-		analysisManager->FillH2(xzH2Id, particlePos.getX(), particlePos.getZ(), particleEnergy);
+		analysisManager->FillH2(xzH2Id, particlePos.getZ(), particlePos.getX(), particleEnergy);
 		analysisManager->FillH2(xyH2Id, particlePos.getX(), particlePos.getY(), particleEnergy);
 	}
 	
