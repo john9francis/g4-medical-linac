@@ -2,6 +2,7 @@
 
 #include "G4EmStandardPhysics.hh"
 #include "G4EmLivermorePolarizedPhysics.hh"
+#include "G4EmDNAPhysics_option2.hh"
 
 namespace med_linac
 {
@@ -9,8 +10,8 @@ namespace med_linac
 		// Get the standard EM physics for bremsstrahlung
 		RegisterPhysics(new G4EmStandardPhysics());
 
-		// Get the livermore polarized physics for dose measurement
-		RegisterPhysics(new G4EmLivermorePolarizedPhysics());
+		// DNA physics for the interactions with G4_Water (see http://geant4-dna.org/)
+		RegisterPhysics(new G4EmDNAPhysics_option2());
 
 	}
 
