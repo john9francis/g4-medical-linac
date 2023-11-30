@@ -36,15 +36,24 @@ namespace med_linac {
 		if (currentVolume != fPhantom) return;
 
 		// Create a hit and send it over to the runAction
+		G4double particleEnergy = step->GetTotalEnergyDeposit();
+		G4ThreeVector particlePos = step->GetPreStepPoint()->GetPosition();
+
 		PhantomHit* hit = new PhantomHit();
-		hit->SetEnergy(step->GetTotalEnergyDeposit());
-		hit->SetPos(step->GetPreStepPoint()->GetPosition());
+		hit->SetEnergy(particleEnergy);
+		hit->SetPos(particlePos);
 
 		fRunAction->AddToHitsCollection(hit);
 
 
 		// add hits to the heat map
-		
+		auto analysisManager = G4AnalysisManager::Instance();
+
+		G4int xzH2Id = 0;
+		G4int xyH2Id = 1;
+
+		analysisManager->FillH2(xzH2Id, particlePos.getX(), particlePos.getZ(), particleEnergy);
+		analysisManager->FillH2(xyH2Id, particlePos.getX(), particlePos.getY(), particleEnergy);
 	}
 	
 }

@@ -33,12 +33,12 @@ namespace med_linac {
 		G4int yzHeatMapID = analysisManager->CreateH2(
 			"YZ Heat map",
 			"Energy Deposited",
-			300, 0, 300, 300, 0, 300);
+			150, -150, 150, 150, -150, 150);
 
 		G4int xyHeatMapID = analysisManager->CreateH2(
 			"XY Heat map",
 			"Energy Deposited",
-			300, 0, 300, 300, 0, 300);
+			150, -150, 150, 150, -150, 150);
 
 
 		// initialize our variables:
@@ -63,7 +63,6 @@ namespace med_linac {
 			delete (*fRunHitsCollection)[i];
 		}
 		fTotalRunEnergy = 0.;
-		G4cout << "Hits reset" << G4endl;
 
 	}
 
