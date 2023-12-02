@@ -30,8 +30,13 @@ namespace med_linac
 
         // set the commands
         testCommand = new G4UIcmdWithoutParameter("/linacHead/test", fLinacHeadMessenger);
+        testCommand->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+
         linacHeadY = new G4UIcmdWithADouble("/linacHead/setY", fLinacHeadMessenger);
-    
+        linacHeadY->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+        fMESS = new LinacHeadMessenger();
     }
 
     DetectorConstruction::~DetectorConstruction() {
@@ -47,8 +52,22 @@ namespace med_linac
             cv = "Hello Test World!";
             G4cout << "Test command activated" << G4endl;
         }
+        if (command == linacHeadY) {
+            cv = linacHeadY->ConvertToString(G4ThreeVector(0, 1, 2));
+            G4cout << "Linac Head Y activated" << G4endl;
+        }
 
         return cv;
+    }
+
+    void DetectorConstruction::SetNewValue(G4UIcommand* command, G4String newValues) {
+        if (command == testCommand) {
+            G4cout << "Test command set" << G4endl;
+        }
+        else if (command == linacHeadY) {
+            G4cout << "Linac Head Y Set: " << newValues << G4endl;
+        }
+
     }
 
 

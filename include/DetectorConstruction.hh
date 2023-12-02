@@ -9,6 +9,8 @@
 #include "G4UIcmdWithoutParameter.hh"
 #include "G4UIcmdWithADouble.hh"
 
+#include "LinacHeadMessenger.hh"
+
 namespace med_linac
 {
 	class DetectorConstruction : public G4VUserDetectorConstruction
@@ -41,6 +43,8 @@ namespace med_linac
 
 		G4UIcmdWithoutParameter* testCommand;
 		G4UIcmdWithADouble* linacHeadY;
+
+		LinacHeadMessenger* fMESS;
 
 	};
 }
