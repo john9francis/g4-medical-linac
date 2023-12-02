@@ -29,13 +29,28 @@ namespace med_linac
         linacHeadDir->SetGuidance("Move the linac head around");
 
         // set the commands
-        G4UIcommand* testCommand = new G4UIcommand("/linacHead/test", fLinacHeadMessenger);
+        testCommand = new G4UIcmdWithoutParameter("/linacHead/test", fLinacHeadMessenger);
+        linacHeadY = new G4UIcmdWithADouble("/linacHead/setY", fLinacHeadMessenger);
     
     }
 
     DetectorConstruction::~DetectorConstruction() {
-
+        delete fLinacHeadMessenger;
+        delete testCommand;
     }
+
+    G4String DetectorConstruction::GetCurrentValue(G4UIcommand* command) {
+
+        G4String cv;
+
+        if (command == testCommand) {
+            cv = "Hello Test World!";
+            G4cout << "Test command activated" << G4endl;
+        }
+
+        return cv;
+    }
+
 
 	G4VPhysicalVolume* DetectorConstruction::Construct()
 	{
@@ -104,7 +119,7 @@ namespace med_linac
             0);
 
         // set the member variable so we can get this volume in other parts of the program
-        fLinacHead = physHead;
+        fPhysLinacHead = physHead;
 
 
         // create a place for the particle gun to shoot from

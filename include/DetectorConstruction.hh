@@ -6,6 +6,9 @@
 
 #include "G4UImessenger.hh"
 
+#include "G4UIcmdWithoutParameter.hh"
+#include "G4UIcmdWithADouble.hh"
+
 namespace med_linac
 {
 	class DetectorConstruction : public G4VUserDetectorConstruction
@@ -17,19 +20,27 @@ namespace med_linac
 		G4VPhysicalVolume* Construct() override;
 		void ConstructSDandField() override;
 
-		G4VPhysicalVolume* GetLinacHead() const { return fLinacHead; }
+		G4VPhysicalVolume* GetLinacHead() const { return fPhysLinacHead; }
 		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
 		G4VPhysicalVolume* GetPhysPhantom() const { return fPhysPhantom; }
 		G4LogicalVolume* GetPhantom() const { return fLogicPhantom; }
 
+	public:
+		// messenger stuff
+		void SetNewValue(G4UIcommand* command, G4String newValues);
+		G4String GetCurrentValue(G4UIcommand* command);
+
 	private:
-		G4VPhysicalVolume* fLinacHead = nullptr;
+		G4VPhysicalVolume* fPhysLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
 
 		G4LogicalVolume* fLogicPhantom = nullptr;
 		G4VPhysicalVolume* fPhysPhantom = nullptr;
 
 		G4UImessenger* fLinacHeadMessenger;
+
+		G4UIcmdWithoutParameter* testCommand;
+		G4UIcmdWithADouble* linacHeadY;
 
 	};
 }
