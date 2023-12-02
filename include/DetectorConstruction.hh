@@ -27,11 +27,7 @@ namespace med_linac
 		G4VPhysicalVolume* GetPhysPhantom() const { return fPhysPhantom; }
 		G4LogicalVolume* GetPhantom() const { return fLogicPhantom; }
 
-	public:
-		// messenger stuff
-		void SetNewValue(G4UIcommand* command, G4String newValues);
-		G4String GetCurrentValue(G4UIcommand* command);
-
+	
 	private:
 		G4VPhysicalVolume* fPhysLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
@@ -39,12 +35,7 @@ namespace med_linac
 		G4LogicalVolume* fLogicPhantom = nullptr;
 		G4VPhysicalVolume* fPhysPhantom = nullptr;
 
-		G4UImessenger* fLinacHeadMessenger;
-
-		G4UIcmdWithoutParameter* testCommand;
-		G4UIcmdWithADouble* linacHeadY;
-
-		LinacHeadMessenger* fMESS;
+		LinacHeadMessenger* fLinacHeadMessenger;
 
 	};
 }
