@@ -98,6 +98,7 @@ namespace med_linac
 
         // set the member variable so we can get this volume in other parts of the program
         fPhysLinacHead = physHead;
+        fLinacHeadMessenger->SetLinacHeadPointer(physHead);
 
 
         // create a place for the particle gun to shoot from
