@@ -48,7 +48,7 @@ namespace med_linac {
 			G4cout << "Error: Linac head not defined correctly" << G4endl;
 			return;
 		}
-
+		/*
 		// get all the parameters that don't change
 		G4ThreeVector currentPos = fPhysLinacHead->GetObjectTranslation();
 		G4double x = currentPos.getX();
@@ -63,6 +63,8 @@ namespace med_linac {
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
 		UI->ApplyCommand("/vis/viewer/update");
+
+		*/
 	}
 
 
