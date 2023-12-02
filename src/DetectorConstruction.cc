@@ -19,6 +19,21 @@
 
 namespace med_linac
 {
+
+    DetectorConstruction::DetectorConstruction() {
+        // Create our ui messenger
+        fLinacHeadMessenger = new G4UImessenger();
+
+        // set the directories
+        G4UIdirectory* linacHeadDir = new G4UIdirectory("/linacHead/");
+        linacHeadDir->SetGuidance("Move the linac head around");
+    
+    }
+
+    DetectorConstruction::~DetectorConstruction() {
+
+    }
+
 	G4VPhysicalVolume* DetectorConstruction::Construct()
 	{
 		// construct our detectors here

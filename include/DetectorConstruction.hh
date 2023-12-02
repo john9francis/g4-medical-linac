@@ -4,14 +4,15 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "G4PVPlacement.hh"
 
+#include "G4UImessenger.hh"
 
 namespace med_linac
 {
 	class DetectorConstruction : public G4VUserDetectorConstruction
 	{
 	public:
-		DetectorConstruction() = default;
-		~DetectorConstruction() override = default;
+		DetectorConstruction();
+		~DetectorConstruction();
 
 		G4VPhysicalVolume* Construct() override;
 		void ConstructSDandField() override;
@@ -27,6 +28,8 @@ namespace med_linac
 
 		G4LogicalVolume* fLogicPhantom = nullptr;
 		G4VPhysicalVolume* fPhysPhantom = nullptr;
+
+		G4UImessenger* fLinacHeadMessenger;
 
 	};
 }
