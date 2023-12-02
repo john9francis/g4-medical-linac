@@ -27,6 +27,9 @@ namespace med_linac
         // set the directories
         G4UIdirectory* linacHeadDir = new G4UIdirectory("/linacHead/");
         linacHeadDir->SetGuidance("Move the linac head around");
+
+        // set the commands
+        G4UIcommand* testCommand = new G4UIcommand("/linacHead/test", fLinacHeadMessenger);
     
     }
 
