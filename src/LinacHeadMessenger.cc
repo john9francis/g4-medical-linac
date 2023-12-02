@@ -61,7 +61,7 @@ namespace med_linac {
 			false,
 			0);
 		*/
-
+		/*
 		// Step 1: get all the necessary parameters
 		auto linacHeadRotation = fPhysLinacHead->GetObjectRotationValue();
 		auto linacHeadPos = fPhysLinacHead->GetObjectTranslation();
@@ -98,8 +98,9 @@ namespace med_linac {
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
 		UI->ApplyCommand("/vis/viewer/rebuild");
+		*/
 
-		/*
+		
 		// get all the parameters that don't change
 		G4ThreeVector currentPos = fPhysLinacHead->GetObjectTranslation();
 		G4double x = currentPos.getX();
@@ -113,9 +114,9 @@ namespace med_linac {
 
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
-		UI->ApplyCommand("/vis/viewer/update");
+		UI->ApplyCommand("/vis/viewer/rebuild");
 
-		*/
+		
 	}
 
 
