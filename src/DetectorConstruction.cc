@@ -54,13 +54,24 @@ namespace med_linac
 
         auto boxWorld = new G4Box(
             "solidWorld",
-            worldSize / 2,
-            worldSize / 2,
+            worldSize,
+            worldSize,
             worldSize
         );
 
+        auto cylinderWorld = new G4Tubs(
+            "solidWorld",
+            0,
+            worldSize,
+            worldSize,
+            0,
+            2 * CLHEP::pi);
 
-        auto logicWorld = new G4LogicalVolume(boxWorld,
+        auto cylinderRotation = new G4RotationMatrix();
+        cylinderRotation->rotateZ(CLHEP::pi);
+
+        auto logicWorld = new G4LogicalVolume(
+            boxWorld,
             vacuum, 
             "logicWorld");
 
