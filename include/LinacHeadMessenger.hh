@@ -22,12 +22,13 @@ namespace med_linac {
 	private:
 		G4UIdirectory* fLinacHeadDir;
 		G4UIcmdWithoutParameter* fTestCommand;
-		G4UIcmdWithAnInteger* fLinacHeadAngle;
+		G4UIcmdWithADouble* fLinacHeadAngle;
 		G4UIcmdWithADouble* fLinacHeadY;
 
 		G4VPhysicalVolume* fPhysLinacHead = nullptr;
 
 		void ChangeLinacHeadY(G4double newY);
+		void ChangeLinacHeadAngle(G4double newTheta);
 		
 
 	};
