@@ -136,7 +136,7 @@ namespace med_linac {
 		G4cout 
 			<< "New linac head theta: " 
 			<< newTheta 
-			<< "or " 
+			<< " or " 
 			<< fPhysLinacHead->GetObjectRotationValue().getTheta() 
 			<< G4endl;
 
