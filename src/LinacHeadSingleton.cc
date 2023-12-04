@@ -16,6 +16,12 @@ namespace med_linac {
 	}
 
 	void LinacHeadSingleton::PrintHelloWorld() {
-		
+		G4cout << "Hello Linac Head Singleton World!" << G4endl;
+	}
+
+	void LinacHeadSingleton::DeleteSingleton() {
+		if (instance) {
+			delete instance;
+		}
 	}
 }

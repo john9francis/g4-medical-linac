@@ -6,6 +6,8 @@
 
 #include "G4LogicalVolume.hh"
 
+#include "LinacHeadSingleton.hh"
+
 namespace med_linac {
 	LinacHeadMessenger::LinacHeadMessenger() {
 
@@ -48,7 +50,11 @@ namespace med_linac {
 
 
 	void LinacHeadMessenger::ChangeLinacHeadAngle(G4double newTheta) {
-		G4cout << "Setting linac head y to " << newTheta << G4endl;
+		G4cout << "Setting linac head angle to " << newTheta << G4endl;
+
+		// testing the singleton
+		auto test = LinacHeadSingleton::GetInstance();
+		test->PrintHelloWorld();
 
 		if (fPhysLinacHead == nullptr) {
 			G4cout << "Error: Linac head not defined correctly" << G4endl;
