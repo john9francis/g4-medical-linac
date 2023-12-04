@@ -1,2 +1,3 @@
 /run/initialize
+/linacHead/setAngle 1
 /run/beamOn 10000000

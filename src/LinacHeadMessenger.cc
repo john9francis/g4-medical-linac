@@ -147,7 +147,8 @@ namespace med_linac {
 
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
-		UI->ApplyCommand("/vis/viewer/rebuild");
+		UI->ApplyCommand("/vis/geometry/restore");
+
 
 
 		UpdateLinacHeadSingleton();
@@ -179,7 +180,7 @@ namespace med_linac {
 
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
-		UI->ApplyCommand("/vis/viewer/rebuild");
+		UI->ApplyCommand("/vis/geometry/restore");
 
 
 		UpdateLinacHeadSingleton();
