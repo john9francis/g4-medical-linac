@@ -15,6 +15,8 @@ namespace med_linac {
 
 		G4ThreeVector _gunAnchorPosition;
 		G4RotationMatrix _gunAnchorRotation;
+		G4ThreeVector _linacHeadPosition;
+		G4RotationMatrix _linacHeadRotation;
 		
 
 	public:
@@ -27,6 +29,11 @@ namespace med_linac {
 		void SetGunAnchorRotation(G4RotationMatrix newRot) { _gunAnchorRotation = newRot; }
 		G4ThreeVector GetGunAnchorPosition() { return _gunAnchorPosition; }
 		G4RotationMatrix GetGunAnchorRotation() { return _gunAnchorRotation; }
+
+		void SetLinacHeadPosition(G4ThreeVector newPos) { _linacHeadPosition = newPos; }
+		void SetLinacHeadRotation(G4RotationMatrix newRot) { _linacHeadRotation = newRot; }
+		G4ThreeVector GetLinacHeadPosition() { return _linacHeadPosition; }
+		G4RotationMatrix GetLinacHeadRotation() { return _linacHeadRotation; }
 	};
 }
 

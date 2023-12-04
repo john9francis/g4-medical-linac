@@ -17,6 +17,8 @@
 
 #include "G4VisAttributes.hh"
 
+#include "LinacHeadSingleton.hh"
+
 namespace med_linac
 {
 
@@ -36,6 +38,9 @@ namespace med_linac
 
         // Get nist material manager
         G4NistManager* nist = G4NistManager::Instance();
+
+        // Get linac head singleton
+        LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
 
 
 		// Start with constructing the world:
@@ -126,6 +131,7 @@ namespace med_linac
 
         // Set our member variables for the gun anchors:
         fParticleGunAnchor1 = physAnchor1;
+        linacHeadSingleton->SetGunAnchorPosition(particleGunAnchor1Pos);
 
 
         // create our tungsten target

@@ -151,8 +151,9 @@ namespace med_linac {
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
 		UI->ApplyCommand("/vis/viewer/rebuild");
-		
 
+
+		UpdateLinacHeadSingleton();
 	}
 
 
@@ -183,11 +184,13 @@ namespace med_linac {
 		G4UImanager* UI = G4UImanager::GetUIpointer();
 		UI->ApplyCommand("/vis/viewer/rebuild");
 
+
+		UpdateLinacHeadSingleton();
 		
 	}
 
 
-	void LinacHeadMessenger::UpdateGunAnchorPos() {
+	void LinacHeadMessenger::UpdateLinacHeadSingleton() {
 		if (!fPhysLinacHead) {
 			G4cout 
 				<< "Linac head messenger error: "
@@ -197,6 +200,13 @@ namespace med_linac {
 
 			return;
 		}
+
+		// instantiate the singleton
+		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
+
+		// first set the linac head position and rotation
+		linacHeadSingleton->SetLinacHeadPosition(fPhysLinacHead->GetObjectTranslation());
+		linacHeadSingleton->SetLinacHeadRotation(fPhysLinacHead->GetObjectRotationValue());
 
 		G4LogicalVolume* logLinacHead = fPhysLinacHead->GetLogicalVolume();
 		G4VPhysicalVolume* gunAnchor = nullptr;
@@ -215,9 +225,14 @@ namespace med_linac {
 				<< "Linac head messenger error: "
 				<< "Particle gun anchor not found as a child of the linac head."
 				<< G4endl;
+
+			return;
 		}
 
-		// return gunAnchor
+		// now set the position and rotation to the singleton
+		linacHeadSingleton->SetGunAnchorPosition(gunAnchor->GetObjectTranslation());
+		linacHeadSingleton->SetGunAnchorRotation(gunAnchor->GetObjectRotationValue());
+
 	}
 
 
