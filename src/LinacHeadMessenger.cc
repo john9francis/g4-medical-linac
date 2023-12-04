@@ -4,6 +4,8 @@
 
 #include "G4UnitsTable.hh"
 
+#include "G4LogicalVolume.hh"
+
 namespace med_linac {
 	LinacHeadMessenger::LinacHeadMessenger() {
 
@@ -176,6 +178,40 @@ namespace med_linac {
 		UI->ApplyCommand("/vis/viewer/rebuild");
 
 		
+	}
+
+
+	void LinacHeadMessenger::UpdateGunAnchorPos() {
+		if (!fPhysLinacHead) {
+			G4cout 
+				<< "Linac head messenger error: "
+				<< "Tried to update gun anchor position, " 
+				<< "but linac head was not found." 
+				<< G4endl;
+
+			return;
+		}
+
+		G4LogicalVolume* logLinacHead = fPhysLinacHead->GetLogicalVolume();
+		G4VPhysicalVolume* gunAnchor = nullptr;
+
+		for (int i = 0; i < logLinacHead->GetNoDaughters(); i++) {
+
+			G4VPhysicalVolume* physDaughter = logLinacHead->GetDaughter(i);
+
+			if (physDaughter->GetName() == "physParticleGunAnchor1") {
+				gunAnchor = physDaughter;
+			}
+		}
+
+		if (gunAnchor == nullptr) {
+			G4cout
+				<< "Linac head messenger error: "
+				<< "Particle gun anchor not found as a child of the linac head."
+				<< G4endl;
+		}
+
+		// return gunAnchor
 	}
 
 

@@ -29,6 +29,7 @@ namespace med_linac {
 
 		void ChangeLinacHeadY(G4double newY);
 		void ChangeLinacHeadAngle(G4double newTheta);
+		void UpdateGunAnchorPos();
 		
 
 	};
