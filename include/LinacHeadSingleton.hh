@@ -34,6 +34,14 @@ namespace med_linac {
 		void SetLinacHeadRotation(G4RotationMatrix newRot) { _linacHeadRotation = newRot; }
 		G4ThreeVector GetLinacHeadPosition() { return _linacHeadPosition; }
 		G4RotationMatrix GetLinacHeadRotation() { return _linacHeadRotation; }
+
+		// constructors for heap variables
+		/*
+		void SetGunAnchorPosition(G4ThreeVector* newPos);
+		void SetGunAnchorRotation(G4RotationMatrix* newRot);
+		void SetLinacHeadPosition(G4ThreeVector* newPos);
+		void SetLinacHeadRotation(G4RotationMatrix* newRot);
+		*/
 	};
 }
 

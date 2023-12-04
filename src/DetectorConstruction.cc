@@ -106,6 +106,14 @@ namespace med_linac
         fPhysLinacHead = physHead;
         fLinacHeadMessenger->SetLinacHeadPointer(physHead);
 
+        // update the singleton
+        linacHeadSingleton->SetLinacHeadPosition(linacHeadPos);
+
+        // have to define a rotation matrix on the stack, because I havent set up constructors yet
+        // to convert heap variables to stack variables.
+        G4RotationMatrix stackLinacHeadRot = G4RotationMatrix(headPhi, headTheta, headPsi);
+        linacHeadSingleton->SetLinacHeadRotation(stackLinacHeadRot);
+
 
         // create a place for the particle gun to shoot from
         G4double particleGunAnchorThickness = 1 * mm;
@@ -131,7 +139,10 @@ namespace med_linac
 
         // Set our member variables for the gun anchors:
         fParticleGunAnchor1 = physAnchor1;
+
+        // update the linac head singleton
         linacHeadSingleton->SetGunAnchorPosition(particleGunAnchor1Pos);
+        linacHeadSingleton->SetGunAnchorRotation(G4RotationMatrix());
 
 
         // create our tungsten target
