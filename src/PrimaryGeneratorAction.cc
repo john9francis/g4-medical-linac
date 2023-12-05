@@ -45,35 +45,24 @@ namespace med_linac
 
 	void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 	{
-		// First, find the particle gun anchors
-
-		// access runManager singleton
-		//auto* runManager = G4RunManager::GetRunManager();
-
-
-		// find our detectorConstruction in the runmanager
-		//const auto* detConstruction = static_cast<const DetectorConstruction*>(
-		//	runManager->GetUserDetectorConstruction());
-
 		// access linac head singleton
 		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
 
-		// get the position of the linac head and gun anchor
-		//auto* linacHead = detConstruction->GetLinacHead();
-		//auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
 
 		//auto* linacHeadRotation = linacHead->GetObjectRotation();
-		G4RotationMatrix linacHeadRotation = linacHeadSingleton->GetLinacHeadRotation();
-		G4double phi = linacHeadRotation.getPhi();
-		G4double theta = linacHeadRotation.getTheta();
-		G4double psi = linacHeadRotation.getPsi();
+		G4RotationMatrix* linacHeadRotation = linacHeadSingleton->GetLinacHeadRotation();
+		G4double phi = linacHeadRotation->getPhi();
+		G4double theta = linacHeadRotation->getTheta();
+		G4double psi = linacHeadRotation->getPsi();
 
-		G4ThreeVector linacHeadPos = linacHeadSingleton->GetLinacHeadPosition();
+		G4ThreeVector* linacHeadPos = linacHeadSingleton->GetLinacHeadPosition();
+
 		//G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
-		G4ThreeVector gunAnchorPos = linacHeadSingleton->GetGunAnchorPosition().rotate(phi, theta, psi);
+		G4ThreeVector* gunAnchorPos = linacHeadSingleton->GetGunAnchorPosition();
+		gunAnchorPos->rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
-		G4ThreeVector absoluteGunPos = gunAnchorPos + linacHeadPos;
+		G4ThreeVector absoluteGunPos = *gunAnchorPos + *linacHeadPos;
 
 
 		// set the particle gun's position to the anchor
