@@ -200,9 +200,10 @@ namespace med_linac {
 		// instantiate the singleton
 		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
 
-		// first set the linac head position and rotation
-		linacHeadSingleton->SetLinacHeadPosition(fPhysLinacHead->GetObjectTranslation());
-		linacHeadSingleton->SetLinacHeadRotation(fPhysLinacHead->GetObjectRotationValue());
+
+		// first set the linac head
+		linacHeadSingleton->SetPhysLinacHead(fPhysLinacHead);
+
 
 		G4LogicalVolume* logLinacHead = fPhysLinacHead->GetLogicalVolume();
 		G4VPhysicalVolume* gunAnchor = nullptr;
@@ -225,9 +226,9 @@ namespace med_linac {
 			return;
 		}
 
-		// now set the position and rotation to the singleton
-		linacHeadSingleton->SetGunAnchorPosition(gunAnchor->GetObjectTranslation());
-		linacHeadSingleton->SetGunAnchorRotation(gunAnchor->GetObjectRotationValue());
+
+		// now set the gun anchor to linac head singleton
+		linacHeadSingleton->SetPhysGunAnchor(gunAnchor);
 
 	}
 

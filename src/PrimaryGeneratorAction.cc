@@ -48,16 +48,19 @@ namespace med_linac
 		// First, find the particle gun anchors
 
 		// access runManager singleton
-		auto* runManager = G4RunManager::GetRunManager();
+		//auto* runManager = G4RunManager::GetRunManager();
 
 		// find our detectorConstruction in the runmanager
-		const auto* detConstruction = static_cast<const DetectorConstruction*>(
-			runManager->GetUserDetectorConstruction());
+		//const auto* detConstruction = static_cast<const DetectorConstruction*>(
+		//	runManager->GetUserDetectorConstruction());
 
+
+		// get our linac head singleton which has the linac head and gun anchor
+		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
 
 		// get the position of the linac head and gun anchors
-		auto* linacHead = detConstruction->GetLinacHead();
-		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
+		auto* linacHead = linacHeadSingleton->GetPhysLinacHead();
+		auto* gunAnchor1 = linacHeadSingleton->GetPhysGunAnchor();
 
 		auto* linacHeadRotation = linacHead->GetObjectRotation();
 		auto phi = linacHeadRotation->getPhi();

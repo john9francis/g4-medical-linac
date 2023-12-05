@@ -4,6 +4,7 @@
 #include "globals.hh"
 #include "G4ThreeVector.hh"
 #include "G4RotationMatrix.hh"
+#include "G4PVPlacement.hh"
 
 
 namespace med_linac {
@@ -17,6 +18,9 @@ namespace med_linac {
 		G4RotationMatrix* _gunAnchorRotation;
 		G4ThreeVector* _linacHeadPosition;
 		G4RotationMatrix* _linacHeadRotation;
+
+		G4VPhysicalVolume* _physLinacHead;
+		G4VPhysicalVolume* _physGunAnchor;
 		
 
 	public:
@@ -41,6 +45,15 @@ namespace med_linac {
 		void SetLinacHeadRotation(G4RotationMatrix stackRot);
 		void SetGunAnchorPosition(G4ThreeVector stackPos);
 		void SetGunAnchorRotation(G4RotationMatrix stackRot);
+
+
+		// getters and setters for the physical volumes
+
+		void SetPhysLinacHead(G4VPhysicalVolume* physLinacHead) { _physLinacHead = physLinacHead; }
+		void SetPhysGunAnchor(G4VPhysicalVolume* physGunAnchor) { _physGunAnchor = physGunAnchor; }
+
+		G4VPhysicalVolume* GetPhysLinacHead() { return _physLinacHead; }
+		G4VPhysicalVolume* GetPhysGunAnchor() { return _physGunAnchor; }
 		
 	};
 }
