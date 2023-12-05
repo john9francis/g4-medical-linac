@@ -26,3 +26,4 @@
 #
 # Superimpose all of the events from a given run:
 /vis/scene/endOfEventAction accumulate
+/vis/scene/endOfRunAction refresh

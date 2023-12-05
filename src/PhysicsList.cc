@@ -11,7 +11,7 @@ namespace med_linac
 		RegisterPhysics(new G4EmStandardPhysics());
 
 		// DNA physics for the interactions with G4_Water (see http://geant4-dna.org/)
-		RegisterPhysics(new G4EmDNAPhysics_option2());
+		//RegisterPhysics(new G4EmDNAPhysics_option2());
 
 	}
 
