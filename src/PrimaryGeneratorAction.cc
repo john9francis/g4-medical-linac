@@ -45,24 +45,30 @@ namespace med_linac
 
 	void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 	{
-		// access linac head singleton
-		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
+		// First, find the particle gun anchors
+
+		// access runManager singleton
+		auto* runManager = G4RunManager::GetRunManager();
+
+		// find our detectorConstruction in the runmanager
+		const auto* detConstruction = static_cast<const DetectorConstruction*>(
+			runManager->GetUserDetectorConstruction());
 
 
-		//auto* linacHeadRotation = linacHead->GetObjectRotation();
-		G4RotationMatrix* linacHeadRotation = linacHeadSingleton->GetLinacHeadRotation();
-		G4double phi = linacHeadRotation->getPhi();
-		G4double theta = linacHeadRotation->getTheta();
-		G4double psi = linacHeadRotation->getPsi();
+		// get the position of the linac head and gun anchors
+		auto* linacHead = detConstruction->GetLinacHead();
+		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
 
-		G4ThreeVector* linacHeadPos = linacHeadSingleton->GetLinacHeadPosition();
+		auto* linacHeadRotation = linacHead->GetObjectRotation();
+		auto phi = linacHeadRotation->getPhi();
+		auto theta = linacHeadRotation->getTheta();
+		auto psi = linacHeadRotation->getPsi();
 
-		//G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
-		G4ThreeVector* gunAnchorPos = linacHeadSingleton->GetGunAnchorPosition();
-		gunAnchorPos->rotate(phi, theta, psi);
+		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
+		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
-		G4ThreeVector absoluteGunPos = *gunAnchorPos + *linacHeadPos;
+		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
 
 
 		// set the particle gun's position to the anchor
@@ -70,7 +76,7 @@ namespace med_linac
 
 
 		// Now we set the particle's momentum direction based on the gun's rotation
-		auto baseVector = G4ThreeVector(0,0,1);
+		auto baseVector = G4ThreeVector(0, 0, 1);
 		G4ThreeVector momentumDirection = baseVector.rotate(phi, theta, psi);
 
 		fParticleGun->SetParticleMomentumDirection(momentumDirection);
