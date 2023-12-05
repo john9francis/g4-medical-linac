@@ -147,7 +147,8 @@ namespace med_linac {
 
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
-		UI->ApplyCommand("/control/execute vis.mac");
+		UI->ApplyCommand("/run/beamOn 0");
+		UI->ApplyCommand("/vis/viewer/rebuild");
 
 
 		UpdateLinacHeadSingleton();
@@ -179,7 +180,8 @@ namespace med_linac {
 
 		// Update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
-		UI->ApplyCommand("/control/execute vis.mac");
+		UI->ApplyCommand("/run/beamOn 0");
+		UI->ApplyCommand("/vis/viewer/rebuild");
 
 		UpdateLinacHeadSingleton();
 		
