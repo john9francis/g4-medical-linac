@@ -19,8 +19,8 @@ namespace med_linac {
 		G4ThreeVector* _linacHeadPosition;
 		G4RotationMatrix* _linacHeadRotation;
 
-		G4VPhysicalVolume* _physLinacHead;
-		G4VPhysicalVolume* _physGunAnchor;
+		G4VPhysicalVolume* _physLinacHead = nullptr;
+		G4VPhysicalVolume* _physGunAnchor = nullptr;
 		
 
 	public:
