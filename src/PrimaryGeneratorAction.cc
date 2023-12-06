@@ -68,7 +68,8 @@ namespace med_linac
 		auto psi = 0;
 
 		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
-		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
+		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation();
+		gunAnchor1Pos.rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
 		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
