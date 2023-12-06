@@ -1,4 +1,11 @@
 # Warning: I wouldn't recommend running this with visualization
+#
+# Open an output file specifically for this run
+#
+/analysis/openFile rotatingLinacHead
+#
+# Now rotate the linac head 2Pi all the way around
+#
 /linacHead/setAngle .2
 /run/beamOn 10000
 /linacHead/setAngle .4
@@ -61,4 +68,7 @@
 /run/beamOn 10000
 /linacHead/setAngle 6.2
 /run/beamOn 10000
+#
+/analysis/write
+/analysis/closeFile
 
