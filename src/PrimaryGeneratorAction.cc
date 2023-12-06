@@ -64,7 +64,7 @@ namespace med_linac
 
 		auto* linacHeadRotation = linacHead->GetObjectRotation();
 		auto phi = 0; // because we only rotate theta. 
-		auto theta = linacHeadRotation->getTheta();
+		auto theta = -linacHeadRotation->getTheta();
 		auto psi = 0;
 
 		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
