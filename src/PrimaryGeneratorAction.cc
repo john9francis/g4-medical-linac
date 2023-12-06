@@ -80,7 +80,7 @@ namespace med_linac
 
 
 		// Now we set the particle's momentum direction based on the gun's rotation
-		auto baseVector = G4ThreeVector(0, 0, 1);
+		auto baseVector = G4ThreeVector(0, 0, -1);
 		G4ThreeVector momentumDirection = baseVector.rotate(phi, theta, psi);
 
 		fParticleGun->SetParticleMomentumDirection(momentumDirection);

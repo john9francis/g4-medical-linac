@@ -101,6 +101,11 @@ namespace med_linac {
 		auto theta = linacHeadRotation.getTheta();
 		auto psi = linacHeadRotation.getPsi();
 		
+		// make sure theta is positive
+		G4double newLinacHeadTheta = CLHEP::pi - newTheta;
+		if (newLinacHeadTheta < 0) {
+
+		}
 
 
 		G4RotationMatrix* newRot = new G4RotationMatrix(0, CLHEP::pi -newTheta, 0);
