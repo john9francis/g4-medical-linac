@@ -101,19 +101,14 @@ namespace med_linac {
 		auto theta = linacHeadRotation.getTheta();
 		auto psi = linacHeadRotation.getPsi();
 		
-		// make sure theta is positive
-		G4double newLinacHeadTheta = CLHEP::pi - newTheta;
-		if (newLinacHeadTheta < 0) {
-
-		}
 
 
-		G4RotationMatrix* newRot = new G4RotationMatrix(0, CLHEP::pi -newTheta, 0);
+		G4RotationMatrix* newRot = new G4RotationMatrix(0, newTheta, 0);
 
 		// set the new x and y to correspond
 		G4double radius = linacHeadPos.mag();
 		G4double newX = linacHeadPos.getX();
-		G4double newY = radius * sin(newTheta);
+		G4double newY = -radius * sin(newTheta);
 		G4double newZ = radius * cos(newTheta);
 		G4ThreeVector newPos = G4ThreeVector(newX, newY, newZ);
 
@@ -134,7 +129,7 @@ namespace med_linac {
 
 		G4cout 
 			<< "New linac head theta: " 
-			<< CLHEP::pi - newTheta 
+			<< newTheta 
 			<< " or " 
 			<< fPhysLinacHead->GetObjectRotationValue().getTheta() 
 			<< G4endl;
