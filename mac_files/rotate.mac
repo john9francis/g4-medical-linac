@@ -1,73 +1,76 @@
 # Warning: I wouldn't recommend running this with visualization
 #
+# first, initialize the run
+/run/initialize
+#
 # Open an output file specifically for this run
 #
-/analysis/openFile rotatingLinacHead
+/analysis/openFile rotatingLinacHead.root
 #
 # Now rotate the linac head 2Pi all the way around
 #
 /linacHead/setAngle .2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle .4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle .6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle .8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 1
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 1.2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 1.4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 1.6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 1.8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 2.2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 2.4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 2.6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 2.8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 3
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 3.2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 3.4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 3.6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 3.8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 4.2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 4.4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 4.6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 4.8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 5
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 5.2
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 5.4
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 5.6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 5.8
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 6
-/run/beamOn 10000
+/run/beamOn 1000
 /linacHead/setAngle 6.2
-/run/beamOn 10000
+/run/beamOn 1000
 #
 /analysis/write
 /analysis/closeFile

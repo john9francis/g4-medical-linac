@@ -63,9 +63,9 @@ namespace med_linac
 		auto* gunAnchor1 = linacHeadSingleton->GetPhysGunAnchor();
 
 		auto* linacHeadRotation = linacHead->GetObjectRotation();
-		auto phi = linacHeadRotation->getPhi();
+		auto phi = 0; // because we only rotate theta. 
 		auto theta = linacHeadRotation->getTheta();
-		auto psi = linacHeadRotation->getPsi();
+		auto psi = 0;
 
 		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
 		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);

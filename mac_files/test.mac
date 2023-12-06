@@ -1,0 +1,5 @@
+/run/initialize
+/linacHead/setAngle 2
+/run/beamOn 100
+/linacHead/setAngle 4
+/run/beamOn 100
