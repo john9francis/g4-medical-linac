@@ -43,7 +43,7 @@ namespace med_linac {
 		hit->SetEnergy(particleEnergy);
 		hit->SetPos(particlePos);
 
-		fRunAction->AddToHitsCollection(hit);
+		//fRunAction->AddToHitsCollection(hit);
 
 
 		// add hits to the heat map

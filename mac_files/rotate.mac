@@ -3,75 +3,87 @@
 # first, initialize the run
 /run/initialize
 #
+# Create our h2's for energy
+/analysis/h2/create eDepXY eDepXY
+/analysis/h2/create eDepXZ eDepXZ
+#
+# Set parameters per dimension
+#
+/analysis/h2/setX 0 100 -150 150
+/analysis/h2/setY 0 100 -150 150
+/analysis/h2/setX 1 100 -150 150
+/analysis/h2/setY 1 100 -150 150
+#
 # Open an output file specifically for this run
 #
-/analysis/openFile rotatingLinacHead.root
+/analysis/setFileName rotatingLinacHead
+/analysis/openFile rotatingLinacHead
 #
 # Now rotate the linac head 2Pi all the way around
 #
 /linacHead/setAngle .2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle .4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle .6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle .8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 1
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 1.2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 1.4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 1.6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 1.8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 2.2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 2.4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 2.6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 2.8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 3
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 3.2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 3.4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 3.6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 3.8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 4.2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 4.4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 4.6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 4.8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 5
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 5.2
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 5.4
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 5.6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 5.8
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 6
-/run/beamOn 100
+/run/beamOn 500
 /linacHead/setAngle 6.2
-/run/beamOn 100
+/run/beamOn 500
 #
-/analysis/write
+/analysis/write rotatingLinacHead
 /analysis/closeFile
 
