@@ -96,30 +96,19 @@ namespace med_linac {
 
 		G4cout << "Old linac head theta: " << linacHeadRotation.getTheta() << G4endl;
 
-		/*
-		// Get the new rotation matrix
-		auto theta = linacHeadRotation.getTheta();
-		auto phi = linacHeadRotation.getPhi();
-		auto psi = linacHeadRotation.getPsi();
-		//G4RotationMatrix* newRot = new G4RotationMatrix();
-		//newRot->rotateX(newTheta);
-		//newRot->rotateY(phi);
-		//newRot->rotateZ(psi);
-
-		G4RotationMatrix* newRot = new G4RotationMatrix(phi, newTheta, psi);
-		*/
-
 		// Create our new rotation matrix (NOTE: it needs to be on the heap)
 		auto phi = linacHeadRotation.getPhi();
 		auto theta = linacHeadRotation.getTheta();
 		auto psi = linacHeadRotation.getPsi();
+		
 
-		G4RotationMatrix* newRot = new G4RotationMatrix(0, CLHEP::pi -newTheta, 0);
+
+		G4RotationMatrix* newRot = new G4RotationMatrix(0, newTheta, 0);
 
 		// set the new x and y to correspond
 		G4double radius = linacHeadPos.mag();
 		G4double newX = linacHeadPos.getX();
-		G4double newY = radius * sin(newTheta);
+		G4double newY = -radius * sin(newTheta);
 		G4double newZ = radius * cos(newTheta);
 		G4ThreeVector newPos = G4ThreeVector(newX, newY, newZ);
 

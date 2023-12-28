@@ -64,11 +64,12 @@ namespace med_linac
 
 		auto* linacHeadRotation = linacHead->GetObjectRotation();
 		auto phi = 0; // because we only rotate theta. 
-		auto theta = linacHeadRotation->getTheta();
+		auto theta = -linacHeadRotation->getTheta();
 		auto psi = 0;
 
 		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
-		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
+		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation();
+		gunAnchor1Pos.rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
 		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
@@ -79,7 +80,7 @@ namespace med_linac
 
 
 		// Now we set the particle's momentum direction based on the gun's rotation
-		auto baseVector = G4ThreeVector(0, 0, 1);
+		auto baseVector = G4ThreeVector(0, 0, -1);
 		G4ThreeVector momentumDirection = baseVector.rotate(phi, theta, psi);
 
 		fParticleGun->SetParticleMomentumDirection(momentumDirection);

@@ -21,6 +21,8 @@ namespace med_linac {
 
 		G4VPhysicalVolume* _physLinacHead = nullptr;
 		G4VPhysicalVolume* _physGunAnchor = nullptr;
+
+		G4double* _theta = nullptr;
 		
 
 	public:
@@ -29,6 +31,11 @@ namespace med_linac {
 		void DeleteSingleton();
 
 		// getters and setters
+
+		void SetTheta(G4double* theta) { _theta = theta; }
+		G4double* GetTheta() { return _theta; }
+
+
 		void SetGunAnchorPosition(G4ThreeVector* newPos) { _gunAnchorPosition = newPos; }
 		void SetGunAnchorRotation(G4RotationMatrix* newRot) { _gunAnchorRotation = newRot; }
 		G4ThreeVector* GetGunAnchorPosition() { return _gunAnchorPosition; }

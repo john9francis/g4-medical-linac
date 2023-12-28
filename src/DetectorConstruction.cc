@@ -84,7 +84,7 @@ namespace med_linac
         G4double linacHeadThicknessXY = 25 * cm;
         G4double linacHeadThicknessZ = 25 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, -1 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, 1 * m);
 
         G4double headPhi = 0;
         G4double headTheta = 0;
@@ -118,7 +118,7 @@ namespace med_linac
             particleGunAnchorThickness, 
             particleGunAnchorThickness);
 
-        G4double particleGunAnchor1Z = -linacHeadThicknessZ + 10 * cm;
+        G4double particleGunAnchor1Z = linacHeadThicknessZ - 10 * cm;
         G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, particleGunAnchor1Z);
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
@@ -158,7 +158,7 @@ namespace med_linac
             "Target");
 
         // target position and rotation
-        G4double targetZ = particleGunAnchor1Z + 5 * cm;
+        G4double targetZ = particleGunAnchor1Z - 5 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
@@ -192,7 +192,7 @@ namespace med_linac
             "Absorber");
 
         // absorber position and rotation
-        G4double absorberZ = targetPos.getZ() + (absorberThickness / 2);
+        G4double absorberZ = targetZ - (absorberThickness / 2);
         G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
         G4RotationMatrix* absorberRot = new G4RotationMatrix();
 
@@ -225,8 +225,8 @@ namespace med_linac
         // collimator position and rotation
         G4double colZ =
             absorberZ
-            + (absorberThickness / 2)
-            + (colThickness / 2);
+            - (absorberThickness / 2)
+            - (colThickness / 2);
 
         G4ThreeVector colPos = G4ThreeVector(0, 0, colZ);
 
@@ -245,7 +245,7 @@ namespace med_linac
         // Create a half hollow lead semi-sphere around the backside
         G4Material* lead = nist->FindOrBuildMaterial("G4_Pb");
         G4RotationMatrix* protectorRotation = new G4RotationMatrix();
-        protectorRotation->rotateX(90. * deg);
+        protectorRotation->rotateX(270. * deg);
 
         G4double protectorThickness = 6 * cm;
 
@@ -275,17 +275,6 @@ namespace med_linac
             0
         );
 
-
-
-        // create our dose detector
-        G4double ddThicknessXY = 15 * cm;
-        G4double ddThicknessZ = 1 * nm;
-        G4double ddZ = colZ + (colThickness / 2) + (ddThicknessZ / 2) + 5 * cm;
-        G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
-
-        G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
-        G4LogicalVolume* logicDoseDetector = new G4LogicalVolume(solidDoseDetector, vacuum, "logicDD");
-        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
 
 
 

@@ -19,8 +19,11 @@
 namespace med_linac {
 	RunAction::RunAction() {
 		// Create our PDD output file:
+		
 		auto analysisManager = G4AnalysisManager::Instance();
-		G4String pddFileName = "PDD_Graph.root";
+		analysisManager->SetDefaultFileType("root");
+		/*
+		G4String pddFileName = "PDD_Graph";
 		analysisManager->SetFileName(pddFileName);
 
 		// Create our PDD 1d histogram
@@ -40,7 +43,7 @@ namespace med_linac {
 			"Energy Deposited",
 			50, -150, 150, 50, -150, 150);
 
-
+		*/
 		// initialize our variables:
 		fRunHitsCollection = new PhantomHitsCollection("Phantom", "PhantomHitsCollection");
 		fTotalRunEnergy = 0.;
@@ -56,7 +59,7 @@ namespace med_linac {
 		fTimer.Start();
 
 		auto analysisManager = G4AnalysisManager::Instance();
-		analysisManager->OpenFile();
+		//analysisManager->OpenFile();
 
 		// reset our variables
 		for (G4int i = 0; i < fRunHitsCollection->GetSize(); i++) {
@@ -78,7 +81,7 @@ namespace med_linac {
 			G4cout << "Generating PDD Graph..." << G4endl;
 		}
 
-		GeneratePDDGraph();
+		//GeneratePDDGraph();
 
 		if (IsMaster()) {
 			G4cout << "Finished Generating PDD Graph" << G4endl;
@@ -97,7 +100,7 @@ namespace med_linac {
 
 		// write to our analysis file
 		analysisManager->Write();
-		analysisManager->CloseFile();
+		//analysisManager->CloseFile();
 	}
 
 	void RunAction::PrintTime() {
