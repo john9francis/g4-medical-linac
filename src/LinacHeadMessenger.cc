@@ -1,5 +1,7 @@
 #include "LinacHeadMessenger.hh"
 
+#include "G4UImanager.hh"
+
 namespace med_linac {
 	LinacHeadMessenger::LinacHeadMessenger(DetectorConstruction* detectorConstruction)
 		: G4UImessenger(), fDetectorConstruction(detectorConstruction) {
@@ -18,5 +20,9 @@ namespace med_linac {
 		if (command == fAngleCmd) {
 			fDetectorConstruction->SetLinacHeadAngle(fAngleCmd->GetNewDoubleValue(newValue));
 		}
+
+		// update the viewport
+		G4UImanager* UI = G4UImanager::GetUIpointer();
+		UI->ApplyCommand("/vis/viewer/rebuild");
 	}
 }
