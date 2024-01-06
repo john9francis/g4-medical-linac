@@ -246,4 +246,11 @@ namespace med_linac
         return physWorld;
     }
 
+    void DetectorConstruction::SetLinacHeadAngle(G4double phi) {
+        // we're going to get the linac head and rotate it based on that angle. 
+        G4RotationMatrix* newRot = new G4RotationMatrix(phi, 0.0, 0.0);
+        
+        fLinacHead->SetRotation(newRot);
+    }
+
 }

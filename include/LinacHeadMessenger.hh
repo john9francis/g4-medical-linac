@@ -10,16 +10,18 @@ namespace med_linac {
 	class LinacHeadMessenger : public G4UImessenger {
 	public:
 		LinacHeadMessenger(DetectorConstruction* detectorConstruction);
-		~LinacHeadMessenger();
+		//~LinacHeadMessenger();
 
 		void SetNewValue(G4UIcommand* command, G4String newValues);
-		G4String GetCurrentValue(G4UIcommand* command);
+		//G4String GetCurrentValue(G4UIcommand* command);
 
 	
 	private:
 		DetectorConstruction* fDetectorConstruction;
 
-		G4UIcmdWithADoubleAndUnit* fLinacHeadAngle;
+		G4UIdirectory* fDirectory;
+
+		G4UIcmdWithADoubleAndUnit* fAngleCmd;
 	};
 
 

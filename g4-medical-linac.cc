@@ -9,6 +9,7 @@
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
+#include "LinacHeadMessenger.hh"
 
 #include "ActionInit.hh"
 
@@ -39,7 +40,8 @@ int main(int argc, char** argv)
 	
 	// set 3 required initialization classes
 	runManager->SetUserInitialization(new PhysicsList());
-	runManager->SetUserInitialization(new DetectorConstruction());
+	auto detConstruction = new DetectorConstruction();
+	runManager->SetUserInitialization(detConstruction);
 	runManager->SetUserInitialization(new ActionInit());
 
 	// ======================================================================
@@ -55,6 +57,9 @@ int main(int argc, char** argv)
 	
 	CLHEP::HepRandom::setTheSeed(seed);
 	G4Random::setTheSeed(seed);
+
+	// our messengers
+	auto linacHeadMessenger = new LinacHeadMessenger(detConstruction);
 
 	// START UI =============================================================
 
