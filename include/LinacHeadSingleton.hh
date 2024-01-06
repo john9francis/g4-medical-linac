@@ -21,10 +21,10 @@ namespace med_linac {
 	public:
 		static LinacHeadSingleton* GetInstance();
 
-		G4ThreeVector* GetGunPosition();
-		G4ThreeVector* GetParticleMomentumDirection();
-		void SetGunPosition(G4ThreeVector* pos);
-		void SetParticleMomentumDirection(G4ThreeVector* dir);
+		G4ThreeVector GetGunPosition() { return *gunPosition; }
+		G4ThreeVector GetParticleMomentumDirection() { return *particleMomentumDirection; }
+		void SetGunPosition(G4ThreeVector& pos) { *gunPosition = pos; }
+		void SetParticleMomentumDirection(G4ThreeVector& dir) { *particleMomentumDirection = dir; }
 		
 	};
 }

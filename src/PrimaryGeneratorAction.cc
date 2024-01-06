@@ -64,17 +64,12 @@ namespace med_linac
 		auto psi = 0;
 
 
-		// now we get the position of the gun anchor relative to the world
-
-
 		// set the particle gun's position to the anchor
-		fParticleGun->SetParticlePosition(G4ThreeVector());
+		fParticleGun->SetParticlePosition(linacHeadSingleton->GetGunPosition());
 
 
 		// Now we set the particle's momentum direction based on the gun's rotation
-		auto baseVector = G4ThreeVector(0, 0, -1);
-
-		fParticleGun->SetParticleMomentumDirection(baseVector);
+		fParticleGun->SetParticleMomentumDirection(linacHeadSingleton->GetParticleMomentumDirection());
 
 		// satisfy "generate primaries" here.
 		fParticleGun->GeneratePrimaryVertex(event);

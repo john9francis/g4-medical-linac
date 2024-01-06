@@ -293,8 +293,25 @@ namespace med_linac
         logicPhantom->SetVisAttributes(phantomVA);
 
         // set our member variable so we can get this in stepping action
+        // NOTE: Switch this to a SD!
         fLogicPhantom = logicPhantom;
         fPhysPhantom = physPhantom;
+
+
+
+        // finally, put the position of the gun anchor in our linac head singleton, and 
+        // put the momentum direction.
+        auto linacHeadSingleton = LinacHeadSingleton::GetInstance();
+
+        // first, the position of the gun anchor
+        // note: consider adding a utilities class to get an objects absolute position in the world.
+        auto linacHeadPosition = fPhysLinacHead->GetObjectTranslation();
+        auto gunAnchorPosition = fParticleGunAnchor1->GetObjectTranslation();
+        auto absoluteGunAnchorPos = linacHeadPosition + gunAnchorPosition;
+
+        linacHeadSingleton->SetGunPosition(absoluteGunAnchorPos);
+        auto momentumDirection = G4ThreeVector(0, 0, -1); //NOTE: this shouldn't be hardcoded... figure that out later.
+        linacHeadSingleton->SetParticleMomentumDirection(momentumDirection);
         
 
         // finish by returning the world
