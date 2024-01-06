@@ -19,7 +19,7 @@ namespace med_linac
 		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
 
 		// for detectormessenger
-		void SetLinacHeadAngle(G4double phi);
+		void SetLinacHeadAngle(G4ThreeVector phiThetaPsi);
 
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;

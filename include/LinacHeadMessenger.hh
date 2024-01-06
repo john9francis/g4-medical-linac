@@ -3,6 +3,7 @@
 
 #include "G4UImessenger.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWith3VectorAndUnit.hh"
 
 #include "DetectorConstruction.hh"
 
@@ -21,7 +22,7 @@ namespace med_linac {
 
 		G4UIdirectory* fDirectory;
 
-		G4UIcmdWithADoubleAndUnit* fAngleCmd;
+		G4UIcmdWith3VectorAndUnit* fAngleCmd;
 	};
 
 
