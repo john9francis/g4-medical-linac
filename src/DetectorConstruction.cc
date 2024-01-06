@@ -39,9 +39,6 @@ namespace med_linac
         // Get nist material manager
         G4NistManager* nist = G4NistManager::Instance();
 
-        // Get linac head singleton
-        LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
-
 
 		// Start with constructing the world:
         G4double worldSize = 1.5 * m;
@@ -106,9 +103,6 @@ namespace med_linac
         fPhysLinacHead = physHead;
         fLinacHeadMessenger->SetLinacHeadPointer(physHead);
 
-        // update the singleton
-        linacHeadSingleton->SetPhysLinacHead(physHead);
-
 
         // create a place for the particle gun to shoot from
         G4double particleGunAnchorThickness = 1 * mm;
@@ -134,9 +128,6 @@ namespace med_linac
 
         // Set our member variables for the gun anchors:
         fParticleGunAnchor1 = physAnchor1;
-
-        // update the linac head singleton
-        linacHeadSingleton->SetPhysGunAnchor(physAnchor1);
 
 
         // create our tungsten target

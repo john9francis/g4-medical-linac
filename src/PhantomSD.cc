@@ -60,7 +60,7 @@ namespace med_linac {
 				G4double graphY = hitPos.getZ();
 				G4double energy = hit->GetEnergy();
 
-				analysisManager->FillH1(pddH1ID, hitPos.getZ(), energy);
+				//analysisManager->FillH1(pddH1ID, hitPos.getZ(), energy);
 			}
 		}
 

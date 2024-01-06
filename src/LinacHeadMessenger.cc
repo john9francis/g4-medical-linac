@@ -192,9 +192,6 @@ namespace med_linac {
 		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
 
 
-		// first set the linac head
-		linacHeadSingleton->SetPhysLinacHead(fPhysLinacHead);
-
 
 		G4LogicalVolume* logLinacHead = fPhysLinacHead->GetLogicalVolume();
 		G4VPhysicalVolume* gunAnchor = nullptr;
@@ -217,9 +214,6 @@ namespace med_linac {
 			return;
 		}
 
-
-		// now set the gun anchor to linac head singleton
-		linacHeadSingleton->SetPhysGunAnchor(gunAnchor);
 
 	}
 
