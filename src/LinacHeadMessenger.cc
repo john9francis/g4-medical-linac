@@ -25,6 +25,7 @@ namespace med_linac {
 
 		// update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
+		UI->ApplyCommand("/run/beamOn 0");
 		UI->ApplyCommand("/vis/viewer/rebuild");
 	}
 }
