@@ -62,10 +62,10 @@ namespace med_linac
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
 
-        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, -1 * m);
+        G4ThreeVector linacHeadPos = G4ThreeVector(0 * cm , 0 * cm, 1 * m);
 
         G4double headPhi = 0;
-        G4double headTheta = CLHEP::pi / 4;
+        G4double headTheta = CLHEP::pi;
         G4double headPsi = 0;
         G4RotationMatrix* linacHeadRotation = new G4RotationMatrix(headPhi, headTheta, headPsi);
 
@@ -230,7 +230,7 @@ namespace med_linac
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
 
-        G4Box* solidPhantom = new G4Box("solidPhantom", 45 * cm, 45 * cm, 45 * cm);
+        G4Box* solidPhantom = new G4Box("solidPhantom", 15 * cm, 15 * cm, 15 * cm);
         G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
         new G4PVPlacement(
             nullptr,
