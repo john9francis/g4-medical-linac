@@ -5,30 +5,34 @@
 
 namespace med_linac
 {
+
+    DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction() {
+        fLinacHeadPos = new G4ThreeVector();
+        fLinacHeadRot = new G4RotationMatrix();
+    }
 	
 
     void DetectorConstruction::SetLinacHeadAngle(G4ThreeVector phiThetaPsi) {
-        // we're going to get the linac head and rotate it based on that angle. 
-        G4RotationMatrix* newRot = new G4RotationMatrix(phiThetaPsi.getX(), phiThetaPsi.getY(), phiThetaPsi.getZ());
+        fLinacHeadRot->setPhi(phiThetaPsi.getX());
+        fLinacHeadRot->setTheta(phiThetaPsi.getY());
+        fLinacHeadRot->setPsi(phiThetaPsi.getZ());
         
-        fLinacHead->SetRotation(newRot);
+        MoveLinacHead();
     }
 
 
     void DetectorConstruction::SetLinacHeadPosition(G4ThreeVector xyz) {
-        //fLinacHead->SetTranslation(xyz);
-        G4RotationMatrix linacHeadRot = fLinacHead->GetObjectRotationValue();
-        MoveLinacHead(xyz, linacHeadRot);
+        *fLinacHeadPos = xyz;
+
+        MoveLinacHead();
 
     }
 
-    void DetectorConstruction::MoveLinacHead(G4ThreeVector xyz, G4RotationMatrix& rotMatrix) {
+    void DetectorConstruction::MoveLinacHead() {
         // To move the Linac Head we need to create a new physical volume of it, then delete the old one.
         // The reason for this is because the functions SetRotation and SetTranslation seem to be broken.
 
         // Step one: get all the parameters we need
-        G4RotationMatrix* newRot = new G4RotationMatrix();
-        *newRot = rotMatrix;
         auto logicHead = fLinacHead->GetLogicalVolume();
         auto name = fLinacHead->GetName();
         auto logicMother = fLinacHead->GetMotherLogical();
@@ -37,8 +41,8 @@ namespace med_linac
         delete fLinacHead;
         
         fLinacHead = new G4PVPlacement(
-            newRot,
-            xyz,
+            fLinacHeadRot,
+            *fLinacHeadPos,
             logicHead,
             name,
             logicMother,

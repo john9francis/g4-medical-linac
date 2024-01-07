@@ -20,7 +20,7 @@ namespace med_linac
 	class DetectorConstruction : public G4VUserDetectorConstruction
 	{
 	public:
-		DetectorConstruction() = default;
+		DetectorConstruction();
 		~DetectorConstruction() override = default;
 
 		G4VPhysicalVolume* Construct() override;
@@ -36,7 +36,10 @@ namespace med_linac
 		G4VPhysicalVolume* fLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
 
-		void MoveLinacHead(G4ThreeVector xyz, G4RotationMatrix& rotMatrix);
+		G4ThreeVector* fLinacHeadPos;
+		G4RotationMatrix* fLinacHeadRot;
+
+		void MoveLinacHead();
 	};
 }
 
