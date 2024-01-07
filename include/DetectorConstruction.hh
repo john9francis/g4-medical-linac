@@ -25,6 +25,8 @@ namespace med_linac
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
+
+		void MoveLinacHead(G4ThreeVector xyz, G4RotationMatrix& rotMatrix);
 	};
 }
 
