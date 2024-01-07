@@ -14,53 +14,17 @@ namespace med_linac {
 		static LinacHeadSingleton* instance;
 		LinacHeadSingleton();
 
-		G4ThreeVector* _gunAnchorPosition;
-		G4RotationMatrix* _gunAnchorRotation;
-		G4ThreeVector* _linacHeadPosition;
-		G4RotationMatrix* _linacHeadRotation;
-
-		G4VPhysicalVolume* _physLinacHead = nullptr;
-		G4VPhysicalVolume* _physGunAnchor = nullptr;
-
-		G4double* _theta = nullptr;
+		G4ThreeVector* gunPosition;
+		G4ThreeVector* particleMomentumDirection;
 		
 
 	public:
 		static LinacHeadSingleton* GetInstance();
-		void PrintHelloWorld();
-		void DeleteSingleton();
 
-		// getters and setters
-
-		void SetTheta(G4double* theta) { _theta = theta; }
-		G4double* GetTheta() { return _theta; }
-
-
-		void SetGunAnchorPosition(G4ThreeVector* newPos) { _gunAnchorPosition = newPos; }
-		void SetGunAnchorRotation(G4RotationMatrix* newRot) { _gunAnchorRotation = newRot; }
-		G4ThreeVector* GetGunAnchorPosition() { return _gunAnchorPosition; }
-		G4RotationMatrix* GetGunAnchorRotation() { return _gunAnchorRotation; }
-
-		void SetLinacHeadPosition(G4ThreeVector* newPos) { _linacHeadPosition = newPos; }
-		void SetLinacHeadRotation(G4RotationMatrix* newRot) { _linacHeadRotation = newRot; }
-		G4ThreeVector* GetLinacHeadPosition() { return _linacHeadPosition; }
-		G4RotationMatrix* GetLinacHeadRotation() { return _linacHeadRotation; }
-
-		
-		// constructors to change stack variables to heap ones
-		void SetLinacHeadPosition(G4ThreeVector stackPos);
-		void SetLinacHeadRotation(G4RotationMatrix stackRot);
-		void SetGunAnchorPosition(G4ThreeVector stackPos);
-		void SetGunAnchorRotation(G4RotationMatrix stackRot);
-
-
-		// getters and setters for the physical volumes
-
-		void SetPhysLinacHead(G4VPhysicalVolume* physLinacHead) { _physLinacHead = physLinacHead; }
-		void SetPhysGunAnchor(G4VPhysicalVolume* physGunAnchor) { _physGunAnchor = physGunAnchor; }
-
-		G4VPhysicalVolume* GetPhysLinacHead() { return _physLinacHead; }
-		G4VPhysicalVolume* GetPhysGunAnchor() { return _physGunAnchor; }
+		G4ThreeVector GetGunPosition() { return *gunPosition; }
+		G4ThreeVector GetParticleMomentumDirection() { return *particleMomentumDirection; }
+		void SetGunPosition(G4ThreeVector& pos) { *gunPosition = pos; }
+		void SetParticleMomentumDirection(G4ThreeVector& dir) { *particleMomentumDirection = dir; }
 		
 	};
 }

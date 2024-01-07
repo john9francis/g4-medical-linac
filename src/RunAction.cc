@@ -147,7 +147,7 @@ namespace med_linac {
 
 			// add to the h1
 			auto analysisManager = G4AnalysisManager::Instance();
-			analysisManager->FillH1(fPddH1ID, depth, percentDose);
+			//analysisManager->FillH1(fPddH1ID, depth, percentDose);
 
 		}
 
