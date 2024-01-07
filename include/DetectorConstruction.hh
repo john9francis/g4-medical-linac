@@ -20,6 +20,7 @@ namespace med_linac
 
 		// for detectormessenger
 		void SetLinacHeadAngle(G4ThreeVector phiThetaPsi);
+		void SetLinacHeadPosition(G4ThreeVector xyz);
 
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;

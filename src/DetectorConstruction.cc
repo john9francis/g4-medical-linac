@@ -253,4 +253,9 @@ namespace med_linac
         fLinacHead->SetRotation(newRot);
     }
 
+
+    void DetectorConstruction::SetLinacHeadPosition(G4ThreeVector xyz) {
+        fLinacHead->SetTranslation(xyz);
+    }
+
 }

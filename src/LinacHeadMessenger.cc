@@ -9,11 +9,18 @@ namespace med_linac {
 		fDirectory = new G4UIdirectory("/linacHead/");
 		fDirectory->SetGuidance("Commands to move the linac head");
 
+		// set our commands
 		fAngleCmd = new G4UIcmdWith3VectorAndUnit("/linacHead/setAngle", this);
-		fAngleCmd->SetGuidance("Set the angle around the detector in radians or degrees");
+		fAngleCmd->SetGuidance("Set the rotation angle of the linac head in radians or degrees");
 		fAngleCmd->SetParameterName("Phi", "Theta", "Psi", false);
 		fAngleCmd->SetDefaultUnit("deg");
 		fAngleCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+		fPositionCmd = new G4UIcmdWith3VectorAndUnit("/linacHead/setPosition", this);
+		fPositionCmd->SetGuidance("Set the position of the linac head");
+		fPositionCmd->SetParameterName("x", "y", "z", false);
+		fPositionCmd->SetDefaultUnit("cm");
+		fPositionCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 	}
 
@@ -21,6 +28,9 @@ namespace med_linac {
 		G4cout << newValue << G4endl;
 		if (command == fAngleCmd) {
 			fDetectorConstruction->SetLinacHeadAngle(fAngleCmd->GetNew3VectorValue(newValue));
+		}
+		if (command == fPositionCmd) {
+			fDetectorConstruction->SetLinacHeadPosition(fPositionCmd->GetNew3VectorValue(newValue));
 		}
 
 		// update the viewport

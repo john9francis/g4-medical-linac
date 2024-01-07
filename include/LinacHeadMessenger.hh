@@ -23,6 +23,7 @@ namespace med_linac {
 		G4UIdirectory* fDirectory;
 
 		G4UIcmdWith3VectorAndUnit* fAngleCmd;
+		G4UIcmdWith3VectorAndUnit* fPositionCmd;
 	};
 
 
