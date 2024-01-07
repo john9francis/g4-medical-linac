@@ -2,7 +2,17 @@
 #define med_linac_DETECTOR_CONSTRUCTION_H 1
 
 #include "G4VUserDetectorConstruction.hh"
+
+#include "G4Box.hh"
+#include "G4Tubs.hh"
+#include "G4Sphere.hh"
 #include "G4PVPlacement.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4NistManager.hh"
+#include "G4LogicalVolume.hh"
+
+#include "G4SystemOfUnits.hh"
+#include "CLHEP/Units/SystemOfUnits.h"
 
 
 namespace med_linac
