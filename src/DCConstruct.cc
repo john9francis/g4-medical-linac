@@ -50,17 +50,22 @@ namespace med_linac {
         // Next, create a 'linac head' object to contain all the radiation generation stuff
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
+        
 
-        fLinacHeadPos = new G4ThreeVector(0 * cm, 0 * cm, 1 * m);
+        // redefine our member variables
+        *fLinacHeadPos = G4ThreeVector(0, 0, 1 * m);
+
 
         G4double headPhi = 0;
         G4double headTheta = CLHEP::pi;
         G4double headPsi = 0;
-        fLinacHeadRot = new G4RotationMatrix(headPhi, headTheta, headPsi);
+        fLinacHeadRot->setPhi(headPhi);
+        fLinacHeadRot->setTheta(headTheta);
+        fLinacHeadRot->setPsi(headPsi);
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
         G4LogicalVolume* logicHead = new G4LogicalVolume(solidHead, vacuum, "logicHead");
-        G4VPhysicalVolume* physHead = new G4PVPlacement(
+        fLinacHead = new G4PVPlacement(
             fLinacHeadRot,
             *fLinacHeadPos,
             logicHead,
@@ -68,9 +73,6 @@ namespace med_linac {
             logicWorld,
             false,
             0);
-
-        // set the member variable so we can get this volume in other parts of the program
-        fLinacHead = physHead;
 
 
         // create a place for the particle gun to shoot from
