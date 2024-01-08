@@ -4,6 +4,9 @@
 #include "G4UImessenger.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWith3VectorAndUnit.hh"
+#include "G4UIcmdWithAString.hh"
+
+#include "G4SystemOfUnits.hh"
 
 #include "DetectorConstruction.hh"
 
@@ -26,6 +29,8 @@ namespace med_linac {
 		G4UIcmdWith3VectorAndUnit* fPositionCmd;
 
 		G4UIcmdWithADoubleAndUnit* fShiftZCmd;
+
+		G4UIcmdWithAString* fShiftCmd;
 	};
 
 

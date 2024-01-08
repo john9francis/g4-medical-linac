@@ -2,6 +2,11 @@
 
 #include "G4UImanager.hh"
 
+#include <iostream>
+#include <unordered_map>
+#include <functional>
+
+
 namespace med_linac {
 	LinacHeadMessenger::LinacHeadMessenger(DetectorConstruction* detectorConstruction)
 		: G4UImessenger(), fDetectorConstruction(detectorConstruction) {
@@ -28,6 +33,15 @@ namespace med_linac {
 		fShiftZCmd->SetDefaultValue(5.0);
 		fShiftZCmd->SetDefaultUnit("cm");
 		fShiftZCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+		fShiftCmd = new G4UIcmdWithAString("/linacHead/shift", this);
+		fShiftCmd->SetGuidance("Shifts your specified coordinate 5 cm.");
+		fShiftCmd->SetParameterName("coordinate", false);
+		fShiftCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+
+		// create our map for mapping the shift function to the correct direction:
+
 		
 
 	}
@@ -41,6 +55,48 @@ namespace med_linac {
 		}
 		if (command == fShiftZCmd) {
 			fDetectorConstruction->ShiftLinacHeadPosition(G4ThreeVector(0, 0, fShiftZCmd->GetNewDoubleValue(newValue)));
+		}
+		if (command == fShiftCmd) {
+			if (newValue == "x") {
+				// shift x
+			}
+			else if (newValue == "y") {
+				// shift y
+			}
+			else if (newValue == "z") {
+				// shift y
+			}
+			else if (newValue == "-x") {
+
+			}
+			else if (newValue == "-y") {
+				// shift y
+			}
+			else if (newValue == "-z") {
+				// shift y
+			}
+			else if (newValue == "phi") {
+
+			}
+			else if (newValue == "theta") {
+				// shift y
+			}
+			else if (newValue == "psi") {
+				// shift y
+			}
+			else if (newValue == "-phi") {
+
+			}
+			else if (newValue == "-theta") {
+				// shift y
+			}
+			else if (newValue == "-psi") {
+				// shift y
+			}
+			else {
+				// error
+			}
+
 		}
 
 		// update the viewport
