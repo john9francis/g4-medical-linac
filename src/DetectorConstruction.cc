@@ -40,6 +40,7 @@ namespace med_linac
         fLinacHeadRot->setTheta(fLinacHeadRot->getTheta() + phiThetaPsi.getY());
         fLinacHeadRot->setPsi(fLinacHeadRot->getPsi() + phiThetaPsi.getZ());
 
+        G4cout << *fLinacHeadRot << G4endl;
 
         MoveLinacHead();
     }

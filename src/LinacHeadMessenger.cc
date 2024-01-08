@@ -27,20 +27,11 @@ namespace med_linac {
 		fPositionCmd->SetDefaultUnit("cm");
 		fPositionCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
-		fShiftZCmd = new G4UIcmdWithADoubleAndUnit("/linacHead/shiftZ", this);
-		fShiftZCmd->SetGuidance("Shifts the z position, default 5 cm.");
-		fShiftZCmd->SetParameterName("amount", true);
-		fShiftZCmd->SetDefaultValue(5.0);
-		fShiftZCmd->SetDefaultUnit("cm");
-		fShiftZCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
-
 		fShiftCmd = new G4UIcmdWithAString("/linacHead/shift", this);
 		fShiftCmd->SetGuidance("Shifts your specified coordinate 5 cm.");
 		fShiftCmd->SetParameterName("coordinate", false);
 		fShiftCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
-
-		// create our map for mapping the shift function to the correct direction:
 
 		
 
@@ -53,16 +44,20 @@ namespace med_linac {
 		if (command == fPositionCmd) {
 			fDetectorConstruction->SetLinacHeadPosition(fPositionCmd->GetNew3VectorValue(newValue));
 		}
-		if (command == fShiftZCmd) {
-			fDetectorConstruction->ShiftLinacHeadPosition(G4ThreeVector(0, 0, fShiftZCmd->GetNewDoubleValue(newValue)));
-		}
 		if (command == fShiftCmd) {
 
+			// if the direction is a key in our map
 			if (positionShiftMap.find(newValue) != positionShiftMap.end()) {
 
-				fDetectorConstruction->ShiftLinacHeadPosition(positionShiftMap[newValue]);
+				// then get the value corresponding to that key
+				G4ThreeVector shiftAmount = positionShiftMap[newValue];
+
+				// and tell det construction to shift by that value. 
+				fDetectorConstruction->ShiftLinacHeadPosition(shiftAmount);
 
 			}
+
+			// then, check the rotation map
 			else if (rotationShiftMap.find(newValue) != rotationShiftMap.end()) {
 
 				fDetectorConstruction->ShiftLinacHeadRotation(rotationShiftMap[newValue]);

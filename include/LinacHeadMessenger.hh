@@ -32,12 +32,10 @@ namespace med_linac {
 		G4UIcmdWith3VectorAndUnit* fAngleCmd;
 		G4UIcmdWith3VectorAndUnit* fPositionCmd;
 
-		G4UIcmdWithADoubleAndUnit* fShiftZCmd;
-
 		G4UIcmdWithAString* fShiftCmd;
 
 		G4double shiftPositionAmount = 5 * cm;
-		G4double shiftRotationAmount = 5 * deg;
+		G4double shiftRotationAmount = 10 * deg;
 		std::map<G4String, G4ThreeVector> positionShiftMap = {
 			{"x",  G4ThreeVector(shiftPositionAmount, 0, 0)},
 			{"y",  G4ThreeVector(0, shiftPositionAmount, 0)},
