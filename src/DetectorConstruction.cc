@@ -34,6 +34,15 @@ namespace med_linac
 
         MoveLinacHead();
     }
+
+    void DetectorConstruction::ShiftLinacHeadRotation(G4ThreeVector phiThetaPsi) {
+        fLinacHeadRot->setPhi(fLinacHeadRot->getPhi() + phiThetaPsi.getX());
+        fLinacHeadRot->setTheta(fLinacHeadRot->getTheta() + phiThetaPsi.getY());
+        fLinacHeadRot->setPsi(fLinacHeadRot->getPsi() + phiThetaPsi.getZ());
+
+
+        MoveLinacHead();
+    }
     
     void DetectorConstruction::MoveLinacHead() {
         // To move the Linac Head we need to create a new physical volume of it, then delete the old one.

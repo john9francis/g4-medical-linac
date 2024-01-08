@@ -36,22 +36,23 @@ namespace med_linac {
 
 		G4UIcmdWithAString* fShiftCmd;
 
-		G4double shiftAmount = 5 * cm;
+		G4double shiftPositionAmount = 5 * cm;
+		G4double shiftRotationAmount = 5 * deg;
 		std::map<G4String, G4ThreeVector> positionShiftMap = {
-			{"x",  G4ThreeVector(shiftAmount, 0, 0)},
-			{"y",  G4ThreeVector(0, shiftAmount, 0)},
-			{"z",  G4ThreeVector(0, 0, shiftAmount)},
-			{"-x", G4ThreeVector(-shiftAmount, 0, 0)},
-			{"-y", G4ThreeVector(0, -shiftAmount, 0)},
-			{"-z", G4ThreeVector(0, 0, -shiftAmount)}
+			{"x",  G4ThreeVector(shiftPositionAmount, 0, 0)},
+			{"y",  G4ThreeVector(0, shiftPositionAmount, 0)},
+			{"z",  G4ThreeVector(0, 0, shiftPositionAmount)},
+			{"-x", G4ThreeVector(-shiftPositionAmount, 0, 0)},
+			{"-y", G4ThreeVector(0, -shiftPositionAmount, 0)},
+			{"-z", G4ThreeVector(0, 0, -shiftPositionAmount)}
 		};
 		std::map<G4String, G4ThreeVector> rotationShiftMap = {
-			{"phi",    G4ThreeVector(shiftAmount, 0, 0)},
-			{"theta",  G4ThreeVector(0, shiftAmount, 0)},
-			{"psi",    G4ThreeVector(0, 0, shiftAmount)},
-			{"-phi",   G4ThreeVector(-shiftAmount, 0, 0)},
-			{"-theta", G4ThreeVector(0, -shiftAmount, 0)},
-			{"-psi",   G4ThreeVector(0, 0, -shiftAmount)}
+			{"phi",    G4ThreeVector(shiftRotationAmount, 0, 0)},
+			{"theta",  G4ThreeVector(0, shiftRotationAmount, 0)},
+			{"psi",    G4ThreeVector(0, 0, shiftRotationAmount)},
+			{"-phi",   G4ThreeVector(-shiftRotationAmount, 0, 0)},
+			{"-theta", G4ThreeVector(0, -shiftRotationAmount, 0)},
+			{"-psi",   G4ThreeVector(0, 0, -shiftRotationAmount)}
 		};
 	};
 

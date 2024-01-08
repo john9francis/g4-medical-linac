@@ -57,11 +57,16 @@ namespace med_linac {
 			fDetectorConstruction->ShiftLinacHeadPosition(G4ThreeVector(0, 0, fShiftZCmd->GetNewDoubleValue(newValue)));
 		}
 		if (command == fShiftCmd) {
+
 			if (positionShiftMap.find(newValue) != positionShiftMap.end()) {
-				G4cout << "Shifting position " << newValue << G4endl;
+
+				fDetectorConstruction->ShiftLinacHeadPosition(positionShiftMap[newValue]);
+
 			}
 			else if (rotationShiftMap.find(newValue) != rotationShiftMap.end()) {
-				G4cout << "Shifting rotation " << newValue << G4endl;
+
+				fDetectorConstruction->ShiftLinacHeadRotation(rotationShiftMap[newValue]);
+
 			}
 			else {
 				G4cout

@@ -28,6 +28,7 @@ namespace med_linac
 		// for detectormessenger
 		void SetLinacHeadAngle(G4ThreeVector phiThetaPsi);
 		void SetLinacHeadPosition(G4ThreeVector xyz);
+		void ShiftLinacHeadRotation(G4ThreeVector phiThetaPsi);
 		void ShiftLinacHeadPosition(G4ThreeVector xyz);
 
 		// for primary gen action
