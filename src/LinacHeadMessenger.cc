@@ -57,46 +57,21 @@ namespace med_linac {
 			fDetectorConstruction->ShiftLinacHeadPosition(G4ThreeVector(0, 0, fShiftZCmd->GetNewDoubleValue(newValue)));
 		}
 		if (command == fShiftCmd) {
-			if (newValue == "x") {
-				// shift x
+			if (positionShiftMap.find(newValue) != positionShiftMap.end()) {
+				G4cout << "Shifting position " << newValue << G4endl;
 			}
-			else if (newValue == "y") {
-				// shift y
-			}
-			else if (newValue == "z") {
-				// shift y
-			}
-			else if (newValue == "-x") {
-
-			}
-			else if (newValue == "-y") {
-				// shift y
-			}
-			else if (newValue == "-z") {
-				// shift y
-			}
-			else if (newValue == "phi") {
-
-			}
-			else if (newValue == "theta") {
-				// shift y
-			}
-			else if (newValue == "psi") {
-				// shift y
-			}
-			else if (newValue == "-phi") {
-
-			}
-			else if (newValue == "-theta") {
-				// shift y
-			}
-			else if (newValue == "-psi") {
-				// shift y
+			else if (rotationShiftMap.find(newValue) != rotationShiftMap.end()) {
+				G4cout << "Shifting rotation " << newValue << G4endl;
 			}
 			else {
-				// error
+				G4cout
+					<< "Direction not found. "
+					<< '\n'
+					<< "Please input one of the following: "
+					<< '\n'
+					<< "x, y, z, -x, -y, -z, phi, theta, psi, -phi, -theta, -psi"
+					<< G4endl;
 			}
-
 		}
 
 		// update the viewport

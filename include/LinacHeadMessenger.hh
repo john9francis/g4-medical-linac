@@ -10,6 +10,10 @@
 
 #include "DetectorConstruction.hh"
 
+#include <iostream>
+#include <map>
+
+
 namespace med_linac {
 	class LinacHeadMessenger : public G4UImessenger {
 	public:
@@ -31,6 +35,24 @@ namespace med_linac {
 		G4UIcmdWithADoubleAndUnit* fShiftZCmd;
 
 		G4UIcmdWithAString* fShiftCmd;
+
+		G4double shiftAmount = 5 * cm;
+		std::map<G4String, G4ThreeVector> positionShiftMap = {
+			{"x",  G4ThreeVector(shiftAmount, 0, 0)},
+			{"y",  G4ThreeVector(0, shiftAmount, 0)},
+			{"z",  G4ThreeVector(0, 0, shiftAmount)},
+			{"-x", G4ThreeVector(-shiftAmount, 0, 0)},
+			{"-y", G4ThreeVector(0, -shiftAmount, 0)},
+			{"-z", G4ThreeVector(0, 0, -shiftAmount)}
+		};
+		std::map<G4String, G4ThreeVector> rotationShiftMap = {
+			{"phi",    G4ThreeVector(shiftAmount, 0, 0)},
+			{"theta",  G4ThreeVector(0, shiftAmount, 0)},
+			{"psi",    G4ThreeVector(0, 0, shiftAmount)},
+			{"-phi",   G4ThreeVector(-shiftAmount, 0, 0)},
+			{"-theta", G4ThreeVector(0, -shiftAmount, 0)},
+			{"-psi",   G4ThreeVector(0, 0, -shiftAmount)}
+		};
 	};
 
 
