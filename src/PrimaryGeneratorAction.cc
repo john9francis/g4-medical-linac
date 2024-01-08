@@ -53,20 +53,18 @@ namespace med_linac
 			runManager->GetUserDetectorConstruction());
 
 
-		// get the position of the linac head and gun anchors
-		auto* linacHead = detConstruction->GetLinacHead();
-		auto* gunAnchor1 = detConstruction->GetParticleGunAnchor1();
+		// get position and rotation of linac head and gun anchor
+		G4ThreeVector linacHeadPos = detConstruction->GetLinacHeadPos();
+		G4RotationMatrix linacHeadRot = detConstruction->GetLinacHeadRot();
 
-		auto* linacHeadRotation = linacHead->GetObjectRotation();
-		auto phi = linacHeadRotation->getPhi();
-		auto theta = linacHeadRotation->getTheta();
-		auto psi = linacHeadRotation->getPsi();
+		G4double phi = linacHeadRot.getPhi();
+		G4double theta = linacHeadRot.getTheta();
+		G4double psi = linacHeadRot.getPsi();
+		G4ThreeVector gunAnchorPos = detConstruction->GetGunAnchorPos().rotate(phi, theta, psi);
 
-		G4ThreeVector linacHeadPos = linacHead->GetObjectTranslation();
-		G4ThreeVector gunAnchor1Pos = gunAnchor1->GetObjectTranslation().rotate(phi, theta, psi);
 
 		// now we get the position of the gun anchor relative to the world
-		G4ThreeVector absoluteGunPos = gunAnchor1Pos + linacHeadPos;
+		G4ThreeVector absoluteGunPos = gunAnchorPos + linacHeadPos;
 
 
 		// set the particle gun's position to the anchor

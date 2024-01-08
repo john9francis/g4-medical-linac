@@ -25,12 +25,14 @@ namespace med_linac
 
 		G4VPhysicalVolume* Construct() override;
 
-		G4VPhysicalVolume* GetLinacHead() const { return fLinacHead; }
-		G4VPhysicalVolume* GetParticleGunAnchor1() const { return fParticleGunAnchor1; }
-
 		// for detectormessenger
 		void SetLinacHeadAngle(G4ThreeVector phiThetaPsi);
 		void SetLinacHeadPosition(G4ThreeVector xyz);
+
+		// for primary gen action
+		G4RotationMatrix GetLinacHeadRot() const { return *fLinacHeadRot; }
+		G4ThreeVector GetLinacHeadPos() const { return *fLinacHeadPos; }
+		G4ThreeVector GetGunAnchorPos() const { return *fGunAnchorPos; }
 
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;
@@ -38,6 +40,8 @@ namespace med_linac
 
 		G4ThreeVector* fLinacHeadPos;
 		G4RotationMatrix* fLinacHeadRot;
+
+		G4ThreeVector* fGunAnchorPos;
 
 		void MoveLinacHead();
 	};

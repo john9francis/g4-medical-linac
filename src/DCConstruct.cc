@@ -84,6 +84,7 @@ namespace med_linac {
             particleGunAnchorThickness);
 
         G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 2 * cm);
+        *fGunAnchorPos = particleGunAnchor1Pos;
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
         G4VPhysicalVolume* physAnchor1 = new G4PVPlacement(

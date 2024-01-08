@@ -9,6 +9,7 @@ namespace med_linac
     DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction() {
         fLinacHeadPos = new G4ThreeVector();
         fLinacHeadRot = new G4RotationMatrix();
+        fGunAnchorPos = new G4ThreeVector();
     }
 	
 
@@ -27,7 +28,7 @@ namespace med_linac
         MoveLinacHead();
 
     }
-
+    
     void DetectorConstruction::MoveLinacHead() {
         // To move the Linac Head we need to create a new physical volume of it, then delete the old one.
         // The reason for this is because the functions SetRotation and SetTranslation seem to be broken.
