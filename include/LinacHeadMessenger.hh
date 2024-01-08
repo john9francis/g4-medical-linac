@@ -24,6 +24,8 @@ namespace med_linac {
 
 		G4UIcmdWith3VectorAndUnit* fAngleCmd;
 		G4UIcmdWith3VectorAndUnit* fPositionCmd;
+
+		G4UIcmdWithADoubleAndUnit* fShiftZCmd;
 	};
 
 

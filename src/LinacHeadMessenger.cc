@@ -22,15 +22,25 @@ namespace med_linac {
 		fPositionCmd->SetDefaultUnit("cm");
 		fPositionCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
+		fShiftZCmd = new G4UIcmdWithADoubleAndUnit("/linacHead/shiftZ", this);
+		fShiftZCmd->SetGuidance("Shifts the z position, default 5 cm.");
+		fShiftZCmd->SetParameterName("amount", true);
+		fShiftZCmd->SetDefaultValue(5.0);
+		fShiftZCmd->SetDefaultUnit("cm");
+		fShiftZCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+		
+
 	}
 
 	void LinacHeadMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
-		G4cout << newValue << G4endl;
 		if (command == fAngleCmd) {
 			fDetectorConstruction->SetLinacHeadAngle(fAngleCmd->GetNew3VectorValue(newValue));
 		}
 		if (command == fPositionCmd) {
 			fDetectorConstruction->SetLinacHeadPosition(fPositionCmd->GetNew3VectorValue(newValue));
+		}
+		if (command == fShiftZCmd) {
+			fDetectorConstruction->ShiftLinacHeadPosition(G4ThreeVector(0, 0, fShiftZCmd->GetNewDoubleValue(newValue)));
 		}
 
 		// update the viewport

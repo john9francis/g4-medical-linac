@@ -28,6 +28,12 @@ namespace med_linac
         MoveLinacHead();
 
     }
+
+    void DetectorConstruction::ShiftLinacHeadPosition(G4ThreeVector xyz) {
+        *fLinacHeadPos += xyz;
+
+        MoveLinacHead();
+    }
     
     void DetectorConstruction::MoveLinacHead() {
         // To move the Linac Head we need to create a new physical volume of it, then delete the old one.
