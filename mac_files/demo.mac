@@ -1,0 +1,3 @@
+# mac file to demonstrate the linac head rotating around and irradiating the phantom
+
+/control/loop rotate.mac firstQuadrant 190 270 10
