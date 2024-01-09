@@ -43,6 +43,10 @@ namespace med_linac
 		G4ThreeVector* fLinacHeadPos;
 		G4RotationMatrix* fLinacHeadRot;
 
+		G4double* fLinacHeadPhi;
+		G4double* fLinacHeadTheta;
+		G4double* fLinacHeadPsi;
+
 		G4ThreeVector* fGunAnchorPos;
 
 		void MoveLinacHead();

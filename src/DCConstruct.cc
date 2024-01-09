@@ -56,12 +56,10 @@ namespace med_linac {
         *fLinacHeadPos = G4ThreeVector(0, 0, 1 * m);
 
 
-        G4double headPhi = 0;
-        G4double headTheta = CLHEP::pi;
-        G4double headPsi = 0;
-        fLinacHeadRot->setPhi(headPhi);
-        fLinacHeadRot->setTheta(headTheta);
-        fLinacHeadRot->setPsi(headPsi);
+        *fLinacHeadPhi = 0;
+        *fLinacHeadTheta = CLHEP::pi;
+        *fLinacHeadPsi = 0;
+        *fLinacHeadRot = G4RotationMatrix(*fLinacHeadPhi, *fLinacHeadTheta, *fLinacHeadPsi);
 
         G4Box* solidHead = new G4Box("solidHead", linacHeadThicknessXY, linacHeadThicknessXY, linacHeadThicknessZ);
         G4LogicalVolume* logicHead = new G4LogicalVolume(solidHead, vacuum, "logicHead");

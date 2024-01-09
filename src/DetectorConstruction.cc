@@ -10,6 +10,10 @@ namespace med_linac
         fLinacHeadPos = new G4ThreeVector();
         fLinacHeadRot = new G4RotationMatrix();
         fGunAnchorPos = new G4ThreeVector();
+
+        fLinacHeadPhi = new G4double();
+        fLinacHeadTheta = new G4double();
+        fLinacHeadPsi = new G4double();
     }
 	
 
@@ -17,6 +21,11 @@ namespace med_linac
         fLinacHeadRot->setPhi(phiThetaPsi.getX());
         fLinacHeadRot->setTheta(phiThetaPsi.getY());
         fLinacHeadRot->setPsi(phiThetaPsi.getZ());
+
+        *fLinacHeadPhi = phiThetaPsi.getX();
+        *fLinacHeadTheta = phiThetaPsi.getY();
+        *fLinacHeadPsi = phiThetaPsi.getZ();
+
         
         MoveLinacHead();
     }
@@ -36,9 +45,13 @@ namespace med_linac
     }
 
     void DetectorConstruction::ShiftLinacHeadRotation(G4ThreeVector phiThetaPsi) {
-        fLinacHeadRot->setPhi(fLinacHeadRot->getPhi() + phiThetaPsi.getX());
-        fLinacHeadRot->setTheta(fLinacHeadRot->getTheta() + phiThetaPsi.getY());
-        fLinacHeadRot->setPsi(fLinacHeadRot->getPsi() + phiThetaPsi.getZ());
+        *fLinacHeadPhi += phiThetaPsi.getX();
+        *fLinacHeadTheta += phiThetaPsi.getY();
+        *fLinacHeadPsi += phiThetaPsi.getZ();
+
+        fLinacHeadRot->setPhi(*fLinacHeadPhi);
+        fLinacHeadRot->setTheta(*fLinacHeadTheta);
+        fLinacHeadRot->setPsi(*fLinacHeadPsi);
 
         G4cout << *fLinacHeadRot << G4endl;
 
