@@ -32,7 +32,7 @@ namespace med_linac
 		void ShiftLinacHeadPosition(G4ThreeVector xyz);
 
 		// for primary gen action
-		G4RotationMatrix GetLinacHeadRot() const { return *fLinacHeadRot; }
+		G4ThreeVector GetLinacHeadRot() const { return G4ThreeVector(*fLinacHeadPhi, *fLinacHeadTheta, *fLinacHeadPsi); }
 		G4ThreeVector GetLinacHeadPos() const { return *fLinacHeadPos; }
 		G4ThreeVector GetGunAnchorPos() const { return *fGunAnchorPos; }
 

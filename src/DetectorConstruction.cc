@@ -18,9 +18,9 @@ namespace med_linac
 	
 
     void DetectorConstruction::SetLinacHeadAngle(G4ThreeVector phiThetaPsi) {
-        fLinacHeadRot->setPhi(phiThetaPsi.getX());
-        fLinacHeadRot->setTheta(phiThetaPsi.getY());
-        fLinacHeadRot->setPsi(phiThetaPsi.getZ());
+        fLinacHeadRot->setPhi(-phiThetaPsi.getX());
+        fLinacHeadRot->setTheta(-phiThetaPsi.getY());
+        fLinacHeadRot->setPsi(-phiThetaPsi.getZ());
 
         *fLinacHeadPhi = phiThetaPsi.getX();
         *fLinacHeadTheta = phiThetaPsi.getY();
@@ -49,9 +49,9 @@ namespace med_linac
         *fLinacHeadTheta += phiThetaPsi.getY();
         *fLinacHeadPsi += phiThetaPsi.getZ();
 
-        fLinacHeadRot->setPhi(*fLinacHeadPhi);
-        fLinacHeadRot->setTheta(*fLinacHeadTheta);
-        fLinacHeadRot->setPsi(*fLinacHeadPsi);
+        fLinacHeadRot->setPhi(-*fLinacHeadPhi);
+        fLinacHeadRot->setTheta(-*fLinacHeadTheta);
+        fLinacHeadRot->setPsi(-*fLinacHeadPsi);
 
         G4cout << *fLinacHeadRot << G4endl;
 

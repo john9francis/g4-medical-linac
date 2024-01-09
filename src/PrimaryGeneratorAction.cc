@@ -55,11 +55,11 @@ namespace med_linac
 
 		// get position and rotation of linac head and gun anchor
 		G4ThreeVector linacHeadPos = detConstruction->GetLinacHeadPos();
-		G4RotationMatrix linacHeadRot = detConstruction->GetLinacHeadRot();
+		G4ThreeVector linacHeadRot = detConstruction->GetLinacHeadRot();
 
-		G4double phi = linacHeadRot.getPhi();
-		G4double theta = linacHeadRot.getTheta();
-		G4double psi = linacHeadRot.getPsi();
+		G4double phi = linacHeadRot.getX();
+		G4double theta = linacHeadRot.getY();
+		G4double psi = linacHeadRot.getZ();
 		G4ThreeVector gunAnchorPos = detConstruction->GetGunAnchorPos().rotate(phi, theta, psi);
 
 
