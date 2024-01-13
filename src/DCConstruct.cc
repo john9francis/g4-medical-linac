@@ -53,11 +53,11 @@ namespace med_linac {
         
 
         // redefine our member variables
-        *fLinacHeadPos = G4ThreeVector(0, 0, 1 * m);
+        *fLinacHeadPos = G4ThreeVector(0, 0, -1 * m);
 
 
         *fLinacHeadPhi = 0;
-        *fLinacHeadTheta = CLHEP::pi;
+        *fLinacHeadTheta = 0;
         *fLinacHeadPsi = 0;
         *fLinacHeadRot = G4RotationMatrix(*fLinacHeadPhi, *fLinacHeadTheta, *fLinacHeadPsi);
 

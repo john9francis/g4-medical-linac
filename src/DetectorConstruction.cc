@@ -53,8 +53,6 @@ namespace med_linac
         fLinacHeadRot->setTheta(-*fLinacHeadTheta);
         fLinacHeadRot->setPsi(-*fLinacHeadPsi);
 
-        G4cout << *fLinacHeadRot << G4endl;
-
         MoveLinacHead();
     }
     
