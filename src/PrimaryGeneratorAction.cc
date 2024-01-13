@@ -54,14 +54,18 @@ namespace med_linac
 		//const auto* detConstruction = static_cast<const DetectorConstruction*>(
 		//	runManager->GetUserDetectorConstruction());
 
+		// get position and rotation of linac head and gun anchor
+		G4ThreeVector linacHeadPos = detConstruction->GetLinacHeadPos();
+		G4ThreeVector linacHeadRot = detConstruction->GetLinacHeadRot();
 
-		// get our linac head singleton which has the linac head and gun anchor
-		LinacHeadSingleton* linacHeadSingleton = LinacHeadSingleton::GetInstance();
+		G4double phi = linacHeadRot.getX();
+		G4double theta = linacHeadRot.getY();
+		G4double psi = linacHeadRot.getZ();
+		G4ThreeVector gunAnchorPos = detConstruction->GetGunAnchorPos().rotate(phi, theta, psi);
 
-		// get the position of the linac head and gun anchors
 
-		auto phi = 0; // because we only rotate theta. 
-		auto psi = 0;
+		// now we get the position of the gun anchor relative to the world
+		G4ThreeVector absoluteGunPos = gunAnchorPos + linacHeadPos;
 
 
 		// set the particle gun's position to the anchor
