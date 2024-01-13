@@ -14,6 +14,12 @@
 #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
+#include "G4UImessenger.hh"
+
+#include "G4UIcmdWithoutParameter.hh"
+#include "G4UIcmdWithADouble.hh"
+
+#include "LinacHeadMessenger.hh"
 
 namespace med_linac
 {
@@ -23,7 +29,9 @@ namespace med_linac
 		DetectorConstruction();
 		~DetectorConstruction() override = default;
 
+
 		G4VPhysicalVolume* Construct() override;
+		void ConstructSDandField() override;
 
 		// for detectormessenger
 		void SetLinacHeadAngle(G4ThreeVector phiThetaPsi);
@@ -36,8 +44,9 @@ namespace med_linac
 		G4ThreeVector GetLinacHeadPos() const { return *fLinacHeadPos; }
 		G4ThreeVector GetGunAnchorPos() const { return *fGunAnchorPos; }
 
+	
 	private:
-		G4VPhysicalVolume* fLinacHead = nullptr;
+		G4VPhysicalVolume* fPhysLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
 
 		G4ThreeVector* fLinacHeadPos;
@@ -50,6 +59,7 @@ namespace med_linac
 		G4ThreeVector* fGunAnchorPos;
 
 		void MoveLinacHead();
+
 	};
 }
 

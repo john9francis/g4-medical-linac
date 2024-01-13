@@ -4,16 +4,23 @@
 #include "G4UserSteppingAction.hh"
 #include "G4LogicalVolume.hh"
 
+#include "RunAction.hh"
+
 
 namespace med_linac {
 
 
 	class SteppingAction : public G4UserSteppingAction {
 	public:
-		SteppingAction();
+		SteppingAction(RunAction*);
 		~SteppingAction();
 
 		void UserSteppingAction(const G4Step*) override;
+
+
+	private:
+		G4LogicalVolume* fPhantom = nullptr;
+		RunAction* fRunAction = nullptr;
 	};
 
 }

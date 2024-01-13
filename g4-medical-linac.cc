@@ -13,6 +13,14 @@
 
 #include "ActionInit.hh"
 
+
+// for checking for memory leaks: see https://learn.microsoft.com/en-us/cpp/c-runtime-library/find-memory-leaks-using-the-crt-library?view=msvc-170 
+#define _CRT_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+
+
 using namespace med_linac;
 
 // for printing
@@ -75,7 +83,7 @@ int main(int argc, char** argv)
 	}
 	else {
 		// run visualization
-		UImanager->ApplyCommand("/control/execute vis.mac");
+		UImanager->ApplyCommand("/control/execute init_vis.mac");
 
 		// use UI
 		ui->SessionStart();
@@ -85,6 +93,9 @@ int main(int argc, char** argv)
 	// clean up
 	delete visManager;
 	delete runManager;
+
+	// print memory leaks
+	_CrtDumpMemoryLeaks();
 
 
 	return 0;

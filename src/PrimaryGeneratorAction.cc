@@ -11,6 +11,8 @@
 #include "G4RunManager.hh"
 #include "DetectorConstruction.hh"
 
+#include "LinacHeadSingleton.hh"
+
 
 namespace med_linac
 {
@@ -46,12 +48,11 @@ namespace med_linac
 		// First, find the particle gun anchors
 
 		// access runManager singleton
-		auto* runManager = G4RunManager::GetRunManager();
+		//auto* runManager = G4RunManager::GetRunManager();
 
 		// find our detectorConstruction in the runmanager
-		const auto* detConstruction = static_cast<const DetectorConstruction*>(
-			runManager->GetUserDetectorConstruction());
-
+		//const auto* detConstruction = static_cast<const DetectorConstruction*>(
+		//	runManager->GetUserDetectorConstruction());
 
 		// get position and rotation of linac head and gun anchor
 		G4ThreeVector linacHeadPos = detConstruction->GetLinacHeadPos();
@@ -68,14 +69,11 @@ namespace med_linac
 
 
 		// set the particle gun's position to the anchor
-		fParticleGun->SetParticlePosition(absoluteGunPos);
+		fParticleGun->SetParticlePosition(linacHeadSingleton->GetGunPosition());
 
 
 		// Now we set the particle's momentum direction based on the gun's rotation
-		auto baseVector = G4ThreeVector(0,0,1);
-		G4ThreeVector momentumDirection = baseVector.rotate(phi, theta, psi);
-
-		fParticleGun->SetParticleMomentumDirection(momentumDirection);
+		fParticleGun->SetParticleMomentumDirection(linacHeadSingleton->GetParticleMomentumDirection());
 
 		// satisfy "generate primaries" here.
 		fParticleGun->GeneratePrimaryVertex(event);
