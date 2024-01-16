@@ -14,6 +14,9 @@
 #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
+#include "G4SDManager.hh"
+#include "PhantomSD.hh"
+
 
 namespace med_linac
 {
@@ -22,6 +25,8 @@ namespace med_linac
 	public:
 		DetectorConstruction();
 		~DetectorConstruction() override = default;
+
+		void ConstructSDandField();
 
 		G4VPhysicalVolume* Construct() override;
 
