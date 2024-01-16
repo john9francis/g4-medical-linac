@@ -48,13 +48,10 @@ namespace med_linac {
 
 
         // Next, create a 'linac head' object to contain all the radiation generation stuff
-        G4double linacHeadThicknessXY = 15 * cm;
-        G4double linacHeadThicknessZ = 15 * cm;
+        G4double linacHeadThicknessXY = 25 * cm;
+        G4double linacHeadThicknessZ = 25 * cm;
 
-
-        // redefine our member variables
         *fLinacHeadPos = G4ThreeVector(0, 0, -1 * m);
-
 
         *fLinacHeadPhi = 0;
         *fLinacHeadTheta = 0;
@@ -73,6 +70,7 @@ namespace med_linac {
             0);
 
 
+
         // create a place for the particle gun to shoot from
         G4double particleGunAnchorThickness = 1 * mm;
         G4Box* solidParticleGunAnchor = new G4Box(
@@ -81,7 +79,7 @@ namespace med_linac {
             particleGunAnchorThickness,
             particleGunAnchorThickness);
 
-        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 2 * cm);
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 7 * cm);
         *fGunAnchorPos = particleGunAnchor1Pos;
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
@@ -118,7 +116,7 @@ namespace med_linac {
             "Target");
 
         // target position and rotation
-        G4double targetZ = -linacHeadThicknessZ + 5 * cm;
+        G4double targetZ = particleGunAnchor1Pos.getZ() + 3 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
@@ -170,7 +168,7 @@ namespace med_linac {
         // create tungsten collimator
         G4double innerColRadius = 4.0 * cm;
         G4double outerColRadius = 12. * cm;
-        G4double colThickness = 10 * cm;
+        G4double colThickness = 20 * cm;
 
         G4Tubs* solidCol = new G4Tubs("Collimator",
             innerColRadius,
@@ -202,6 +200,40 @@ namespace med_linac {
             0);
 
 
+        // Create a half hollow lead semi-sphere around the backside
+        G4Material* lead = nist->FindOrBuildMaterial("G4_Pb");
+        G4RotationMatrix* protectorRotation = new G4RotationMatrix();
+        protectorRotation->rotateX(90. * deg);
+
+        G4double protectorThickness = 6 * cm;
+
+        G4Sphere* solidProtector = new G4Sphere(
+            "solidProtector",
+            linacHeadThicknessXY - protectorThickness,
+            linacHeadThicknessXY,
+            0 * deg,
+            180 * deg,
+            0 * deg,
+            180 * deg
+        );
+
+        G4LogicalVolume* logProtector = new G4LogicalVolume(
+            solidProtector,
+            lead,
+            "logProtector"
+        );
+
+        new G4PVPlacement(
+            protectorRotation,
+            G4ThreeVector(),
+            logProtector,
+            "solidProtector",
+            logicHead,
+            false,
+            0
+        );
+
+
 
         // create our dose detector
         G4double ddThicknessXY = 15 * cm;
@@ -214,53 +246,16 @@ namespace med_linac {
         new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
 
 
-        // create a lead radiation shield
-
-        G4Material* lead = G4NistManager::Instance()->FindOrBuildMaterial("G4_Pb");
-
-        // Create a lead half-sphere
-        G4double protectorInnerRadius = 0.0;
-        G4double protectorOuterRadius = 5 * cm;
-        G4double protectorStartPhi = 0.0;
-        G4double protectorEndPhi = 180 * deg; // Half-sphere
-
-        G4Sphere* solidRadiationProtector = new G4Sphere(
-            "solidRadiationProtector", 
-            protectorInnerRadius, 
-            protectorOuterRadius, 
-            protectorStartPhi, 
-            protectorEndPhi, 
-            0.0, 
-            360.0 * deg);
-
-        // Create logical volume
-        G4LogicalVolume* logRadiationProtector = new G4LogicalVolume(
-            solidRadiationProtector, 
-            lead, 
-            "logRadiationProtector");
-
-        G4ThreeVector protectorPos = G4ThreeVector();
-
-        new G4PVPlacement(
-            nullptr,
-            protectorPos,
-            logRadiationProtector,
-            "physRadiationProtector",
-            logicHead,
-            false,
-            0);
-
-
-
 
         // create our phantom, to represent a person
+
         G4ThreeVector phantomPos = G4ThreeVector();
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
 
         G4Box* solidPhantom = new G4Box("solidPhantom", 15 * cm, 15 * cm, 15 * cm);
         G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
-        new G4PVPlacement(
+        G4VPhysicalVolume* physPhantom = new G4PVPlacement(
             nullptr,
             phantomPos,
             logicPhantom,
