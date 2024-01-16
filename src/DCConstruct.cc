@@ -50,7 +50,7 @@ namespace med_linac {
         // Next, create a 'linac head' object to contain all the radiation generation stuff
         G4double linacHeadThicknessXY = 15 * cm;
         G4double linacHeadThicknessZ = 15 * cm;
-        
+
 
         // redefine our member variables
         *fLinacHeadPos = G4ThreeVector(0, 0, -1 * m);
