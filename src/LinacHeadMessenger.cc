@@ -33,7 +33,7 @@ namespace med_linac {
 		fShiftCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 
-		
+
 
 	}
 
