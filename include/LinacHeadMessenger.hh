@@ -14,7 +14,6 @@
 #include <map>
 
 
-
 namespace med_linac {
 	class LinacHeadMessenger : public G4UImessenger {
 	public:
@@ -24,7 +23,7 @@ namespace med_linac {
 		void SetNewValue(G4UIcommand* command, G4String newValues);
 		//G4String GetCurrentValue(G4UIcommand* command);
 
-	
+
 	private:
 		DetectorConstruction* fDetectorConstruction;
 
