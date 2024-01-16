@@ -214,6 +214,44 @@ namespace med_linac {
         new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
 
 
+        // create a lead radiation shield
+
+        G4Material* lead = G4NistManager::Instance()->FindOrBuildMaterial("G4_Pb");
+
+        // Create a lead half-sphere
+        G4double protectorInnerRadius = 0.0;
+        G4double protectorOuterRadius = 5 * cm;
+        G4double protectorStartPhi = 0.0;
+        G4double protectorEndPhi = 180 * deg; // Half-sphere
+
+        G4Sphere* solidRadiationProtector = new G4Sphere(
+            "solidRadiationProtector", 
+            protectorInnerRadius, 
+            protectorOuterRadius, 
+            protectorStartPhi, 
+            protectorEndPhi, 
+            0.0, 
+            360.0 * deg);
+
+        // Create logical volume
+        G4LogicalVolume* logRadiationProtector = new G4LogicalVolume(
+            solidRadiationProtector, 
+            lead, 
+            "logRadiationProtector");
+
+        G4ThreeVector protectorPos = G4ThreeVector();
+
+        new G4PVPlacement(
+            nullptr,
+            protectorPos,
+            logRadiationProtector,
+            "physRadiationProtector",
+            logicHead,
+            false,
+            0);
+
+
+
 
         // create our phantom, to represent a person
         G4ThreeVector phantomPos = G4ThreeVector();
