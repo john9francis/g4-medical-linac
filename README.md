@@ -1,7 +1,7 @@
 # g4-medical-linac
 A geant4 model of a medical linac
 
-moving-head branch test
+v0.2.0 moving linac head that also can shoot particles
 
 
 # Useful websites
