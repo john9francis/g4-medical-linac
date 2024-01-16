@@ -5,7 +5,7 @@
 /analysis/openFile pdd.root
 #
 # run a simulation
-/run/beamOn 1000000
+/run/beamOn 10000000
 #
 # save to the file
 /analysis/write
