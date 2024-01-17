@@ -47,6 +47,7 @@ namespace med_linac {
 
 		auto analysisManager = G4AnalysisManager::Instance();
 		G4int pddH1ID = 0;
+		G4int beamProfileH1ID = 1;
 		G4int heatMapXYH2ID = 0;
 		G4int heatMapYZH2ID = 1;
 		G4int heatMapXZH2ID = 2;
@@ -64,6 +65,7 @@ namespace med_linac {
 				G4double energy = hit->GetEnergy();
 
 				analysisManager->FillH1(pddH1ID, graphZ, energy);
+				analysisManager->FillH1(beamProfileH1ID, graphX, energy);
 				analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
 				analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
 				analysisManager->FillH2(heatMapXZH2ID, graphX, graphZ, energy);

@@ -17,6 +17,8 @@ namespace med_linac {
 
 		analysisManager->CreateH1("PDD", "PDD Graph", 100, 0, 15 * cm);
 
+		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, 0, 15 * cm);
+
 		analysisManager->CreateH2("HeatMapXY", "Energy Heat Map XY", 100, 0, 15 * cm, 100, 0, 15 * cm);
 		analysisManager->CreateH2("HeatMapYZ", "Energy Heat Map YZ", 100, 0, 15 * cm, 100, 0, 15 * cm);
 		analysisManager->CreateH2("HeatMapXZ", "Energy Heat Map XZ", 100, 0, 15 * cm, 100, 0, 15 * cm);

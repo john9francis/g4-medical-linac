@@ -14,6 +14,9 @@ namespace med_linac {
 		~SteppingAction();
 
 		void UserSteppingAction(const G4Step*) override;
+
+	private:
+		G4int fDoseProfileH1ID = 1;
 	};
 
 }
