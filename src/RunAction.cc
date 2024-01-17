@@ -15,13 +15,16 @@ namespace med_linac {
 		analysisManager->SetVerboseLevel(0);
 		analysisManager->SetFileName("PDD");
 
-		analysisManager->CreateH1("PDD", "PDD Graph", 100, 0, 15 * cm);
+		analysisManager->CreateH1("PDD", "PDD Graph", 100, -15 * cm, 15 * cm);
+		analysisManager->SetH1XAxisTitle(0, "Depth");
+		analysisManager->SetH1YAxisTitle(0, "Percent Dose");
 
-		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, 0, 15 * cm);
+		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, -15 * cm, 15 * cm);
 
-		analysisManager->CreateH2("HeatMapXY", "Energy Heat Map XY", 100, 0, 15 * cm, 100, 0, 15 * cm);
-		analysisManager->CreateH2("HeatMapYZ", "Energy Heat Map YZ", 100, 0, 15 * cm, 100, 0, 15 * cm);
-		analysisManager->CreateH2("HeatMapXZ", "Energy Heat Map XZ", 100, 0, 15 * cm, 100, 0, 15 * cm);
+
+		analysisManager->CreateH2("HeatMapXY", "Energy Heat Map XY", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
+		analysisManager->CreateH2("HeatMapYZ", "Energy Heat Map YZ", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
+		analysisManager->CreateH2("HeatMapXZ", "Energy Heat Map XZ", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
 
 
 	}
