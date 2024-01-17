@@ -1,0 +1,12 @@
+# start up
+/run/initialize
+#
+# open a file to store our histogram
+/analysis/openFile heatMap.root
+#
+# run a simulation
+/run/beamOn 10000000
+#
+# save to the file
+/analysis/write
+/analysis/closeFile
