@@ -1,3 +1,4 @@
 # mac file to demonstrate the linac head rotating around and irradiating the phantom
-/linacHead/setPosition 0 0 1 m
-/control/loop rotate.mac firstQuadrant 190 270 10
+/linacHead/setPosition 0 0 -1 m
+#/control/loop rotate.mac firstQuadrant 190 270 10
+/control/loop rotate.mac theta 0 360 10
