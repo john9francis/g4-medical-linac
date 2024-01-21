@@ -5,7 +5,8 @@
 /analysis/openFile heatMap.root
 #
 # run a simulation
-/run/beamOn 10000000
+/linacHead/setPosition 0 0 -1 m
+/control/loop rotate.mac theta 0 360 10
 #
 # save to the file
 /analysis/write
