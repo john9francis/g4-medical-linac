@@ -32,6 +32,9 @@ namespace med_linac {
 		fShiftCmd->SetParameterName("coordinate", false);
 		fShiftCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
+		fMoveToAimCmd = new G4UIcmdWithoutParameter("/linacHead/moveToAim", this);
+		fMoveToAimCmd->SetGuidance("Moves the linac head so the beam will hit the target");
+		fMoveToAimCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 
 
@@ -43,6 +46,9 @@ namespace med_linac {
 		}
 		if (command == fPositionCmd) {
 			fDetectorConstruction->SetLinacHeadPosition(fPositionCmd->GetNew3VectorValue(newValue));
+		}
+		if (command == fMoveToAimCmd) {
+			fDetectorConstruction->MoveToAim();
 		}
 		if (command == fShiftCmd) {
 

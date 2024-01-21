@@ -5,6 +5,7 @@
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWith3VectorAndUnit.hh"
 #include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithoutParameter.hh"
 
 #include "G4SystemOfUnits.hh"
 
@@ -33,6 +34,8 @@ namespace med_linac {
 		G4UIcmdWith3VectorAndUnit* fPositionCmd;
 
 		G4UIcmdWithAString* fShiftCmd;
+
+		G4UIcmdWithoutParameter* fMoveToAimCmd;
 
 		G4double shiftPositionAmount = 5 * cm;
 		G4double shiftRotationAmount = 10 * deg;

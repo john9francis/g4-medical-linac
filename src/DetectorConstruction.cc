@@ -73,6 +73,18 @@ namespace med_linac
         MoveLinacHead();
     }
 
+    void DetectorConstruction::MoveToAim() {
+        // shifts the x y and z coordinates to aim at the phantom.
+        G4double radius = fLinacHeadPos->mag();
+        G4double x = fLinacHeadPos->getX();
+        G4double y = - radius * sin(*fLinacHeadTheta);
+        G4double z = - radius * cos(*fLinacHeadTheta);
+
+        *fLinacHeadPos = G4ThreeVector(x, y, z);
+
+        MoveLinacHead();
+    }
+
     void DetectorConstruction::MoveLinacHead() {
         // To move the Linac Head we need to create a new physical volume of it, then delete the old one.
         // The reason for this is because the functions SetRotation and SetTranslation seem to be broken.
