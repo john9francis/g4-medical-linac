@@ -4,3 +4,4 @@
 out/
 build/
 docker_build/
+static_build/
