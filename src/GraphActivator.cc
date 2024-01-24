@@ -1,4 +1,4 @@
-#include "GraphActivatorSingleton.hh"
+#include "GraphActivator.hh"
 
 namespace med_linac {
 	// initialize our instance variable as null

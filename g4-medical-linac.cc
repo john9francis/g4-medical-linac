@@ -12,7 +12,7 @@
 #include "ActionInit.hh"
 
 #include "LinacHeadMessenger.hh"
-#include "GraphActivatorSingleton.hh"
+#include "GraphActivator.hh"
 
 using namespace med_linac;
 
@@ -61,9 +61,6 @@ int main(int argc, char** argv)
 
 	// our messengers
 	auto linacHeadMessenger = new LinacHeadMessenger(detConstruction);
-	// test
-	auto graphSingleton = GraphActivatorSingleton::GetInstance();
-	graphSingleton->TestPrint();
 
 
 	// START UI =============================================================
