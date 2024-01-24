@@ -61,12 +61,7 @@ int main(int argc, char** argv)
 
 	// our messengers
 	auto linacHeadMessenger = new LinacHeadMessenger(detConstruction);
-	// test
-	auto graphActivator = GraphActivatorSingleton::GetInstance();
-	graphActivator->SetMakeDoseProfile(true);
-	if (!graphActivator->GetMakeDoseProfile()) {
-		graphActivator->TestPrint();
-	}
+	auto graphActivatorMessenger = new GraphActivatorMessenger();
 
 
 	// START UI =============================================================

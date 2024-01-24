@@ -4,9 +4,15 @@
 # open a file to store our histogram
 /analysis/openFile pdd.root
 #
+# activate the pdd graph
+/graphActivator/activatePDDGraph true
+#
 # run a simulation
 /run/beamOn 10000000
 #
 # save to the file
 /analysis/write
 /analysis/closeFile
+#
+# reset the pdd graph
+/graphActivator/activatePDDGraph false

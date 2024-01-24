@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////////////////////////
+// SINGLETON
+//////////////////////////////////////////////////////////////////////////////
+
 #ifndef med_linac_GRAPH_ACTIVATOR_SINGLETON_H
 #define med_linac_GRAPH_ACTIVATOR_SINGLETON_H 1
 
@@ -69,4 +73,34 @@ namespace med_linac {
 	};
 }
 
-#endif
+#endif // !med_linac_GRAPH_ACTIVATOR_SINGLETON_H 1
+
+
+//////////////////////////////////////////////////////////////////////////////
+// MESSENGER
+//////////////////////////////////////////////////////////////////////////////
+
+#ifndef med_linac_GRAPH_ACTIVATOR_MESSENGER_H
+#define med_linac_GRAPH_ACTIVATOR_MESSENGER_H 1
+
+#include "G4UImessenger.hh"
+#include "G4UIcmdWithABool.hh"
+
+namespace med_linac {
+	class GraphActivatorMessenger : public G4UImessenger {
+	public:
+		GraphActivatorMessenger();
+
+		void SetNewValue(G4UIcommand* command, G4String newValues);
+
+
+	private:
+		G4UIdirectory* fDirectory;
+
+		G4UIcmdWithABool* setPddCmd;
+		G4UIcmdWithABool* setDoseProfileCmd;
+		G4UIcmdWithABool* setHeatMapCmd;
+	};
+}
+
+#endif // !med_linac_GRAPH_ACTIVATOR_MESSENGER_H 1

@@ -5,6 +5,7 @@
 #include "G4Colour.hh"
 
 #include "G4AnalysisManager.hh"
+#include "GraphActivator.hh"
 
 namespace med_linac {
 	PhantomSD::PhantomSD(
@@ -46,6 +47,7 @@ namespace med_linac {
 	void PhantomSD::EndOfEvent(G4HCofThisEvent*) {
 
 		auto analysisManager = G4AnalysisManager::Instance();
+		auto graphActivator = GraphActivatorSingleton::GetInstance();
 		G4int pddH1ID = 0;
 		G4int beamProfileH1ID = 1;
 		G4int heatMapXYH2ID = 0;
@@ -64,11 +66,18 @@ namespace med_linac {
 				G4double graphY = hitPos.getZ();
 				G4double energy = hit->GetEnergy();
 
-				analysisManager->FillH1(pddH1ID, graphZ, energy);
-				analysisManager->FillH1(beamProfileH1ID, graphX, energy);
-				analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
-				analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
-				analysisManager->FillH2(heatMapXZH2ID, graphX, graphZ, energy);
+				// fill whatever graphs we have set to true
+				if (graphActivator->GetMakePDD()) {
+					analysisManager->FillH1(pddH1ID, graphZ, energy);
+				}
+				if (graphActivator->GetMakeDoseProfile()) {
+					analysisManager->FillH1(beamProfileH1ID, graphX, energy);
+				}
+				if (graphActivator->GetMakeHeatMap()) {
+					analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
+					analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
+					analysisManager->FillH2(heatMapXZH2ID, graphX, graphZ, energy);
+				}
 			}
 		}
 
