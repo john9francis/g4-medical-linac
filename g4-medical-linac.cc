@@ -9,9 +9,10 @@
 
 #include "DetectorConstruction.hh"
 #include "PhysicsList.hh"
-#include "LinacHeadMessenger.hh"
-
 #include "ActionInit.hh"
+
+#include "LinacHeadMessenger.hh"
+#include "GraphActivatorSingleton.hh"
 
 using namespace med_linac;
 
@@ -60,6 +61,10 @@ int main(int argc, char** argv)
 
 	// our messengers
 	auto linacHeadMessenger = new LinacHeadMessenger(detConstruction);
+	// test
+	auto graphSingleton = GraphActivatorSingleton::GetInstance();
+	graphSingleton->TestPrint();
+
 
 	// START UI =============================================================
 
