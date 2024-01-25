@@ -1,4 +1,5 @@
 #include "GraphActivator.hh"
+#include "G4AnalysisManager.hh"
 
 namespace med_linac {
 	// initialize our instance variable as null
@@ -18,15 +19,19 @@ namespace med_linac {
 	void GraphActivatorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
 		// access singleton
 		auto GASingleton = GraphActivatorSingleton::GetInstance();
+		auto analysisManager = G4AnalysisManager::Instance();
 
 		if (command == setPddCmd) {
-			GASingleton->SetMakePDD(setPddCmd->GetNewBoolValue(newValue));
+			//GASingleton->SetMakePDD(setPddCmd->GetNewBoolValue(newValue));
+			analysisManager->SetH1Activation(0, setPddCmd->GetNewBoolValue(newValue));
 		}
 		if (command == setDoseProfileCmd) {
-			GASingleton->SetMakeDoseProfile(setDoseProfileCmd->GetNewBoolValue(newValue));
+			//GASingleton->SetMakeDoseProfile(setDoseProfileCmd->GetNewBoolValue(newValue));
+			analysisManager->SetH1Activation(1, setPddCmd->GetNewBoolValue(newValue));
 		}
 		if (command == setHeatMapCmd) {
-			GASingleton->SetMakeHeatMap(setHeatMapCmd->GetNewBoolValue(newValue));
+			//GASingleton->SetMakeHeatMap(setHeatMapCmd->GetNewBoolValue(newValue));
+			// do nothing (for now)
 		}
 
 	}

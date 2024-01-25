@@ -19,8 +19,13 @@ namespace med_linac {
 		analysisManager->SetH1XAxisTitle(0, "Depth");
 		analysisManager->SetH1YAxisTitle(0, "Percent Dose");
 
+		// deactivate by default
+		analysisManager->SetH1Activation(0, false);
+
 		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, -15 * cm, 15 * cm);
 
+		// deactivate by default
+		analysisManager->SetH1Activation(1, false);
 
 		analysisManager->CreateH2("HeatMapXY", "Energy Heat Map XY", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
 		analysisManager->CreateH2("HeatMapYZ", "Energy Heat Map YZ", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);

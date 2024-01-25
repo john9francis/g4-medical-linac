@@ -67,17 +67,11 @@ namespace med_linac {
 				G4double energy = hit->GetEnergy();
 
 				// fill whatever graphs we have set to true
-				if (graphActivator->GetMakePDD()) {
-					analysisManager->FillH1(pddH1ID, graphZ, energy);
-				}
-				if (graphActivator->GetMakeDoseProfile()) {
-					analysisManager->FillH1(beamProfileH1ID, graphX, energy);
-				}
-				if (graphActivator->GetMakeHeatMap()) {
-					analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
-					analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
-					analysisManager->FillH2(heatMapXZH2ID, graphX, graphZ, energy);
-				}
+				analysisManager->FillH1(pddH1ID, graphZ, energy);
+				analysisManager->FillH1(beamProfileH1ID, graphX, energy);
+				analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
+				analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
+				analysisManager->FillH2(heatMapXZH2ID, graphX, graphZ, energy);
 			}
 		}
 
