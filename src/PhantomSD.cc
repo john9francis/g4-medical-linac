@@ -5,7 +5,6 @@
 #include "G4Colour.hh"
 
 #include "G4AnalysisManager.hh"
-#include "GraphActivator.hh"
 
 namespace med_linac {
 	PhantomSD::PhantomSD(
@@ -47,7 +46,6 @@ namespace med_linac {
 	void PhantomSD::EndOfEvent(G4HCofThisEvent*) {
 
 		auto analysisManager = G4AnalysisManager::Instance();
-		auto graphActivator = GraphActivatorSingleton::GetInstance();
 		G4int pddH1ID = 0;
 		G4int beamProfileH1ID = 1;
 		G4int heatMapXYH2ID = 0;

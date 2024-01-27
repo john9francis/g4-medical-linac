@@ -12,7 +12,6 @@
 #include "ActionInit.hh"
 
 #include "LinacHeadMessenger.hh"
-#include "GraphActivator.hh"
 
 using namespace med_linac;
 
@@ -61,7 +60,6 @@ int main(int argc, char** argv)
 
 	// our messengers
 	auto linacHeadMessenger = new LinacHeadMessenger(detConstruction);
-	auto graphActivatorMessenger = new GraphActivatorMessenger();
 
 
 	// START UI =============================================================
