@@ -8,7 +8,7 @@ namespace med_linac {
 	public:
 		ActionInit() = default;
 		~ActionInit() override = default;
-
+		
 		void Build() const override;
 		void BuildForMaster() const override;
 	

@@ -5,7 +5,8 @@
 /analysis/openFile pdd.root
 #
 # activate the pdd graph
-/graphActivator/activatePDDGraph true
+#/graphActivator/activatePDDGraph true
+/analysis/h1/setActivation 0
 #
 # run a simulation
 /run/beamOn 10000000
@@ -15,4 +16,5 @@
 /analysis/closeFile
 #
 # reset the pdd graph
-/graphActivator/activatePDDGraph false
+#/graphActivator/activatePDDGraph false
+/analysis/h1/setActivation 0 false
