@@ -3,6 +3,7 @@
 #include "G4EmStandardPhysics.hh"
 #include "G4EmLivermorePolarizedPhysics.hh"
 #include "G4EmDNAPhysics_option2.hh"
+#include "G4EmDNAPhysics_option1.hh"
 
 namespace med_linac
 {
@@ -15,12 +16,12 @@ namespace med_linac
 
 	}
 
-	void PhysicsList::ConstructParticle(){
-		G4VModularPhysicsList::ConstructParticle();
-	}
+	//void PhysicsList::ConstructParticle(){
+	//	G4VModularPhysicsList::ConstructParticle();
+	//}
 
 
-	void PhysicsList::ConstructProcess() {
-		G4VModularPhysicsList::ConstructProcess();
-	}
+	//void PhysicsList::ConstructProcess() {
+	//	G4VModularPhysicsList::ConstructProcess();
+	//}
 }

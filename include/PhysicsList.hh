@@ -10,11 +10,11 @@ namespace med_linac
 	{
 	public:
 		PhysicsList();
-		virtual ~PhysicsList() override = default;
+		virtual ~PhysicsList() = default;
 
 		// Mandatory methods to override;
-		virtual void ConstructParticle() override;
-		virtual void ConstructProcess() override;
+		//virtual void ConstructParticle() override;
+		//virtual void ConstructProcess() override;
 
 	};
 }
