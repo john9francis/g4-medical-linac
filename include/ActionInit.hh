@@ -7,10 +7,10 @@ namespace med_linac {
 	class ActionInit : public G4VUserActionInitialization {
 	public:
 		ActionInit() = default;
-		~ActionInit() override = default;
+		~ActionInit() = default;
 		
-		void Build() const override;
-		void BuildForMaster() const override;
+		void Build() const;
+		void BuildForMaster() const;
 	
 	};
 }

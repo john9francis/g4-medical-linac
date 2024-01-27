@@ -5,8 +5,10 @@
 /analysis/openFile pdd.root
 #
 # activate the pdd graph
-#/graphActivator/activatePDDGraph true
 /analysis/h1/setActivation 0
+#
+# activate dose profile graph as well
+/analysis/h1/setActivation 1
 #
 # run a simulation
 /run/beamOn 10000000
@@ -15,6 +17,6 @@
 /analysis/write
 /analysis/closeFile
 #
-# reset the pdd graph
-#/graphActivator/activatePDDGraph false
+# reset the graphs
 /analysis/h1/setActivation 0 false
+/analysis/h1/setActivation 1 false

@@ -7,9 +7,8 @@
 namespace med_linac {
 
 	void ActionInit::Build() const {
-		// Multithreaded
+		// set our user actions
 
-		// set the Geant4 actions
 		SetUserAction(new PrimaryGeneratorAction);
 
 		SetUserAction(new RunAction());
@@ -19,7 +18,7 @@ namespace med_linac {
 	};
 
 	void ActionInit::BuildForMaster() const {
-		// Sequential
+		// Just for master branch
 
 		SetUserAction(new RunAction());
 
