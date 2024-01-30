@@ -14,9 +14,9 @@ namespace med_linac {
 			const G4String& hitsCollectionName);
 		~PhantomSD() override = default;
 
-		void Initialize(G4HCofThisEvent*) override;
-		G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;
-		void EndOfEvent(G4HCofThisEvent*) override;
+		void Initialize(G4HCofThisEvent*);
+		G4bool ProcessHits(G4Step*, G4TouchableHistory*);
+		void EndOfEvent(G4HCofThisEvent*);
 
 	private:
 		PhantomHitsCollection* fOneEventHitsCollection = nullptr;
