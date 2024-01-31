@@ -57,7 +57,10 @@ namespace med_linac {
 	PhantomHitsCollection::PhantomHitsCollection(
 		const G4String& name,
 		const G4String& collectionName)
-		: G4THitsCollection<PhantomHit>(name, collectionName) {}
+		: G4THitsCollection<PhantomHit>(name, collectionName) {
+		fMaxEnergy = new G4double(0.0);
+	}
+
 
 
 }
