@@ -23,12 +23,6 @@ namespace med_linac {
 		// Beam profile
 		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, -15 * cm, 15 * cm);
 
-		// set up our nTuples
-		G4int pddNTupleID = analysisManager->CreateNtuple("PDD_data", "PDD NTuple Data");
-		analysisManager->CreateNtupleDColumn(pddNTupleID, "Energy");
-		analysisManager->CreateNtupleDColumn(pddNTupleID, "X");
-		analysisManager->CreateNtupleDColumn(pddNTupleID, "Y");
-		analysisManager->CreateNtupleDColumn(pddNTupleID, "Z");
 
 		// deactivate h1s by default
 		analysisManager->SetH1Activation(0, false);
