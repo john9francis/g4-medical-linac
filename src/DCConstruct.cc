@@ -2,6 +2,8 @@
 
 #include "DetectorConstruction.hh"
 
+#include "G4Cons.hh"
+
 namespace med_linac {
     G4VPhysicalVolume* DetectorConstruction::Construct()
     {
@@ -234,11 +236,34 @@ namespace med_linac {
         );
 
 
+        // Create flattening filter
+        G4double coneInnerRadius = 0.0;
+        G4double coneOuterRadius = innerColRadius;
+        G4double coneHeight = 1 * cm;
+        G4double startPhi = 0.0;
+        G4double endPhi = 360.0 * deg;
+
+        G4double ffZ = colZ + (colThickness / 2) + (coneHeight / 2) + 1 * cm;
+        G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
+
+        G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
+        G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");
+        new G4PVPlacement(
+            nullptr,
+            ffPos,
+            logicFF,
+            "physFF",
+            logicHead,
+            false,
+            0);
+
+
+
 
         // create our dose detector
         G4double ddThicknessXY = 15 * cm;
         G4double ddThicknessZ = 1 * nm;
-        G4double ddZ = colZ + (colThickness / 2) + (ddThicknessZ / 2) + 5 * cm;
+        G4double ddZ = ffZ + (coneHeight / 2) + (ddThicknessZ / 2) + 5 * cm;
         G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
 
         G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
