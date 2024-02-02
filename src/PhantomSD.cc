@@ -60,17 +60,12 @@ namespace med_linac {
 
 				G4ThreeVector hitPos = hit->GetPos();
 				G4double graphX = hitPos.getX();
-				G4double graphZ = hitPos.getY();
-				G4double graphY = hitPos.getZ();
+				G4double graphY = hitPos.getY();
+				G4double graphZ = hitPos.getZ();
 				G4double energy = hit->GetEnergy();
 
-				// fill whatever graphs we have set to true
-				//if (analysisManager->GetH1Activation(pddH1ID)) {
 				analysisManager->FillH1(pddH1ID, graphZ, energy);
-				//}
-				//if (analysisManager->GetH1Activation(beamProfileH1ID)) {
 				analysisManager->FillH1(beamProfileH1ID, graphX, energy);
-				//}
 
 				analysisManager->FillH2(heatMapXYH2ID, graphX, graphY, energy);
 				analysisManager->FillH2(heatMapYZH2ID, graphY, graphZ, energy);
