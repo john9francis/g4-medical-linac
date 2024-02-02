@@ -152,7 +152,7 @@ namespace med_linac {
             "Absorber");
 
         // absorber position and rotation
-        G4double absorberZ = targetPos.getZ() + (absorberThickness / 2);
+        G4double absorberZ = targetPos.getZ() + targetThickness / 2 + (absorberThickness / 2);
         G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
         G4RotationMatrix* absorberRot = new G4RotationMatrix();
 
@@ -164,6 +164,48 @@ namespace med_linac {
             logicHead,
             false,
             0);
+
+
+        //////////////////////////////////////////////////////////////////////////
+        // In this section I will test some filters
+        // Inspiration comes from this article: 
+        // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5496272/
+        //////////////////////////////////////////////////////////////////////////
+
+        // Add a CU filter
+        G4Material* copper = nist->FindOrBuildMaterial("G4_Cu");
+
+        G4double innerCuFilterRadius = 0.0;
+        G4double outerCuFilterRadius = 1.5 * cm;
+        G4double CuFilterThickness = 2 * mm;
+
+        G4Tubs* solidCuFilter = new G4Tubs("solidCuFilter",
+            innerCuFilterRadius,
+            outerCuFilterRadius,
+            CuFilterThickness / 2.0,
+            0.0,
+            360.0 * deg);
+
+        G4LogicalVolume* logicCuFilter = new G4LogicalVolume(solidCuFilter,
+            copper,
+            "logicCuFilter");
+
+        // filter position and rotation
+        G4double CuFilterZ = absorberZ + absorberThickness / 2 + (CuFilterThickness / 2);
+        G4ThreeVector CuFilterPos = G4ThreeVector(0.0, 0.0, CuFilterZ);
+
+        // place the absorber
+        new G4PVPlacement(new G4RotationMatrix(),
+            CuFilterPos,
+            logicCuFilter,
+            "physCuFilter",
+            logicHead,
+            false,
+            0);
+
+
+        // add an AL filter
+        
 
 
 
@@ -246,6 +288,7 @@ namespace med_linac {
         G4double ffZ = colZ + (colThickness / 2) + (coneHeight / 2) + 1 * cm;
         G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
 
+        
         G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
         G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");
         new G4PVPlacement(
@@ -256,6 +299,8 @@ namespace med_linac {
             logicHead,
             false,
             0);
+
+        
 
 
 
