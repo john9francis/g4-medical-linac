@@ -63,10 +63,11 @@ namespace med_linac {
 		// print out the time it took
 		if (IsMaster()) {
 			PrintTime();
-		}
 
+		}
 		// fill pdd graph
 		fpddCollection->FillPddGraph();
+		
 	}
 
 	void RunAction::PrintTime() {

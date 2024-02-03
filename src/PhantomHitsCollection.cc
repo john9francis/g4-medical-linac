@@ -85,6 +85,7 @@ namespace med_linac {
 
 		auto analysisManager = G4AnalysisManager::Instance();
 		G4double maxEnergy = this->GetMaxEnergy();
+		G4cout << "Max energy: " << maxEnergy << G4endl;
 		G4int pddH1ID = 0;
 
 		// Loop through our hits collection and find max energy
