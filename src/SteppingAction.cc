@@ -10,12 +10,15 @@
 #include "G4UnitsTable.hh"
 
 // NEW BRANCH moving phantom logic to stepping action :(
+#include "PhantomHitsCollection.hh"
 
 namespace med_linac {
-	SteppingAction::SteppingAction() {
+	SteppingAction::SteppingAction(RunAction* runAction) {
+		fPointerToUserRunAction = runAction;
 	}
 
 	SteppingAction::~SteppingAction() {
+		// no need to delete run action, it's not allocated here
 	}
 
 	void SteppingAction::UserSteppingAction(const G4Step* step) {
@@ -31,6 +34,17 @@ namespace med_linac {
 
 			auto analysisManager = G4AnalysisManager::Instance();
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
+		}
+
+
+		// if our particle is in the phantom, add a hit to the run hits collection
+		if (currentPhysVolume->GetName() == "physPhantom") {
+			PhantomHit* hit = new PhantomHit();
+			hit->SetEnergy(step->GetTotalEnergyDeposit());
+			hit->SetPos(step->GetPreStepPoint()->GetPosition());
+
+			fPointerToUserRunAction->AddToPddHitsCollection(hit);
+
 		}
 	
 	}
