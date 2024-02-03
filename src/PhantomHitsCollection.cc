@@ -2,6 +2,7 @@
 #include "PhantomHitsCollection.hh"
 #include "G4VisExecutive.hh"
 #include "G4Circle.hh"
+#include "G4AnalysisManager.hh"
 
 namespace med_linac {
 	PhantomHit::PhantomHit() {
@@ -57,10 +58,56 @@ namespace med_linac {
 	PhantomHitsCollection::PhantomHitsCollection(
 		const G4String& name,
 		const G4String& collectionName)
-		: G4THitsCollection<PhantomHit>(name, collectionName) {
-		fMaxEnergy = new G4double(0.0);
+		: G4THitsCollection<PhantomHit>(name, collectionName) {}
+
+	G4double PhantomHitsCollection::GetMaxEnergy() {
+
+		G4double maxEnergy = 0.0;
+
+		// Loop through our hits collection and find max energy
+		for (G4int i = 0; i < this->GetSize(); i++) {
+
+			PhantomHit* hit = (*this)[i];
+			G4double hitEnergy = hit->GetEnergy();
+			if (hitEnergy > maxEnergy) {
+				maxEnergy = hitEnergy;
+			}
+			
+		}
+
+		return maxEnergy;
 	}
 
+
+	void PhantomHitsCollection::FillPddGraph() {
+		// for each hit, divide the energy by max energy
+		// and add 15 to the position
+
+		auto analysisManager = G4AnalysisManager::Instance();
+		G4double maxEnergy = this->GetMaxEnergy();
+		G4int pddH1ID = 0;
+
+		// Loop through our hits collection and find max energy
+		for (G4int i = 0; i < this->GetSize(); i++) {
+			PhantomHit* hit = (*this)[i];
+			
+			// first, get the energy
+			G4double absoluteEnergy = hit->GetEnergy();
+			// then adjust it 
+			G4double percentDose = absoluteEnergy / maxEnergy;
+
+			// now get the position
+			G4ThreeVector absolutePos = hit->GetPos();
+			// and adjust it
+			G4double depth = absolutePos.getZ() + 15 * cm;
+
+			// finally, plot this point
+			analysisManager->FillH1(pddH1ID, depth, percentDose);
+			
+
+		}
+
+	}
 
 
 }

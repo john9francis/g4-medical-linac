@@ -47,15 +47,9 @@ namespace med_linac {
 			const G4String& name, 
 			const G4String& collectionName);
 
-		G4double GetMaxEnergy() { return *fMaxEnergy; }
-		void SetMaxEnergy(G4double possibleMaxEnergy) {
-			if (possibleMaxEnergy > *fMaxEnergy) {
-				*fMaxEnergy = possibleMaxEnergy;
-			}
-		}
 
-	private:
-		G4double* fMaxEnergy;
+		G4double GetMaxEnergy();
+		void FillPddGraph();
 
 	};
 

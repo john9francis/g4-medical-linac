@@ -8,6 +8,9 @@
 namespace med_linac {
 	RunAction::RunAction() {
 
+		// init hits collection
+		fpddCollection = new PhantomHitsCollection("PddHitsCollection", "PddHitsCollection");
+
 		auto analysisManager = G4AnalysisManager::Instance();
 
 		analysisManager->SetDefaultFileType("root");
@@ -16,7 +19,7 @@ namespace med_linac {
 
 		// set up our h1s
 		// PDD
-		analysisManager->CreateH1("PDD", "PDD Graph", 100, -15 * cm, 15 * cm);
+		analysisManager->CreateH1("PDD", "PDD Graph", 100, 0 * cm, 30 * cm);
 		analysisManager->SetH1XAxisTitle(0, "Depth");
 		analysisManager->SetH1YAxisTitle(0, "Percent Dose");
 
@@ -39,6 +42,11 @@ namespace med_linac {
 	}
 
 	RunAction::~RunAction() {
+		delete fpddCollection;
+	}
+
+	void RunAction::AddToPddHitsCollection(PhantomHit* aHit) {
+		fpddCollection->insert(aHit);
 	}
 
 	void RunAction::BeginOfRunAction(const G4Run* aRun) {
@@ -56,6 +64,9 @@ namespace med_linac {
 		if (IsMaster()) {
 			PrintTime();
 		}
+
+		// fill pdd graph
+		fpddCollection->FillPddGraph();
 	}
 
 	void RunAction::PrintTime() {
