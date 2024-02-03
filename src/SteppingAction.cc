@@ -39,11 +39,23 @@ namespace med_linac {
 
 		// if our particle is in the phantom, add a hit to the run hits collection
 		if (currentPhysVolume->GetName() == "physPhantom") {
-			PhantomHit* hit = new PhantomHit();
-			hit->SetEnergy(step->GetTotalEnergyDeposit());
-			hit->SetPos(step->GetPreStepPoint()->GetPosition());
 
+			G4ThreeVector pos = step->GetPreStepPoint()->GetPosition();
+			G4double energy = step->GetTotalEnergyDeposit();
+
+			PhantomHit* hit = new PhantomHit();
+			hit->SetEnergy(energy);
+			hit->SetPos(pos);
+
+			// this is for adding to the PDD
 			fPointerToUserRunAction->AddToPddHitsCollection(hit);
+
+			// this is adding to the heat map
+			auto analysisManager = G4AnalysisManager::Instance();
+			analysisManager->FillH2(0, pos.getX(), pos.getY(), energy);
+			analysisManager->FillH2(1, pos.getY(), pos.getZ(), energy);
+			analysisManager->FillH2(2, pos.getX(), pos.getZ(), energy);
+
 
 		}
 	
