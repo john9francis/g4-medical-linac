@@ -9,6 +9,8 @@
 
 #include "G4UnitsTable.hh"
 
+// NEW BRANCH moving phantom logic to stepping action :(
+
 namespace med_linac {
 	SteppingAction::SteppingAction() {
 	}
