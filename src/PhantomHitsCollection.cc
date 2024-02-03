@@ -88,23 +88,23 @@ namespace med_linac {
 		G4cout << "Max energy: " << maxEnergy << G4endl;
 		G4int pddH1ID = 0;
 
-		// Loop through our hits collection and find max energy
+		// Loop through our hits collection and add to analysis
 		for (G4int i = 0; i < this->GetSize(); i++) {
 			PhantomHit* hit = (*this)[i];
 			
 			// first, get the energy
 			G4double absoluteEnergy = hit->GetEnergy();
-			// then adjust it 
-			G4double percentDose = absoluteEnergy / maxEnergy;
 
 			// now get the position
 			G4ThreeVector absolutePos = hit->GetPos();
 			// and adjust it
 			G4double depth = absolutePos.getZ() + 15 * cm;
 
-			// finally, plot this point
-			analysisManager->FillH1(pddH1ID, depth, percentDose);
-			
+			// plot this point
+			analysisManager->FillH1(pddH1ID, depth, absoluteEnergy);
+
+			// finally, normalize the h1
+			// how??? idkkkk
 
 		}
 
