@@ -39,7 +39,7 @@ namespace med_linac
         G4double startPhi = 0.0;
         G4double endPhi = 360.0 * deg;
 
-        G4double ffZ = 5 * cm;
+        G4double ffZ = 8 * cm;
         G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
         G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
         G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");

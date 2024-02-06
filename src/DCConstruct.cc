@@ -80,7 +80,7 @@ namespace med_linac {
             particleGunAnchorThickness,
             particleGunAnchorThickness);
 
-        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, -linacHeadThicknessZ + 7 * cm);
+        G4ThreeVector particleGunAnchor1Pos = G4ThreeVector(0, 0, - 18 * cm);
         *fGunAnchorPos = particleGunAnchor1Pos;
 
         G4LogicalVolume* logicParticleGunAnchor1 = new G4LogicalVolume(solidParticleGunAnchor, vacuum, "logicParticleGunAnchor1");
@@ -117,7 +117,7 @@ namespace med_linac {
             "logicTarget");
 
         // target position and rotation
-        G4double targetZ = particleGunAnchor1Pos.getZ() + 3 * cm;
+        G4double targetZ = -15 * cm;
         G4ThreeVector targetPos = G4ThreeVector(0, 0, targetZ); // 0,0,0
         G4RotationMatrix* targetRotation = new G4RotationMatrix();
 
@@ -151,7 +151,7 @@ namespace med_linac {
             "Absorber");
 
         // absorber position and rotation
-        G4double absorberZ = targetPos.getZ() + targetThickness / 2 + (absorberThickness / 2);
+        G4double absorberZ = -14.2 * cm;
         G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
         G4RotationMatrix* absorberRot = new G4RotationMatrix();
 
@@ -163,45 +163,6 @@ namespace med_linac {
             logicHead,
             false,
             0);
-
-
-        //////////////////////////////////////////////////////////////////////////
-        // In this section I will test some filters
-        // Inspiration comes from this article: 
-        // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5496272/
-        //////////////////////////////////////////////////////////////////////////
-
-        // Add a CU filter
-        G4Material* copper = nist->FindOrBuildMaterial("G4_Cu");
-
-        G4double innerCuFilterRadius = 0.0;
-        G4double outerCuFilterRadius = 1.5 * cm;
-        G4double CuFilterThickness = 2 * mm;
-
-        G4Tubs* solidCuFilter = new G4Tubs("solidCuFilter",
-            innerCuFilterRadius,
-            outerCuFilterRadius,
-            CuFilterThickness / 2.0,
-            0.0,
-            360.0 * deg);
-
-        G4LogicalVolume* logicCuFilter = new G4LogicalVolume(solidCuFilter,
-            copper,
-            "logicCuFilter");
-
-        // filter position and rotation
-        G4double CuFilterZ = absorberZ + absorberThickness / 2 + (CuFilterThickness / 2);
-        G4ThreeVector CuFilterPos = G4ThreeVector(0.0, 0.0, CuFilterZ);
-
-        // place the absorber
-        new G4PVPlacement(new G4RotationMatrix(),
-            CuFilterPos,
-            logicCuFilter,
-            "physCuFilter",
-            logicHead,
-            false,
-            0);
-
 
 
 
@@ -221,10 +182,7 @@ namespace med_linac {
             "Collimator");
 
         // collimator position and rotation
-        G4double colZ =
-            absorberZ
-            + (absorberThickness / 2)
-            + (colThickness / 2);
+        G4double colZ = -3.45 * cm;
 
         G4ThreeVector colPos = G4ThreeVector(0, 0, colZ);
 
@@ -238,6 +196,8 @@ namespace med_linac {
             logicHead,
             false,
             0);
+
+
 
 
         // Create a half hollow lead semi-sphere around the backside
@@ -281,7 +241,7 @@ namespace med_linac {
         G4double startPhi = 0.0;
         G4double endPhi = 360.0 * deg;
 
-        G4double ffZ = colZ + (colThickness / 2) + (coneHeight / 2) + 1 * cm;
+        G4double ffZ = 8 * cm;
         G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
 
         
@@ -304,7 +264,7 @@ namespace med_linac {
         // create our dose detector
         G4double ddThicknessXY = 15 * cm;
         G4double ddThicknessZ = 1 * nm;
-        G4double ddZ = ffZ + (coneHeight / 2) + (ddThicknessZ / 2) + 5 * cm;
+        G4double ddZ = 13.5 * cm;
         G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
 
         G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
