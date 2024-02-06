@@ -30,6 +30,9 @@ namespace med_linac {
 
 		G4UIdirectory* fDirectory;
 
+		G4UIcmdWithoutParameter* fAddFlatteningFilterCmd;
+		G4UIcmdWithoutParameter* fRemoveFlatteningFilterCmd;
+
 		G4UIcmdWith3VectorAndUnit* fAngleCmd;
 		G4UIcmdWith3VectorAndUnit* fPositionCmd;
 

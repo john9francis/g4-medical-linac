@@ -204,9 +204,6 @@ namespace med_linac {
             0);
 
 
-        // add an AL filter
-        
-
 
 
         // create tungsten collimator
@@ -291,7 +288,7 @@ namespace med_linac {
         
         G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
         G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");
-        new G4PVPlacement(
+        fFlatteningFilter = new G4PVPlacement(
             nullptr,
             ffPos,
             logicFF,

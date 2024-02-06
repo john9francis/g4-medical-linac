@@ -1,5 +1,6 @@
 
 #include "DetectorConstruction.hh"
+#include "G4Cons.hh"
 
 
 
@@ -34,6 +35,59 @@ namespace med_linac
         // assign the sd to the volume we want
         SetSensitiveDetector("logicPhantom", phantomSD);
         */
+    }
+
+    void DetectorConstruction::AddFlatteningFilter() {
+
+        if (fFlatteningFilter) {
+            G4cout
+                << "Can't add flattening filter,"
+                << " it already exists."
+                << G4endl;
+            return;
+        }
+
+        auto nist = G4NistManager::Instance();
+        G4Material* tungsten = nist->FindOrBuildMaterial("G4_W");
+
+
+
+        // Create flattening filter
+        G4double coneInnerRadius = 0.0;
+        G4double coneOuterRadius = 4.0 * cm;
+        G4double coneHeight = 1 * cm;
+        G4double startPhi = 0.0;
+        G4double endPhi = 360.0 * deg;
+
+        G4double ffZ = 5 * cm;
+        G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
+        G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
+        G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");
+
+        // get logic head from phys head
+        G4LogicalVolume* logicHead = fLinacHead->GetLogicalVolume();
+
+        fFlatteningFilter = new G4PVPlacement(
+            nullptr,
+            ffPos,
+            logicFF,
+            "physFF",
+            logicHead,
+            false,
+            0);
+    }
+
+    void DetectorConstruction::RemoveFlatteningFilter() {
+        if (fFlatteningFilter) {
+            delete fFlatteningFilter;
+            fFlatteningFilter = nullptr;
+        }
+        else {
+            G4cout
+                << "Can't remove flattening filter,"
+                << " it currently does not exist. "
+                << G4endl;
+        }
     }
 
 

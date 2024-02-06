@@ -36,6 +36,8 @@ namespace med_linac
 		void ShiftLinacHeadRotation(G4ThreeVector phiThetaPsi);
 		void ShiftLinacHeadPosition(G4ThreeVector xyz);
 		void MoveToAim();
+		void AddFlatteningFilter();
+		void RemoveFlatteningFilter();
 
 		// for primary gen action
 		G4ThreeVector GetLinacHeadRot() const { return G4ThreeVector(*fLinacHeadPhi, *fLinacHeadTheta, *fLinacHeadPsi); }
@@ -45,6 +47,7 @@ namespace med_linac
 	private:
 		G4VPhysicalVolume* fLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
+		G4VPhysicalVolume* fFlatteningFilter = nullptr;
 
 		G4ThreeVector* fLinacHeadPos;
 		G4RotationMatrix* fLinacHeadRot;

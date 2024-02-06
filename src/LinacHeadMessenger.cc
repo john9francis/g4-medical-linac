@@ -15,6 +15,15 @@ namespace med_linac {
 		fDirectory->SetGuidance("Commands to move the linac head");
 
 		// set our commands
+		fAddFlatteningFilterCmd = new G4UIcmdWithoutParameter("/linacHead/addFF", this);
+		fAddFlatteningFilterCmd->SetGuidance("Adds a flattening filter to make the beam uniform");
+		fAddFlatteningFilterCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+		fRemoveFlatteningFilterCmd = new G4UIcmdWithoutParameter("/linacHead/removeFF", this);
+		fRemoveFlatteningFilterCmd->SetGuidance("Removes flattening filter if it exists");
+		fRemoveFlatteningFilterCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+
 		fAngleCmd = new G4UIcmdWith3VectorAndUnit("/linacHead/setAngle", this);
 		fAngleCmd->SetGuidance("Set the rotation angle of the linac head in radians or degrees");
 		fAngleCmd->SetParameterName("Phi", "Theta", "Psi", false);
@@ -41,6 +50,12 @@ namespace med_linac {
 	}
 
 	void LinacHeadMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
+		if (command == fAddFlatteningFilterCmd) {
+			fDetectorConstruction->AddFlatteningFilter();
+		}
+		if (command == fRemoveFlatteningFilterCmd) {
+			fDetectorConstruction->RemoveFlatteningFilter();
+		}
 		if (command == fAngleCmd) {
 			fDetectorConstruction->SetLinacHeadAngle(fAngleCmd->GetNew3VectorValue(newValue));
 		}
