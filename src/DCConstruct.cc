@@ -320,6 +320,12 @@ namespace med_linac {
 
         G4Material* water = nist->FindOrBuildMaterial("G4_WATER");
 
+        // we can also test different types of tissue
+        G4Material* tissue1 = nist->FindOrBuildMaterial("G4_A-150_TISSUE");
+        G4Material* tissue2 = nist->FindOrBuildMaterial("G4_ADIPOSE_TISSUE_TCRP");
+        G4Material* tissue3 = nist->FindOrBuildMaterial("G4_TISSUE_SOFT_ICRP");
+
+
         G4Box* solidPhantom = new G4Box("solidPhantom", 15 * cm, 15 * cm, 15 * cm);
         G4LogicalVolume* logicPhantom = new G4LogicalVolume(solidPhantom, water, "logicPhantom");
         G4VPhysicalVolume* physPhantom = new G4PVPlacement(
