@@ -1,6 +1,5 @@
 
 #include "DetectorConstruction.hh"
-#include "G4Cons.hh"
 
 
 
@@ -17,25 +16,6 @@ namespace med_linac
         fLinacHeadPsi = new G4double();
     }
 
-    void DetectorConstruction::ConstructSDandField() {
-        // DISABLE FOR NOW:
-        /*
-        // Add our PhantomSD to the phantom
-
-        // Assign names
-        G4String phantomSDName = "phantomSD";
-        G4String phantomHCName = "phantomHC";
-
-        // Create our SD
-        auto phantomSD = new PhantomSD(phantomSDName, phantomHCName);
-
-        // add the SD to the singleton
-        G4SDManager::GetSDMpointer()->AddNewDetector(phantomSD);
-
-        // assign the sd to the volume we want
-        SetSensitiveDetector("logicPhantom", phantomSD);
-        */
-    }
 
     void DetectorConstruction::AddFlatteningFilter() {
 

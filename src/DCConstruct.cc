@@ -2,7 +2,6 @@
 
 #include "DetectorConstruction.hh"
 
-#include "G4Cons.hh"
 
 namespace med_linac {
     G4VPhysicalVolume* DetectorConstruction::Construct()
