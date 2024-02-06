@@ -1,7 +1,7 @@
 # g4-medical-linac
 A geant4 model of a medical linac
 
-moving-head branch test
+Phantom SD 2 branch: NOTE: this branch retains the changes where the phantom and PDD graph are managed through an SD.
 
 
 # Useful websites
