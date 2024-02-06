@@ -19,10 +19,9 @@ namespace med_linac {
 	class LinacHeadMessenger : public G4UImessenger {
 	public:
 		LinacHeadMessenger(DetectorConstruction* detectorConstruction);
-		//~LinacHeadMessenger();
+		~LinacHeadMessenger() = default;
 
 		void SetNewValue(G4UIcommand* command, G4String newValues);
-		//G4String GetCurrentValue(G4UIcommand* command);
 
 
 	private:
@@ -30,6 +29,8 @@ namespace med_linac {
 
 		G4UIdirectory* fDirectory;
 
+		// All our commands
+		//
 		G4UIcmdWithoutParameter* fAddFlatteningFilterCmd;
 		G4UIcmdWithoutParameter* fRemoveFlatteningFilterCmd;
 
@@ -40,6 +41,9 @@ namespace med_linac {
 
 		G4UIcmdWithoutParameter* fMoveToAimCmd;
 
+
+		// variables for the shift command
+		//
 		G4double shiftPositionAmount = 5 * cm;
 		G4double shiftRotationAmount = 10 * deg;
 		std::map<G4String, G4ThreeVector> positionShiftMap = {
