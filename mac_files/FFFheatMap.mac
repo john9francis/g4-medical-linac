@@ -1,13 +1,17 @@
 # This mac file generates a Heat map
 # of the linac head making a full 360 degree
 # rotation around the phantom on the y,z plane. 
-# Note: this run uses the med linac with a Flattening Filter (FF)
+# in this run the Flattening Filter is removed,
+# so it is a Flattening Filter Free (FFF) run. 
 #
 # start up
 /run/initialize
 #
 # open a file to store our histogram
-/analysis/openFile heatMap
+/analysis/openFile FFFheatMap
+#
+# Disable FF
+/linacHead/removeFF
 #
 # run a simulation
 /linacHead/setPosition 0 0 -1 m

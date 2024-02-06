@@ -1,8 +1,14 @@
+# This mac file generates the
+# Bremsstrahlung spectrum, Beam profile,
+# Heat maps, and PDD graphs,
+# all with flattening filter.
+# ___________________________________________
+#
 # start up
 /run/initialize
 #
 # open a file to store our histogram
-/analysis/openFile pdd
+/analysis/openFile baseGraphs
 #
 # activate the pdd graph
 /analysis/h1/setActivation 0
