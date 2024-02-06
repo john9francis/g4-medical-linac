@@ -8,7 +8,6 @@
 // timing the run
 #include "G4Timer.hh"
 
-#include "PhantomHitsCollection.hh"
 
 
 
@@ -24,15 +23,12 @@ namespace med_linac {
 		void BeginOfRunAction(const G4Run* aRun) override;
 		void EndOfRunAction(const G4Run* aRun) override;
 
-		void AddToPddHitsCollection(PhantomHit* aHit);
 
 	private:
 
 		G4Timer fTimer;
 
 		void PrintTime();
-
-		PhantomHitsCollection* fpddCollection;
 
 	};
 

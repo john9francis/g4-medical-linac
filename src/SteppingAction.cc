@@ -1,31 +1,22 @@
 
 #include "SteppingAction.hh"
-#include "DetectorConstruction.hh"
 
 #include "G4Step.hh"
-#include "G4RunManager.hh"
-
 #include "G4AnalysisManager.hh"
-
-#include "G4UnitsTable.hh"
-
-// NEW BRANCH moving phantom logic to stepping action :(
-#include "PhantomHitsCollection.hh"
+#include "G4SystemOfUnits.hh"
 
 namespace med_linac {
-	SteppingAction::SteppingAction(RunAction* runAction) {
-		fPointerToUserRunAction = runAction;
-	}
 
-	SteppingAction::~SteppingAction() {
-		// no need to delete run action, it's not allocated here
-	}
 
 	void SteppingAction::UserSteppingAction(const G4Step* step) {
 
-		// if our particle is in the dose detector, find it's x position and energy
+		// Get our current volume.
+		// The particle's current volume will dictate which graph we add data to.
+		//
 		auto currentPhysVolume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume();
 
+
+		// if it's in the dose detector, fill the dose profile h1
 		if (currentPhysVolume->GetName() == "physDD") {
 
 			G4ThreeVector position = step->GetPreStepPoint()->GetPosition();
@@ -37,34 +28,34 @@ namespace med_linac {
 		}
 
 
-		// if our particle is in the phantom, add a hit to the run hits collection
+
+		// if our particle is in the phantom, add to the PDD and HeatMap graphs
 		if (currentPhysVolume->GetName() == "physPhantom") {
 
 			G4ThreeVector pos = step->GetPreStepPoint()->GetPosition();
 			G4double energy = step->GetTotalEnergyDeposit();
 
-			PhantomHit* hit = new PhantomHit();
-			hit->SetEnergy(energy);
-			hit->SetPos(pos);
-
-			// this is for adding to the PDD
-			fPointerToUserRunAction->AddToPddHitsCollection(hit);
-
-			// this is adding to the heat map
 			auto analysisManager = G4AnalysisManager::Instance();
-			analysisManager->FillH2(0, pos.getX(), pos.getY(), energy);
-			analysisManager->FillH2(1, pos.getY(), pos.getZ(), energy);
-			analysisManager->FillH2(2, pos.getX(), pos.getZ(), energy);
+
+			// add to the PDD graph
+			// the + 15 * cm converts position to depth.
+			analysisManager->FillH1(fPddH1ID, pos.getZ() + 15 * cm, energy);
+
+			// add to the heat map
+			analysisManager->FillH2(fXYHeatMapH2ID, pos.getX(), pos.getY(), energy);
+			analysisManager->FillH2(fYZHeatMapH2ID, pos.getY(), pos.getZ(), energy);
+			analysisManager->FillH2(fXZHeatMapH2ID, pos.getX(), pos.getZ(), energy);
 
 		}
 
 
-		// create the bremsstrahlung spectrum
+		// create the bremsstrahlung spectrum from secondaries produced in the target
 		if (currentPhysVolume->GetName() == "physTarget") {
 
-			// record the energy of the secondaries
+			// save the energy of all secondaries
 			const std::vector<const G4Track*>* secondaries = step->GetSecondaryInCurrentStep();
 
+			// out of all secondaries, save the gammas. 
 			for (G4int i = 0; i < secondaries->size(); i++) {
 				const G4Track* track = (*secondaries)[i];
 
@@ -74,7 +65,7 @@ namespace med_linac {
 					G4double energy = track->GetKineticEnergy();
 
 					auto analysisManager = G4AnalysisManager::Instance();
-					analysisManager->FillH1(2, energy);
+					analysisManager->FillH1(fBremsstrahlungH1ID, energy);
 				}
 			}
 

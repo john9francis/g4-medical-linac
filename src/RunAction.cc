@@ -8,16 +8,19 @@
 namespace med_linac {
 	RunAction::RunAction() {
 
-		// init hits collection
-		fpddCollection = new PhantomHitsCollection("PddHitsCollection", "PddHitsCollection");
+		//////////////////////////////////////////////////////////////
+		//              SETUP OUR OUTPUT GRAPHS                     //
+		//////////////////////////////////////////////////////////////
 
 		auto analysisManager = G4AnalysisManager::Instance();
 
+		// Default settings
 		analysisManager->SetDefaultFileType("root");
 		analysisManager->SetVerboseLevel(0);
 		analysisManager->SetFileName("Output Graphs");
 
 		// set up our h1s
+		// 
 		// PDD
 		analysisManager->CreateH1("PDD", "PDD Graph", 100, 0 * cm, 30 * cm);
 		analysisManager->SetH1XAxisTitle(0, "Depth");
@@ -35,22 +38,19 @@ namespace med_linac {
 		analysisManager->SetH1Activation(1, false);
 
 		// set up our h2's
-
+		//
+		// Heat maps
 		analysisManager->CreateH2("HeatMapXY", "Energy Heat Map XY", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
 		analysisManager->CreateH2("HeatMapYZ", "Energy Heat Map YZ", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
 		analysisManager->CreateH2("HeatMapXZ", "Energy Heat Map XZ", 100,-15 * cm, 15 * cm, 100,-15 * cm, 15 * cm);
 
+		// set activation so our activation settings work.
 		analysisManager->SetActivation(true);
 
 	}
 
-	RunAction::~RunAction() {
-		delete fpddCollection;
-	}
+	RunAction::~RunAction() {}
 
-	void RunAction::AddToPddHitsCollection(PhantomHit* aHit) {
-		fpddCollection->insert(aHit);
-	}
 
 	void RunAction::BeginOfRunAction(const G4Run* aRun) {
 		// start time
@@ -68,9 +68,6 @@ namespace med_linac {
 			PrintTime();
 
 		}
-		// fill pdd graph
-		fpddCollection->FillPddGraph();
-		
 	}
 
 	void RunAction::PrintTime() {

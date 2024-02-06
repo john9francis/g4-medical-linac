@@ -3,7 +3,6 @@
 
 #include "G4UserSteppingAction.hh"
 #include "G4LogicalVolume.hh"
-#include "RunAction.hh"
 
 
 namespace med_linac {
@@ -11,15 +10,21 @@ namespace med_linac {
 
 	class SteppingAction : public G4UserSteppingAction {
 	public:
-		SteppingAction(RunAction* runAction);
-		// note: stepping action must take in a pointer to the user run action
-		~SteppingAction();
+		SteppingAction() = default;
+		~SteppingAction() = default;
 
 		void UserSteppingAction(const G4Step*) override;
 
 	private:
+		// H1 id's
+		G4int fPddH1ID = 0;
 		G4int fDoseProfileH1ID = 1;
-		RunAction* fPointerToUserRunAction;
+		G4int fBremsstrahlungH1ID = 2;
+
+		// H2 ids's
+		G4int fXYHeatMapH2ID = 0;
+		G4int fYZHeatMapH2ID = 1;
+		G4int fXZHeatMapH2ID = 2;
 	};
 
 }
