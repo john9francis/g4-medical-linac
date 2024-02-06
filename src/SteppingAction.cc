@@ -9,11 +9,16 @@
 
 #include "G4UnitsTable.hh"
 
+// NEW BRANCH moving phantom logic to stepping action :(
+#include "PhantomHitsCollection.hh"
+
 namespace med_linac {
-	SteppingAction::SteppingAction() {
+	SteppingAction::SteppingAction(RunAction* runAction) {
+		fPointerToUserRunAction = runAction;
 	}
 
 	SteppingAction::~SteppingAction() {
+		// no need to delete run action, it's not allocated here
 	}
 
 	void SteppingAction::UserSteppingAction(const G4Step* step) {
@@ -29,6 +34,29 @@ namespace med_linac {
 
 			auto analysisManager = G4AnalysisManager::Instance();
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
+		}
+
+
+		// if our particle is in the phantom, add a hit to the run hits collection
+		if (currentPhysVolume->GetName() == "physPhantom") {
+
+			G4ThreeVector pos = step->GetPreStepPoint()->GetPosition();
+			G4double energy = step->GetTotalEnergyDeposit();
+
+			PhantomHit* hit = new PhantomHit();
+			hit->SetEnergy(energy);
+			hit->SetPos(pos);
+
+			// this is for adding to the PDD
+			fPointerToUserRunAction->AddToPddHitsCollection(hit);
+
+			// this is adding to the heat map
+			auto analysisManager = G4AnalysisManager::Instance();
+			analysisManager->FillH2(0, pos.getX(), pos.getY(), energy);
+			analysisManager->FillH2(1, pos.getY(), pos.getZ(), energy);
+			analysisManager->FillH2(2, pos.getX(), pos.getZ(), energy);
+
+
 		}
 	
 	}

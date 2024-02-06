@@ -17,6 +17,8 @@ namespace med_linac
     }
 
     void DetectorConstruction::ConstructSDandField() {
+        // DISABLE FOR NOW:
+        /*
         // Add our PhantomSD to the phantom
 
         // Assign names
@@ -31,6 +33,7 @@ namespace med_linac
 
         // assign the sd to the volume we want
         SetSensitiveDetector("logicPhantom", phantomSD);
+        */
     }
 
 

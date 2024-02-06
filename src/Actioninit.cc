@@ -11,9 +11,10 @@ namespace med_linac {
 
 		SetUserAction(new PrimaryGeneratorAction);
 
-		SetUserAction(new RunAction());
+		RunAction* userRunAction = new RunAction();
+		SetUserAction(userRunAction);
 
-		SetUserAction(new SteppingAction());
+		SetUserAction(new SteppingAction(userRunAction));
 
 	};
 
