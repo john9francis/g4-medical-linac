@@ -26,6 +26,9 @@ namespace med_linac {
 		// Beam profile
 		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, -15 * cm, 15 * cm);
 
+		// Bremsstrahlung spectrum
+		analysisManager->CreateH1("BremsSpectrum", "Bremsstrahlung Energy Spectrum", 200, 0, 6 * MeV);
+
 
 		// deactivate h1s by default
 		analysisManager->SetH1Activation(0, false);

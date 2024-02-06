@@ -56,6 +56,27 @@ namespace med_linac {
 			analysisManager->FillH2(1, pos.getY(), pos.getZ(), energy);
 			analysisManager->FillH2(2, pos.getX(), pos.getZ(), energy);
 
+		}
+
+
+		// create the bremsstrahlung spectrum
+		if (currentPhysVolume->GetName() == "physTarget") {
+
+			// record the energy of the secondaries
+			const std::vector<const G4Track*>* secondaries = step->GetSecondaryInCurrentStep();
+
+			for (G4int i = 0; i < secondaries->size(); i++) {
+				const G4Track* track = (*secondaries)[i];
+
+				G4String particleName = track->GetParticleDefinition()->GetParticleName();
+
+				if (particleName == "gamma") {
+					G4double energy = track->GetKineticEnergy();
+
+					auto analysisManager = G4AnalysisManager::Instance();
+					analysisManager->FillH1(2, energy);
+				}
+			}
 
 		}
 	

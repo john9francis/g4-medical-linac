@@ -106,7 +106,7 @@ namespace med_linac {
         G4double outerTargetRadius = 1.5 * cm;
         G4double targetThickness = 1 * mm;
 
-        G4Tubs* solidTarget = new G4Tubs("Target",
+        G4Tubs* solidTarget = new G4Tubs("solidTarget",
             innerTargetRadius,
             outerTargetRadius,
             targetThickness / 2.0,
@@ -115,7 +115,7 @@ namespace med_linac {
 
         G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget,
             tungsten,
-            "Target");
+            "logicTarget");
 
         // target position and rotation
         G4double targetZ = particleGunAnchor1Pos.getZ() + 3 * cm;
@@ -127,7 +127,7 @@ namespace med_linac {
             targetRotation,
             targetPos,
             logicTarget,
-            "Target",
+            "physTarget",
             logicHead,
             false,
             0);
