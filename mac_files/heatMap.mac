@@ -4,6 +4,9 @@
 # open a file to store our histogram
 /analysis/openFile heatMap.root
 #
+# Turn off FF
+/linacHead/removeFF
+#
 # run a simulation
 /linacHead/setPosition 0 0 -1 m
 /control/loop rotate.mac theta 0 360 10
