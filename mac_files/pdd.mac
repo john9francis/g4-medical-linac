@@ -2,7 +2,7 @@
 /run/initialize
 #
 # open a file to store our histogram
-/analysis/openFile pdd.root
+/analysis/openFile pdd
 #
 # activate the pdd graph
 /analysis/h1/setActivation 0
