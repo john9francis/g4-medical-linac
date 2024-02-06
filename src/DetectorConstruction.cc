@@ -35,7 +35,7 @@ namespace med_linac
         // Create flattening filter
         G4double coneInnerRadius = 0.0;
         G4double coneOuterRadius = 4.0 * cm;
-        G4double coneHeight = 1 * cm;
+        G4double coneHeight = .8 * cm;
         G4double startPhi = 0.0;
         G4double endPhi = 360.0 * deg;
 
