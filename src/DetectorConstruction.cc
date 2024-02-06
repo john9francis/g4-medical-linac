@@ -72,10 +72,17 @@ namespace med_linac
 
 
     void DetectorConstruction::SetLinacHeadAngle(G4ThreeVector phiThetaPsi) {
+
+        // set the linac head rotation matrix
+        // note the negative values because this rotation matrix is not for the 
+        // linac head itsself, rather for the world's frame of reference
+        // (I know, it's weird)
+        //
         fLinacHeadRot->setPhi(-phiThetaPsi.getX());
         fLinacHeadRot->setTheta(-phiThetaPsi.getY());
         fLinacHeadRot->setPsi(-phiThetaPsi.getZ());
 
+        // Set the phi theta and psi variables so we can use them later
         *fLinacHeadPhi = phiThetaPsi.getX();
         *fLinacHeadTheta = phiThetaPsi.getY();
         *fLinacHeadPsi = phiThetaPsi.getZ();
@@ -93,12 +100,14 @@ namespace med_linac
     }
 
     void DetectorConstruction::ShiftLinacHeadPosition(G4ThreeVector xyz) {
+        // note the += instead of the =
         *fLinacHeadPos += xyz;
 
         MoveLinacHead();
     }
 
     void DetectorConstruction::ShiftLinacHeadRotation(G4ThreeVector phiThetaPsi) {
+        // Add on the shifted angle
         *fLinacHeadPhi += phiThetaPsi.getX();
         *fLinacHeadTheta += phiThetaPsi.getY();
         *fLinacHeadPsi += phiThetaPsi.getZ();
@@ -111,7 +120,10 @@ namespace med_linac
     }
 
     void DetectorConstruction::MoveToAim() {
-        // shifts the x y and z coordinates to aim at the phantom.
+        // shifts the x y and z coordinates to aim at the phantom
+        // based on the theta value. NOTE: doesn't work well with 
+        // phi and psi, which are buggy anyway.
+        //
         G4double radius = fLinacHeadPos->mag();
         G4double x = fLinacHeadPos->getX();
         G4double y = - radius * sin(*fLinacHeadTheta);

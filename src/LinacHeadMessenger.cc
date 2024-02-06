@@ -97,6 +97,10 @@ namespace med_linac {
 
 		// update the viewport
 		G4UImanager* UI = G4UImanager::GetUIpointer();
+
+		// We run 0 particles just to clear out the visualization
+		// if we didn't have this, it would redraw all the trajectories
+		// before shifting.
 		UI->ApplyCommand("/run/beamOn 0");
 		UI->ApplyCommand("/vis/viewer/rebuild");
 	}
