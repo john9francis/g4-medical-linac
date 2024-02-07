@@ -273,6 +273,42 @@ namespace med_linac {
 
 
 
+        // Create secondary collimator
+
+        // create tungsten collimator
+        G4double SinnerColRadius = 4.0 * cm;
+        G4double SouterColRadius = 12. * cm;
+        G4double ScolThickness = 10 * cm;
+
+        G4Tubs* SsolidCol = new G4Tubs("SecondarySolidCollimator",
+            SinnerColRadius,
+            SouterColRadius,
+            ScolThickness / 2.0,
+            0.0,
+            360.0 * deg);
+
+        G4LogicalVolume* SlogicCol = new G4LogicalVolume(SsolidCol,
+            tungsten,
+            "SecondaryLogicCollimator");
+
+        // collimator position and rotation
+        G4double ScolZ = 19.5 * cm;
+
+        G4ThreeVector ScolPos = G4ThreeVector(0, 0, ScolZ);
+
+        G4RotationMatrix* ScolRotation = new G4RotationMatrix();
+
+        // place the collimator in the world
+        new G4PVPlacement(ScolRotation,
+            ScolPos,
+            SlogicCol,
+            "PhysSecondaryCollimator",
+            logicHead,
+            false,
+            0);
+
+
+
         // create our phantom, to represent a person
 
         G4ThreeVector phantomPos = G4ThreeVector();
