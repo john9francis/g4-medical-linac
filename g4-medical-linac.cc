@@ -1,6 +1,4 @@
-﻿// G4-Brems.cc : Defines the entry point for the application.
-//
-
+﻿
 #include "G4UImanager.hh"
 #include "G4UIExecutive.hh"
 #include "G4RunManagerFactory.hh"
