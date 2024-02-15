@@ -258,24 +258,7 @@ namespace med_linac {
 
         
 
-
-
-
-        // create our dose detector
-        G4double ddThicknessXY = 15 * cm;
-        G4double ddThicknessZ = 1 * nm;
-        G4double ddZ = 13.5 * cm;
-        G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
-
-        G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
-        G4LogicalVolume* logicDoseDetector = new G4LogicalVolume(solidDoseDetector, vacuum, "logicDD");
-        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
-
-
-
         // Create secondary collimator
-
-        // create tungsten collimator
         G4double SinnerColRadius = 4.0 * cm;
         G4double SouterColRadius = 12. * cm;
         G4double ScolThickness = 10 * cm;
@@ -306,6 +289,19 @@ namespace med_linac {
             logicHead,
             false,
             0);
+
+
+
+        // create our dose detector
+        G4double ddThicknessXY = 15 * cm;
+        G4double ddThicknessZ = 1 * nm;
+        G4double ddZ = 24.9 * cm; // putting it right on the edge of the linac head
+        G4ThreeVector ddPos = G4ThreeVector(0, 0, ddZ);
+
+        G4Box* solidDoseDetector = new G4Box("solidDD", ddThicknessXY, ddThicknessXY, ddThicknessZ);
+        G4LogicalVolume* logicDoseDetector = new G4LogicalVolume(solidDoseDetector, vacuum, "logicDD");
+        new G4PVPlacement(nullptr, ddPos, logicDoseDetector, "physDD", logicHead, false, 0);
+
 
 
 
