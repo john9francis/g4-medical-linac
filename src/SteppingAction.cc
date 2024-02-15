@@ -25,6 +25,9 @@ namespace med_linac {
 
 			auto analysisManager = G4AnalysisManager::Instance();
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
+
+			// also fill the bremsstrahlung spectrum H1
+			analysisManager->FillH1(fBremsstrahlungH1ID, energy);
 		}
 
 
@@ -48,28 +51,6 @@ namespace med_linac {
 
 		}
 
-
-		// create the bremsstrahlung spectrum from secondaries produced in the target
-		if (currentPhysVolume->GetName() == "physTarget") {
-
-			// save the energy of all secondaries
-			const std::vector<const G4Track*>* secondaries = step->GetSecondaryInCurrentStep();
-
-			// out of all secondaries, save the gammas. 
-			for (G4int i = 0; i < secondaries->size(); i++) {
-				const G4Track* track = (*secondaries)[i];
-
-				G4String particleName = track->GetParticleDefinition()->GetParticleName();
-
-				if (particleName == "gamma") {
-					G4double energy = track->GetKineticEnergy();
-
-					auto analysisManager = G4AnalysisManager::Instance();
-					analysisManager->FillH1(fBremsstrahlungH1ID, energy);
-				}
-			}
-
-		}
 	
 	}
 
