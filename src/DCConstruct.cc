@@ -257,21 +257,38 @@ namespace med_linac {
 
 
         // Create a filter for low energy particles
+        G4Material* copper = nist->FindOrBuildMaterial("G4_Cu");
+        G4Material* aluminum = nist->FindOrBuildMaterial("G4_Al");
+
         G4double filterInnerRadius = 0.0;
         G4double filterOuterRadius = innerColRadius;
-        G4double filterWidth = 2 * mm;
+        G4double filterWidth = 5 * mm;
+        G4double filterWidth2 = .1 * mm;
 
-        G4double filterZ = 9 * cm;
+        G4double filterZ = 11.5 * cm;
         G4ThreeVector filterPos = G4ThreeVector(0, 0, filterZ);
+        G4ThreeVector filterPos2 = G4ThreeVector(0, 0, filterZ + filterWidth * 2);
 
 
         G4Tubs* solidFilter = new G4Tubs("solidFilter", filterInnerRadius, filterOuterRadius, filterWidth, 0, 360 * deg);
-        G4LogicalVolume* logicFilter = new G4LogicalVolume(solidFilter, tungsten, "logicFilter");
+        G4Tubs* solidFilter2 = new G4Tubs("solidFilter", filterInnerRadius, filterOuterRadius, filterWidth2, 0, 360 * deg);
+        G4LogicalVolume* logicFilter = new G4LogicalVolume(solidFilter, aluminum, "logicFilter");
+        G4LogicalVolume* logicFilter2 = new G4LogicalVolume(solidFilter2, lead, "logicFilter2");
+
+        //new G4PVPlacement(
+        //    nullptr,
+        //    filterPos,
+        //    logicFilter,
+        //    "physFilter",
+        //    logicHead,
+        //    false,
+        //    0);
+
         new G4PVPlacement(
             nullptr,
-            filterPos,
-            logicFilter,
-            "physFilter",
+            filterPos2,
+            logicFilter2,
+            "physFilter2",
             logicHead,
             false,
             0);
