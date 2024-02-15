@@ -238,14 +238,12 @@ namespace med_linac {
         G4double coneInnerRadius = 0.0;
         G4double coneOuterRadius = innerColRadius;
         G4double coneHeight = .8 * cm;
-        G4double startPhi = 0.0;
-        G4double endPhi = 360.0 * deg;
 
         G4double ffZ = 8 * cm;
         G4ThreeVector ffPos = G4ThreeVector(0, 0, ffZ);
 
         
-        G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, startPhi, endPhi);
+        G4Cons* solidFF = new G4Cons("solidFF", 0, 0, 0, coneOuterRadius, coneHeight, 0, 360 * deg);
         G4LogicalVolume* logicFF = new G4LogicalVolume(solidFF, tungsten, "logicFF");
         fFlatteningFilter = new G4PVPlacement(
             nullptr,
@@ -255,6 +253,29 @@ namespace med_linac {
             logicHead,
             false,
             0);
+
+
+
+        // Create a filter for low energy particles
+        G4double filterInnerRadius = 0.0;
+        G4double filterOuterRadius = innerColRadius;
+        G4double filterWidth = 2 * mm;
+
+        G4double filterZ = 9 * cm;
+        G4ThreeVector filterPos = G4ThreeVector(0, 0, filterZ);
+
+
+        G4Tubs* solidFilter = new G4Tubs("solidFilter", filterInnerRadius, filterOuterRadius, filterWidth, 0, 360 * deg);
+        G4LogicalVolume* logicFilter = new G4LogicalVolume(solidFilter, tungsten, "logicFilter");
+        new G4PVPlacement(
+            nullptr,
+            filterPos,
+            logicFilter,
+            "physFilter",
+            logicHead,
+            false,
+            0);
+
 
         
 
