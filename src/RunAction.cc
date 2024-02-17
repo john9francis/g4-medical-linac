@@ -17,7 +17,7 @@ namespace med_linac {
 		// Default settings
 		analysisManager->SetDefaultFileType("root");
 		analysisManager->SetVerboseLevel(0);
-		analysisManager->SetFileName("Output Graphs");
+		analysisManager->SetFileName("Output_Graphs");
 
 		// set up our h1s
 		// 
