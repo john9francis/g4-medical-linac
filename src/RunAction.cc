@@ -23,14 +23,24 @@ namespace med_linac {
 		// 
 		// PDD
 		analysisManager->CreateH1("PDD", "PDD Graph", 100, 0 * cm, 30 * cm);
-		analysisManager->SetH1XAxisTitle(0, "Depth");
-		analysisManager->SetH1YAxisTitle(0, "Percent Dose");
+		analysisManager->SetH1XAxisTitle(0, "Depth (mm)");
+		analysisManager->SetH1YAxisTitle(0, "Dose (MeV)");
 
 		// Beam profile
 		analysisManager->CreateH1("BeamProfile", "Lateral Beam Profile", 100, -15 * cm, 15 * cm);
+		analysisManager->SetH1XAxisTitle(1, "Off axis distance (mm)");
+		analysisManager->SetH1YAxisTitle(1, "Dose (MeV)");
 
 		// Bremsstrahlung spectrum
-		analysisManager->CreateH1("BremsSpectrum", "Bremsstrahlung Energy Spectrum", 200, 0, 6 * MeV);
+		analysisManager->CreateH1("photonESpectrum", "Energy Spectrum (Photons)", 200, 0, 6 * MeV);
+		analysisManager->SetH1XAxisTitle(2, "Energy (MeV)");
+		analysisManager->SetH1YAxisTitle(2, "Number of particles");
+		analysisManager->CreateH1("electronESpectrum", "Energy Spectrum (Electrons)", 200, 0, 6 * MeV);
+		analysisManager->SetH1XAxisTitle(3, "Energy (MeV)");
+		analysisManager->SetH1YAxisTitle(3, "Number of particles");
+		analysisManager->CreateH1("otherESpectrum", "Energy Spectrum (Other)", 200, 0, 6 * MeV);
+		analysisManager->SetH1XAxisTitle(4, "Energy (MeV)");
+		analysisManager->SetH1YAxisTitle(4, "Number of particles");
 
 
 		// deactivate h1s by default

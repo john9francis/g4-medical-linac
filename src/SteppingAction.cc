@@ -27,7 +27,16 @@ namespace med_linac {
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
 
 			// also fill the bremsstrahlung spectrum H1
-			analysisManager->FillH1(fBremsstrahlungH1ID, energy);
+			G4String particleName = step->GetTrack()->GetDefinition()->GetParticleName();
+			if (particleName == "gamma"){
+				analysisManager->FillH1(2, energy);
+			}
+			else if (particleName == "e-") {
+				analysisManager->FillH1(3, energy);
+			}
+			else {
+				analysisManager->FillH1(4, energy);
+			}
 		}
 
 
