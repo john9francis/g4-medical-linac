@@ -38,9 +38,12 @@ namespace med_linac {
 		analysisManager->CreateH1("electronESpectrum", "Energy Spectrum (Electrons)", 200, 0, 6 * MeV);
 		analysisManager->SetH1XAxisTitle(3, "Energy (MeV)");
 		analysisManager->SetH1YAxisTitle(3, "Number of particles");
-		analysisManager->CreateH1("otherESpectrum", "Energy Spectrum (Other)", 200, 0, 6 * MeV);
+		analysisManager->CreateH1("positronESpectrum", "Energy Spectrum (Positrons)", 200, 0, 6 * MeV);
 		analysisManager->SetH1XAxisTitle(4, "Energy (MeV)");
 		analysisManager->SetH1YAxisTitle(4, "Number of particles");
+		analysisManager->CreateH1("otherESpectrum", "Energy Spectrum (Other)", 200, 0, 6 * MeV);
+		analysisManager->SetH1XAxisTitle(5, "Energy (MeV)");
+		analysisManager->SetH1YAxisTitle(5, "Number of particles");
 
 
 		// deactivate h1s by default

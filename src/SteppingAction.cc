@@ -34,8 +34,11 @@ namespace med_linac {
 			else if (particleName == "e-") {
 				analysisManager->FillH1(3, energy);
 			}
-			else {
+			else if (particleName == "e+") {
 				analysisManager->FillH1(4, energy);
+			}
+			else {
+				analysisManager->FillH1(5, energy);
 			}
 		}
 
