@@ -132,39 +132,6 @@ namespace med_linac {
             0);
 
 
-        // create a graphite absorber to absorb electrons
-        G4Material* graphite = nist->FindOrBuildMaterial("G4_GRAPHITE");
-
-        G4double innerAbsorberRadius = 0.0;
-        G4double outerAbsorberRadius = 1.5 * cm;
-        G4double absorberThickness = 1.5 * cm;
-
-        G4Tubs* solidAbsorber = new G4Tubs("Absorber",
-            innerAbsorberRadius,
-            outerAbsorberRadius,
-            absorberThickness / 2.0,
-            0.0,
-            360.0 * deg);
-
-        G4LogicalVolume* logicAbsorber = new G4LogicalVolume(solidAbsorber,
-            graphite,
-            "Absorber");
-
-        // absorber position and rotation
-        G4double absorberZ = -14.2 * cm;
-        G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
-        G4RotationMatrix* absorberRot = new G4RotationMatrix();
-
-        // place the absorber
-        new G4PVPlacement(absorberRot,
-            absorberPos,
-            logicAbsorber,
-            "Absorber",
-            logicHead,
-            false,
-            0);
-
-
 
         // create tungsten collimator
         G4double innerColRadius = 4.0 * cm;
@@ -255,6 +222,38 @@ namespace med_linac {
             0);
 
 
+        // create a graphite absorber to absorb electrons
+        G4Material* graphite = nist->FindOrBuildMaterial("G4_GRAPHITE");
+
+        G4double innerAbsorberRadius = 0.0;
+        G4double outerAbsorberRadius = innerColRadius;
+        G4double absorberThickness = 1.5 * cm;
+
+        G4Tubs* solidAbsorber = new G4Tubs("Absorber",
+            innerAbsorberRadius,
+            outerAbsorberRadius,
+            absorberThickness / 2.0,
+            0.0,
+            360.0 * deg);
+
+        G4LogicalVolume* logicAbsorber = new G4LogicalVolume(solidAbsorber,
+            graphite,
+            "Absorber");
+
+        // absorber position and rotation
+        G4double absorberZ = 11.5 * cm;
+        G4ThreeVector absorberPos = G4ThreeVector(0.0, 0.0, absorberZ);
+        G4RotationMatrix* absorberRot = new G4RotationMatrix();
+
+        // place the absorber
+        new G4PVPlacement(absorberRot,
+            absorberPos,
+            logicAbsorber,
+            "Absorber",
+            logicHead,
+            false,
+            0);
+
 
         // Create a filter for low energy particles
         G4Material* copper = nist->FindOrBuildMaterial("G4_Cu");
@@ -284,14 +283,14 @@ namespace med_linac {
         //    false,
         //    0);
 
-        new G4PVPlacement(
-            nullptr,
-            filterPos2,
-            logicFilter2,
-            "physFilter2",
-            logicHead,
-            false,
-            0);
+        //new G4PVPlacement(
+        //    nullptr,
+        //    filterPos2,
+        //    logicFilter2,
+        //    "physFilter2",
+        //    logicHead,
+        //    false,
+        //    0);
 
 
         

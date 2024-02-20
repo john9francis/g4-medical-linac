@@ -17,7 +17,7 @@
 /analysis/h1/setActivation 1
 #
 # run a simulation
-/run/beamOn 50000000
+/control/execute _run.mac
 #
 # save to the file
 /analysis/write

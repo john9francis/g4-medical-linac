@@ -20,7 +20,7 @@
 /linacHead/removeFF
 #
 # run a simulation
-/run/beamOn 10000000
+/control/execute _run.mac
 #
 # save to the file
 /analysis/write
