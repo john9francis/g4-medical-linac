@@ -19,11 +19,11 @@ namespace med_linac
 		G4int nParticles = 1;
 		fParticleGun = new G4ParticleGun(nParticles);
 
-		// define particle properties
+		// define default particle
 		const G4String& particleName = "e-";
 
 
-		// Find the particle (e-) in the G4Particle table
+		// Find the particle in the G4Particle table
 		G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 		G4ParticleDefinition* particle
 			= particleTable->FindParticle(particleName);
@@ -31,7 +31,7 @@ namespace med_linac
 		// Set the particle type to the particle gun
 		fParticleGun->SetParticleDefinition(particle);
 
-		// (test) hardcode the energy and we'll change it in mac files
+		// set default energy, can be changed with the "gun" ui messenger
 		G4double energy = 6 * MeV;
 		fParticleGun->SetParticleEnergy(energy);
 
@@ -67,7 +67,7 @@ namespace med_linac
 		G4ThreeVector absoluteGunPos = gunAnchorPos + linacHeadPos;
 
 
-		// set the particle gun's position to the anchor
+		// set the particle gun's position to where the anchor is
 		fParticleGun->SetParticlePosition(absoluteGunPos);
 
 
@@ -75,6 +75,7 @@ namespace med_linac
 		auto baseVector = G4ThreeVector(0, 0, 1);
 		G4ThreeVector momentumDirection = baseVector.rotate(phi, theta, psi);
 
+		// set the direction to where the gun anchor is pointing to
 		fParticleGun->SetParticleMomentumDirection(momentumDirection);
 
 		// satisfy "generate primaries" here.

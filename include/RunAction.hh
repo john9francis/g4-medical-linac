@@ -13,8 +13,8 @@
 
 namespace med_linac {
 
-	class HitsCollection;
-
+	// Run Action: what happens at the beginning and end of a run.
+	// Also where the analysis graphs are set up.
 	class RunAction : public G4UserRunAction {
 	public:
 		RunAction();

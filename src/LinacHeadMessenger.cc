@@ -11,6 +11,7 @@ namespace med_linac {
 	LinacHeadMessenger::LinacHeadMessenger(DetectorConstruction* detectorConstruction)
 		: G4UImessenger(), fDetectorConstruction(detectorConstruction) {
 
+		// create the directory for our ui commands
 		fDirectory = new G4UIdirectory("/linacHead/");
 		fDirectory->SetGuidance("Commands to move the linac head");
 
@@ -50,6 +51,8 @@ namespace med_linac {
 	}
 
 	void LinacHeadMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
+		// takes in command and does the corresponding action
+
 		if (command == fAddFlatteningFilterCmd) {
 			fDetectorConstruction->AddFlatteningFilter();
 		}
@@ -67,7 +70,7 @@ namespace med_linac {
 		}
 		if (command == fShiftCmd) {
 
-			// if the direction is a key in our map
+			// checking if the value is in the position map
 			if (positionShiftMap.find(newValue) != positionShiftMap.end()) {
 
 				// then get the value corresponding to that key
@@ -78,12 +81,13 @@ namespace med_linac {
 
 			}
 
-			// then, check the rotation map
+			// if it's not in the position map, it may be in the rotation map
 			else if (rotationShiftMap.find(newValue) != rotationShiftMap.end()) {
 
 				fDetectorConstruction->ShiftLinacHeadRotation(rotationShiftMap[newValue]);
 
 			}
+			// if the user put in an invalid command
 			else {
 				G4cout
 					<< "Direction not found. "

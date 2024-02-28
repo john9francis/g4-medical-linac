@@ -4,6 +4,9 @@
 #include "G4VUserActionInitialization.hh"
 
 namespace med_linac {
+
+	// Action initialization: where we initialize the user actions
+	// like Run Action, Primary Generator Action, Stepping Action
 	class ActionInit : public G4VUserActionInitialization {
 	public:
 		ActionInit() = default;

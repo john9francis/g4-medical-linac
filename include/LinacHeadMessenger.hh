@@ -16,17 +16,23 @@
 
 
 namespace med_linac {
+
+	// Linac Head Messenger: exposes some commands to the user to control
+	// the linac head. The user can move it, rotate it, add or remove the FF.
 	class LinacHeadMessenger : public G4UImessenger {
 	public:
 		LinacHeadMessenger(DetectorConstruction* detectorConstruction);
 		~LinacHeadMessenger() = default;
 
-		void SetNewValue(G4UIcommand* command, G4String newValues);
+		// From the base UImessenger class
+		void SetNewValue(G4UIcommand* command, G4String newValues) override;
 
 
 	private:
+		// variable to hold a pointer to the detector construction
 		DetectorConstruction* fDetectorConstruction;
 
+		// ui directory
 		G4UIdirectory* fDirectory;
 
 		// All our commands

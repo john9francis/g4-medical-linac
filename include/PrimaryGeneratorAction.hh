@@ -10,17 +10,19 @@
 
 
 
-namespace med_linac
-{
+namespace med_linac {
 
+	// Primary Generator Action: shoots particles
 	class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 	{
 	public:
 		PrimaryGeneratorAction();
 		~PrimaryGeneratorAction();
 
-		virtual void GeneratePrimaries(G4Event*);
-
+		void GeneratePrimaries(G4Event*) override;
+		
+	private:
+		// our particle gun that actually generates the primaries
 		G4ParticleGun* fParticleGun;
 	};
 }

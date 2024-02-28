@@ -7,7 +7,10 @@
 
 namespace med_linac {
 
-
+	// Stepping Action: What happens each single monte-carlo
+	// step in a particle's trajectory. I basically used this class
+	// to check which detector the particle was in, and record 
+	// corresponding energies and positions. 
 	class SteppingAction : public G4UserSteppingAction {
 	public:
 		SteppingAction() = default;

@@ -7,6 +7,7 @@ namespace med_linac
 {
 
     DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction() {
+        // initialize variables in heap memory
         fLinacHeadPos = new G4ThreeVector();
         fLinacHeadRot = new G4RotationMatrix();
         fGunAnchorPos = new G4ThreeVector();
@@ -18,6 +19,7 @@ namespace med_linac
 
 
     void DetectorConstruction::AddFlatteningFilter() {
+        // Adds a flattening filter where it's supposed to go
 
         if (fFlatteningFilter) {
             G4cout
@@ -58,6 +60,8 @@ namespace med_linac
     }
 
     void DetectorConstruction::RemoveFlatteningFilter() {
+        // Removes the flattening filter from the linac head
+
         if (fFlatteningFilter) {
             delete fFlatteningFilter;
             fFlatteningFilter = nullptr;

@@ -17,8 +17,10 @@
 
 
 
-namespace med_linac
-{
+namespace med_linac {
+
+	// Detector Construction: where we define the geometries in our world
+	// also holds other data and logic relating to moving geometries.
 	class DetectorConstruction : public G4VUserDetectorConstruction
 	{
 	public:
@@ -42,10 +44,12 @@ namespace med_linac
 		G4ThreeVector GetGunAnchorPos() const { return *fGunAnchorPos; }
 
 	private:
+		// Physical volumes to keep track of
 		G4VPhysicalVolume* fLinacHead = nullptr;
 		G4VPhysicalVolume* fParticleGunAnchor1 = nullptr;
 		G4VPhysicalVolume* fFlatteningFilter = nullptr;
 
+		// Coordinates to keep track of
 		G4ThreeVector* fLinacHeadPos;
 		G4RotationMatrix* fLinacHeadRot;
 
@@ -55,6 +59,7 @@ namespace med_linac
 
 		G4ThreeVector* fGunAnchorPos;
 
+		// Method to move the linac head in the world
 		void MoveLinacHead();
 	};
 }
