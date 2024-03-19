@@ -23,6 +23,7 @@ namespace med_linac {
 		G4int fPddH1ID = 0;
 		G4int fDoseProfileH1ID = 1;
 		G4int fBremsstrahlungH1ID = 2;
+		G4int fPhotonPddH1ID = 3;
 
 		// H2 ids's
 		G4int fXYHeatMapH2ID = 0;

@@ -21,7 +21,7 @@ namespace med_linac {
 
 			G4ThreeVector position = step->GetPreStepPoint()->GetPosition();
 			G4double x = position.getX();
-			G4double energy = step->GetPreStepPoint()->GetTotalEnergy();
+			G4double energy = step->GetPreStepPoint()->GetKineticEnergy();
 
 			auto analysisManager = G4AnalysisManager::Instance();
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
@@ -60,6 +60,12 @@ namespace med_linac {
 			analysisManager->FillH2(fXYHeatMapH2ID, pos.getX(), pos.getY(), energy);
 			analysisManager->FillH2(fYZHeatMapH2ID, pos.getY(), pos.getZ(), energy);
 			analysisManager->FillH2(fXZHeatMapH2ID, pos.getX(), pos.getZ(), energy);
+
+			// add to the photon-only pdd
+			G4String particleName = step->GetTrack()->GetDefinition()->GetParticleName();
+			if (particleName == "gamma") {
+				analysisManager->FillH1(fPhotonPddH1ID, pos.getZ() + 15 * cm, energy);
+			}
 
 		}
 

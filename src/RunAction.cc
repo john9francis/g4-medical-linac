@@ -45,6 +45,12 @@ namespace med_linac {
 		analysisManager->SetH1XAxisTitle(5, "Energy (MeV)");
 		analysisManager->SetH1YAxisTitle(5, "Number of particles");
 
+		// Only photon PDD
+		analysisManager->CreateH1("photonPDD", "PDD Graph (Only Photons)", 100, 0 * cm, 30 * cm);
+		analysisManager->SetH1XAxisTitle(0, "Depth (mm)");
+		analysisManager->SetH1YAxisTitle(0, "Dose (MeV)");
+
+
 
 		// deactivate h1s by default
 		analysisManager->SetH1Activation(0, false);
