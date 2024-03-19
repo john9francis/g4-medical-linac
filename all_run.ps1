@@ -11,10 +11,10 @@ msbuild g4_medical_linac.sln
 cd release
 
 # Run the executable with all the outputs
-.\g4_medical_linac basicGraphs.mac
-.\g4_medical_linac FFFgraphs.mac
+#.\g4_medical_linac basicGraphs.mac
+#.\g4_medical_linac FFFgraphs.mac
 #.\g4_medical_linac heatMap.mac
-#.\g4_medical_linac FFFheatMap.mac
+.\g4_medical_linac purePhotonGraph.mac
 
 # Go back to the root directory
 cd ..

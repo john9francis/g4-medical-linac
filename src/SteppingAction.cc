@@ -5,6 +5,9 @@
 #include "G4AnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "DetectorConstruction.hh"
+#include "G4RunManager.hh"
+
 namespace med_linac {
 
 
@@ -44,14 +47,6 @@ namespace med_linac {
 				analysisManager->FillH1(5, energy);
 			}
 
-			///////////////////////////////////////////////////////////
-			// KILL ELECTRONS IN THE BEAM: NOTE: THIS IS UNREALISTIC //
-			///////////////////////////////////////////////////////////
-
-			if (particleName != "gamma") {
-				track->SetTrackStatus(fStopAndKill);
-			}
-
 		}
 
 
@@ -73,6 +68,29 @@ namespace med_linac {
 			analysisManager->FillH2(fYZHeatMapH2ID, pos.getY(), pos.getZ(), energy);
 			analysisManager->FillH2(fXZHeatMapH2ID, pos.getX(), pos.getZ(), energy);
 
+		}
+
+		// if the user wants a pure photon beam, continue.
+		//const DetectorConstruction detConst = static_cast<const DetectorConstruction>
+		auto runManger = G4RunManager::GetRunManager();
+		const DetectorConstruction* detConst = static_cast<const DetectorConstruction*>(runManger->GetUserDetectorConstruction());
+		G4bool purePhotonBeam = detConst->GetPurePhotonBeamFlag();
+
+		if (purePhotonBeam == false) { return; }
+
+		// Kill electrons from beam
+
+		if (currentPhysVolume->GetName() == "physFF") {
+			///////////////////////////////////////////////////////////
+			// KILL ELECTRONS IN THE BEAM: NOTE: THIS IS UNREALISTIC //
+			///////////////////////////////////////////////////////////
+
+			G4Track* track = (G4Track*)(step->GetTrack());
+			G4String particleName = track->GetDefinition()->GetParticleName();
+
+			if (particleName != "gamma") {
+				track->SetTrackStatus(fStopAndKill);
+			}
 		}
 
 	

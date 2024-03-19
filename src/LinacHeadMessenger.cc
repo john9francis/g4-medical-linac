@@ -24,6 +24,10 @@ namespace med_linac {
 		fRemoveFlatteningFilterCmd->SetGuidance("Removes flattening filter if it exists");
 		fRemoveFlatteningFilterCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
+		fPurePhotonBeamCmd = new G4UIcmdWithABool("/linacHead/purePhotonBeam", this);
+		fPurePhotonBeamCmd->SetParameterName("Pure Photon?", false);
+		fPurePhotonBeamCmd->SetGuidance("Deletes electrons from the beam. !!!WARNING!!! the resulting beam is not physically accurate!");
+		fPurePhotonBeamCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 		fAngleCmd = new G4UIcmdWith3VectorAndUnit("/linacHead/setAngle", this);
 		fAngleCmd->SetGuidance("Set the rotation angle of the linac head in radians or degrees");
@@ -58,6 +62,9 @@ namespace med_linac {
 		}
 		if (command == fRemoveFlatteningFilterCmd) {
 			fDetectorConstruction->RemoveFlatteningFilter();
+		}
+		if (command == fPurePhotonBeamCmd) {
+			fDetectorConstruction->SetPurePhotonBeamFlag(fPurePhotonBeamCmd->GetNewBoolValue(newValue));
 		}
 		if (command == fAngleCmd) {
 			fDetectorConstruction->SetLinacHeadAngle(fAngleCmd->GetNew3VectorValue(newValue));

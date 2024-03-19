@@ -37,6 +37,8 @@ namespace med_linac {
 		void MoveToAim();
 		void AddFlatteningFilter();
 		void RemoveFlatteningFilter();
+		void SetPurePhotonBeamFlag(G4bool);
+		G4bool GetPurePhotonBeamFlag() const { return *fPurePhotonBeamFlag; }
 
 		// for primary gen action
 		G4ThreeVector GetLinacHeadRot() const { return G4ThreeVector(*fLinacHeadPhi, *fLinacHeadTheta, *fLinacHeadPsi); }
@@ -58,6 +60,8 @@ namespace med_linac {
 		G4double* fLinacHeadPsi;
 
 		G4ThreeVector* fGunAnchorPos;
+
+		G4bool* fPurePhotonBeamFlag;
 
 		// Method to move the linac head in the world
 		void MoveLinacHead();

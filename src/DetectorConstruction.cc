@@ -15,6 +15,12 @@ namespace med_linac
         fLinacHeadPhi = new G4double();
         fLinacHeadTheta = new G4double();
         fLinacHeadPsi = new G4double();
+
+        fPurePhotonBeamFlag = new G4bool(false);
+    }
+
+    void DetectorConstruction::SetPurePhotonBeamFlag(G4bool newBool) {
+        *fPurePhotonBeamFlag = newBool;
     }
 
 

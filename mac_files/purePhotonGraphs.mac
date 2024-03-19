@@ -1,14 +1,15 @@
 # This mac file generates the
-# Bremsstrahlung spectrum, Beam profile, Heat maps,
-# and PDD graphs, however without a Flattening
-# filter. In other words, Flattening Filter Free (FFF) graphs. 
+# Bremsstrahlung spectrum, Beam profile,
+# Heat maps, and PDD graphs,
+# all with flattening filter
+# and killing all the electrons and positrons from beam.
 # ___________________________________________
 #
 # start up
 /run/initialize
 #
 # open a file to store our histogram
-/analysis/openFile FFFgraphs
+/analysis/openFile purePhotonGraphs
 #
 # activate the pdd graph
 /analysis/h1/setActivation 0
@@ -16,8 +17,8 @@
 # activate dose profile graph as well
 /analysis/h1/setActivation 1
 #
-# Turn off FF
-/linacHead/removeFF
+# Make it a pure photon beam
+/linacHead/purePhotonBeam true
 #
 # run a simulation
 /control/execute _run.mac
@@ -30,5 +31,8 @@
 /analysis/h1/setActivation 0 false
 /analysis/h1/setActivation 1 false
 #
-# Put ff back
-/linacHead/addFF
+# reset the pure photon
+#
+/linacHead/purePhotonBeam false
+#
+
