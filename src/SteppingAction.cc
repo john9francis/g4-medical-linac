@@ -19,6 +19,10 @@ namespace med_linac {
 		// if it's in the dose detector, fill the dose profile h1
 		if (currentPhysVolume->GetName() == "physDD") {
 
+			G4Track* track = (G4Track*)(step->GetTrack());
+			G4String particleName = track->GetDefinition()->GetParticleName();
+
+
 			G4ThreeVector position = step->GetPreStepPoint()->GetPosition();
 			G4double x = position.getX();
 			G4double energy = step->GetPreStepPoint()->GetKineticEnergy();
@@ -27,7 +31,6 @@ namespace med_linac {
 			analysisManager->FillH1(fDoseProfileH1ID, x, energy);
 
 			// also fill the bremsstrahlung spectrum H1
-			G4String particleName = step->GetTrack()->GetDefinition()->GetParticleName();
 			if (particleName == "gamma"){
 				analysisManager->FillH1(2, energy);
 			}
@@ -40,6 +43,15 @@ namespace med_linac {
 			else {
 				analysisManager->FillH1(5, energy);
 			}
+
+			///////////////////////////////////////////////////////////
+			// KILL ELECTRONS IN THE BEAM: NOTE: THIS IS UNREALISTIC //
+			///////////////////////////////////////////////////////////
+
+			if (particleName != "gamma") {
+				track->SetTrackStatus(fStopAndKill);
+			}
+
 		}
 
 
@@ -60,12 +72,6 @@ namespace med_linac {
 			analysisManager->FillH2(fXYHeatMapH2ID, pos.getX(), pos.getY(), energy);
 			analysisManager->FillH2(fYZHeatMapH2ID, pos.getY(), pos.getZ(), energy);
 			analysisManager->FillH2(fXZHeatMapH2ID, pos.getX(), pos.getZ(), energy);
-
-			// add to the photon-only pdd
-			G4String particleName = step->GetTrack()->GetDefinition()->GetParticleName();
-			if (particleName == "gamma") {
-				analysisManager->FillH1(fPhotonPddH1ID, pos.getZ() + 15 * cm, energy);
-			}
 
 		}
 
