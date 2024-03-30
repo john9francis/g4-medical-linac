@@ -14,7 +14,8 @@ cd release
 #.\g4_medical_linac basicGraphs.mac
 #.\g4_medical_linac FFFgraphs.mac
 #.\g4_medical_linac heatMap.mac
-.\g4_medical_linac purePhotonGraph.mac
+.\g4_medical_linac purePhotonGraphs.mac
+.\g4_medical_linac pureHeatMap.mac
 
 # Go back to the root directory
 cd ..

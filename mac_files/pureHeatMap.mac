@@ -1,0 +1,22 @@
+# This mac file generates a Heat map
+# of the linac head making a full 360 degree
+# rotation around the phantom on the y,z plane. 
+# Note: this run uses the med linac with a Flattening Filter (FF)
+#
+# start up
+/run/initialize
+#
+# open a file to store our histogram
+/analysis/openFile pureHeatMap
+#
+#
+# Make it a pure photon beam
+/linacHead/purePhotonBeam true
+#
+# run a simulation
+/linacHead/setPosition 0 0 -1 m
+/control/loop _rotate.mac theta 0 360 10
+#
+# save to the file
+/analysis/write
+/analysis/closeFile

@@ -25,6 +25,19 @@ namespace med_linac {
 			G4Track* track = (G4Track*)(step->GetTrack());
 			G4String particleName = track->GetDefinition()->GetParticleName();
 
+			// if the user wants a pure photon beam, kill all particles
+			auto runManger = G4RunManager::GetRunManager();
+			const DetectorConstruction* detConst = static_cast<const DetectorConstruction*>(runManger->GetUserDetectorConstruction());
+			G4bool purePhotonBeam = detConst->GetPurePhotonBeamFlag();
+
+			if (purePhotonBeam == true) {
+				// Kill other particles from beam
+
+				if (track->GetParticleDefinition()->GetParticleName() != "gamma") {
+					track->SetTrackStatus(fStopAndKill);
+				}
+			}
+
 
 			G4ThreeVector position = step->GetPreStepPoint()->GetPosition();
 			G4double x = position.getX();
@@ -70,30 +83,8 @@ namespace med_linac {
 
 		}
 
-		// if the user wants a pure photon beam, continue.
-		//const DetectorConstruction detConst = static_cast<const DetectorConstruction>
-		auto runManger = G4RunManager::GetRunManager();
-		const DetectorConstruction* detConst = static_cast<const DetectorConstruction*>(runManger->GetUserDetectorConstruction());
-		G4bool purePhotonBeam = detConst->GetPurePhotonBeamFlag();
+		
 
-		if (purePhotonBeam == false) { return; }
-
-		// Kill electrons from beam
-
-		if (currentPhysVolume->GetName() == "physFF") {
-			///////////////////////////////////////////////////////////
-			// KILL ELECTRONS IN THE BEAM: NOTE: THIS IS UNREALISTIC //
-			///////////////////////////////////////////////////////////
-
-			G4Track* track = (G4Track*)(step->GetTrack());
-			G4String particleName = track->GetDefinition()->GetParticleName();
-
-			if (particleName != "gamma") {
-				track->SetTrackStatus(fStopAndKill);
-			}
-		}
-
-	
 	}
 
 }
